@@ -370,27 +370,35 @@ function toast(msg, ms){
   setTimeout(()=>{ el.remove(); }, ms || 3800);
 }
 
-function speak(text){
-  if(!SUPPORTS_TTS){
-    toast('⚠️ Ton navigateur ne supporte pas la synthèse vocale. Essaie avec Chrome ou Safari.');
-    return;
-  }
+function speakLocal(text){
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ar-SA';
+  u.voice = preferredVoice();
+  u.rate = 0.75;
+  u.onerror = ()=>{ toast('⚠️ La voix locale a échoué, nouvel essai en ligne…'); speakOnline(text); };
+  speechSynthesis.speak(u);
+}
+
+function speakOnline(text){
   try{
-    speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = 'ar-SA';
-    const v = preferredVoice();
-    if(v) u.voice = v;
-    u.rate = 0.75;
-    u.onerror = ()=>{ toast('⚠️ La lecture audio a échoué. Vérifie le volume de ton appareil, ou consulte "Réglages du son" ci-dessous.'); };
-    if(cachedVoices.length===0){
-      toast('🔎 Recherche d\'une voix arabe sur ton appareil… si rien ne se passe, vois "Réglages du son" en bas de l\'accueil.');
-    } else if(!v){
-      toast('ℹ️ Aucune voix arabe trouvée sur cet appareil — lecture avec la voix par défaut (peut être approximative).');
-    }
-    speechSynthesis.speak(u);
+    const url = 'https://translate.google.com/translate_tts?ie=UTF-8&q=' + encodeURIComponent(text) + '&tl=ar&client=tw-ob';
+    const audio = new Audio(url);
+    audio.play().catch(()=>{
+      toast('⚠️ Impossible de jouer la voix en ligne. Vérifie ta connexion Internet.');
+    });
   }catch(e){
-    toast('⚠️ Erreur audio : ' + e.message);
+    toast('⚠️ Erreur audio en ligne : ' + e.message);
+  }
+}
+
+function speak(text){
+  const hasLocalArabic = SUPPORTS_TTS && !!preferredVoice();
+  if(hasLocalArabic){
+    try{ speakLocal(text); }
+    catch(e){ speakOnline(text); }
+  } else {
+    speakOnline(text);
   }
 }
 
@@ -617,12 +625,12 @@ function diagnosticPanel(){
   return `
   <div class="diag-card">
     <h3>🔧 Réglages et test du son</h3>
-    <div class="diag-row"><span class="diag-dot ${supported?'ok':'bad'}"></span> Synthèse vocale supportée par ce navigateur : <b>${supported?'oui':'non'}</b></div>
-    <div class="diag-row"><span class="diag-dot ${cachedVoices.length>0?'ok':'warn'}"></span> Voix détectées sur cet appareil : <b>${cachedVoices.length}</b></div>
-    <div class="diag-row"><span class="diag-dot ${hasAr?'ok':'warn'}"></span> Voix arabe détectée : <b>${hasAr? ar.map(v=>v.name).join(', ') : 'aucune'}</b></div>
+    <div class="diag-row"><span class="diag-dot ${supported?'ok':'bad'}"></span> Synthèse vocale du navigateur : <b>${supported?'oui':'non'}</b></div>
+    <div class="diag-row"><span class="diag-dot ${hasAr?'ok':'warn'}"></span> Voix arabe installée sur cet appareil : <b>${hasAr? ar.map(v=>v.name).join(', ') : 'aucune'}</b></div>
+    <div class="diag-row"><span class="diag-dot ok"></span> Voix arabe <b>en ligne</b> (secours automatique) : <b>${hasAr ? 'non utilisée (voix locale trouvée)' : 'active — nécessite Internet'}</b></div>
     ${ar.length>1 ? `
     <div style="margin-top:8px;">
-      <label style="font-size:.8rem; color:var(--muted);">Choisir la voix :</label><br>
+      <label style="font-size:.8rem; color:var(--muted);">Choisir la voix locale :</label><br>
       <select class="diag-select" onchange="App.chooseVoice(this.value)">
         ${ar.map(v=>`<option value="${esc(v.name)}" ${v.name===(preferredVoice()&&preferredVoice().name)?'selected':''}>${esc(v.name)} (${v.lang})</option>`).join('')}
       </select>
@@ -632,12 +640,7 @@ function diagnosticPanel(){
       <button class="home-btn" onclick="App.rescanVoices()">↻ Rechercher à nouveau</button>
     </div>
     ${!hasAr ? `<div class="tip-box" style="margin-top:12px;">
-      Aucune voix arabe n'a été trouvée. Comment en ajouter une :<br>
-      • <b>Téléphone Android</b> : Réglages → Système → Langues → Synthèse vocale → installe le module "Arabe".<br>
-      • <b>iPhone/iPad</b> : Réglages → Accessibilité → Contenu énoncé → Voix → ajoute une voix Arabe.<br>
-      • <b>Windows</b> : Paramètres → Heure et langue → Voix → ajoute une langue Arabe.<br>
-      • <b>Mac</b> : Réglages Système → Accessibilité → Contenu énoncé → ajoute une voix Arabe.<br>
-      Si tu regardes cette page dans un aperçu intégré au chat, essaie aussi d'<b>ouvrir le fichier directement dans ton navigateur</b> (après téléchargement) : certains aperçus intégrés bloquent le son.
+      Aucune voix arabe n'est installée sur cet appareil — <b>pas grave</b> : l'appli utilise automatiquement une voix arabe en ligne à la place. Il te faut juste une connexion Internet active. Si "Tester le son" ne joue toujours rien, vérifie ta connexion, ou que ton navigateur/antivirus ne bloque pas translate.google.com.
     </div>` : ''}
   </div>
   `;
@@ -838,6 +841,7 @@ if(SUPPORTS_TTS){
 }
 render();
 </script>
+
 <a href="index.html" title="Retour au menu principal" style="position:fixed;bottom:16px;right:16px;z-index:99999;background:#26293D;color:#ffffff;padding:10px 16px;border-radius:999px;font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.3);display:inline-flex;align-items:center;gap:6px;">⬅️ Menu principal</a>
 </body>
 </html>
