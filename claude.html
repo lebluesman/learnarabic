@@ -331,7 +331,7 @@ function shuffle(arr){
   return a;
 }
 function pick(arr,n){ return shuffle(arr).slice(0,n); }
-function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
 
 /* ======================= SPEECH ======================= */
 const SUPPORTS_TTS = ('speechSynthesis' in window);
