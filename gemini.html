@@ -118,6 +118,31 @@
         const harakatMap = { 'none': '', 'fatha': '\u064E', 'kasra': '\u0650', 'damma': '\u064F', 'soukoun': '\u0652', 'shadda': '\u0651' };
         const positionNomsFR = { 'start': 'Début', 'middle': 'Milieu', 'end': 'Fin' };
 
+        /* --- Audio pré-généré (prioritaire) : voir generer_audio.py / dossier audio/ --- */
+        let AUDIO_MANIFEST = {};
+        fetch('audio/manifest.json')
+            .then(r => r.ok ? r.json() : {})
+            .then(m => { AUDIO_MANIFEST = m; })
+            .catch(() => {});
+
+        function jouerArabe(texte) {
+            const propre = texte.replace(/\u0640/g, ''); // enlève les tatwîl
+            const fichier = AUDIO_MANIFEST[propre];
+            if (fichier) {
+                const audio = new Audio('audio/' + fichier);
+                audio.play().catch(() => jouerArabeNavigateur(texte));
+                return;
+            }
+            jouerArabeNavigateur(texte);
+        }
+
+        function jouerArabeNavigateur(texte) {
+            const u = new SpeechSynthesisUtterance(texte);
+            u.lang = 'ar-SA';
+            u.rate = 0.8;
+            window.speechSynthesis.speak(u);
+        }
+
         // --- 2. LOGIQUE DU LABORATOIRE ---
         let currentLetter = 'baa';
         let currentPos = 'isolated';
@@ -147,10 +172,7 @@
 
         function jouerSonLabo() {
             const texte = alphabet[currentLetter].baseChar + harakatMap[currentHarakat];
-            const u = new SpeechSynthesisUtterance(texte);
-            u.lang = 'ar-SA';
-            u.rate = 0.8;
-            window.speechSynthesis.speak(u);
+            jouerArabe(texte);
         }
 
         // --- 3. LOGIQUE DU QUIZ ---
@@ -208,9 +230,7 @@
                 document.getElementById('btn-next-quiz').classList.remove('hidden');
                 
                 // Petit effet de confettis vocal (optionnel)
-                const u = new SpeechSynthesisUtterance("Mumtaz!"); // Excellent en arabe
-                u.lang = 'ar-SA';
-                window.speechSynthesis.speak(u);
+                jouerArabe("مُمْتَاز"); // Excellent en arabe
             } else {
                 feedback.innerText = "❌ Essaie encore !";
                 feedback.className = "text-2xl font-bold h-8 mb-4 text-red-500";

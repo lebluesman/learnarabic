@@ -392,7 +392,23 @@ function speakOnline(text){
   }
 }
 
-function speak(text){
+/* ---- Audio pré-généré (prioritaire) : voir generer_audio.py / dossier audio/ ---- */
+let AUDIO_MANIFEST = {};
+fetch('audio/manifest.json')
+  .then(r => r.ok ? r.json() : {})
+  .then(m => { AUDIO_MANIFEST = m; })
+  .catch(() => {});
+
+function speakPreRecorded(text){
+  const clean = text.replace(/\u0640/g, ''); // enlève les tatwîl (tirets d'allongement)
+  const filename = AUDIO_MANIFEST[clean];
+  if(!filename) return false;
+  const audio = new Audio('audio/' + filename);
+  audio.play().catch(()=> speakFallback(text));
+  return true;
+}
+
+function speakFallback(text){
   const hasLocalArabic = SUPPORTS_TTS && !!preferredVoice();
   if(hasLocalArabic){
     try{ speakLocal(text); }
@@ -400,6 +416,10 @@ function speak(text){
   } else {
     speakOnline(text);
   }
+}
+
+function speak(text){
+  if(!speakPreRecorded(text)) speakFallback(text);
 }
 
 /* ======================= PROGRESS (localStorage) ======================= */

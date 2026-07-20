@@ -234,6 +234,27 @@
     }
 
     function speakArabic(text) {
+        if (playPreRecorded(text)) return;
+        speakArabicNavigateur(text);
+    }
+
+    /* --- Audio pré-généré (prioritaire) : voir generer_audio.py / dossier audio/ --- */
+    let AUDIO_MANIFEST = {};
+    fetch('audio/manifest.json')
+        .then(r => r.ok ? r.json() : {})
+        .then(m => { AUDIO_MANIFEST = m; })
+        .catch(() => {});
+
+    function playPreRecorded(text) {
+        const clean = text.replace(/\u0640/g, ''); // enlève les tatwîl (tirets d'allongement)
+        const fichier = AUDIO_MANIFEST[clean];
+        if (!fichier) return false;
+        const audio = new Audio('audio/' + fichier);
+        audio.play().catch(() => speakArabicNavigateur(text));
+        return true;
+    }
+
+    function speakArabicNavigateur(text) {
         if ('speechSynthesis' in window) {
             window.speechSynthesis.cancel();
             let utterance = new SpeechSynthesisUtterance(text);
