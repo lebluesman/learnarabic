@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apprentissage de l'Arabe pour Enfants</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fdf6e3;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 { color: #ff6b6b; }
+        h3 { color: #2c3e50; }
+        .letter-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+        .letter-btn {
+            background-color: #4ecdc4;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 15px;
+            font-size: 28px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            min-width: 60px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .letter-btn:hover { transform: scale(1.1); background-color: #45b7af; }
+        .letter-btn.active { background-color: #ff6b6b; transform: scale(1.1); }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .forms-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .form-box {
+            border: 2px solid #ffe66d;
+            border-radius: 10px;
+            padding: 10px;
+            min-width: 80px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background-color: #fff;
+        }
+        .form-box:hover { background-color: #fffdf0; transform: translateY(-3px); }
+        /* Style quand la forme est sélectionnée */
+        .form-box.selected-form {
+            border-color: #ff6b6b;
+            background-color: #fff0f0;
+            transform: scale(1.05);
+        }
+        .form-box span {
+            font-size: 40px;
+            color: #2c3e50;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-box p { margin: 0; font-size: 12px; color: #888; }
+        
+        .harakat-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .sound-btn {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            width: 80px;
+            height: 80px;
+            font-size: 36px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .sound-btn:hover { background-color: #ff5252; transform: scale(1.1); }
+
+        .quiz-feedback {
+            font-size: 24px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .hidden { display: none; }
+        
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            padding: 10px 20px;
+            margin: 0 5px;
+            border: none;
+            background: #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .tab-btn.active { background: #4ecdc4; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎈 Apprendre l'Arabe 🎈</h1>
+    
+    <div class="tab-container">
+        <button class="tab-btn active" onclick="switchTab('learn')">📖 Apprendre</button>
+        <button class="tab-btn" onclick="switchTab('quiz')">🎯 Jouer (Quiz)</button>
+    </div>
+
+    <!-- SECTION APPRENTISSAGE -->
+    <div id="learn-section">
+        <h2>Choisis une lettre</h2>
+        <div class="letter-container" id="alphabet-list"></div>
+
+        <div class="card hidden" id="letter-detail">
+            <h2 id="letter-name"></h2>
+            
+            <h3>1. Choisis une forme</h3>
+            <div class="forms-container" id="forms-display"></div>
+            
+            <h3>2. Écoute cette forme avec les voyelles</h3>
+            <div class="harakat-container" id="harakat-display"></div>
+        </div>
+    </div>
+
+    <!-- SECTION QUIZ -->
+    <div id="quiz-section" class="hidden">
+        <h2>Quel est ce son ?</h2>
+        <div class="card">
+            <p>Écoute bien et clique sur la bonne lettre isolée :</p>
+            <button class="sound-btn" onclick="playQuizSound()" style="width: 100px; height: 100px; font-size: 40px; border-radius: 50%;">🔊</button>
+            <div class="quiz-feedback" id="quiz-feedback"></div>
+            <div class="letter-container" id="quiz-options"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // LES 28 LETTRES DE L'ALPHABET ARABE
+    const alphabet = [
+        { name: "Alif", isolated: "ا", initial: "ا", medial: "ـا", final: "ـا" },
+        { name: "Baa", isolated: "ب", initial: "بـ", medial: "ـبـ", final: "ـب" },
+        { name: "Taa", isolated: "ت", initial: "تـ", medial: "ـتـ", final: "ـت" },
+        { name: "Thaa", isolated: "ث", initial: "ثـ", medial: "ـثـ", final: "ـث" },
+        { name: "Jeem", isolated: "ج", initial: "جـ", medial: "ـجـ", final: "ـج" },
+        { name: "Haa", isolated: "ح", initial: "حـ", medial: "ـحـ", final: "ـح" },
+        { name: "Khaa", isolated: "خ", initial: "خـ", medial: "ـخـ", final: "ـخ" },
+        { name: "Daal", isolated: "د", initial: "د", medial: "ـد", final: "ـد" },
+        { name: "Dhaal", isolated: "ذ", initial: "ذ", medial: "ـذ", final: "ـذ" },
+        { name: "Raa", isolated: "ر", initial: "ر", medial: "ـر", final: "ـر" },
+        { name: "Zaay", isolated: "ز", initial: "ز", medial: "ـز", final: "ـز" },
+        { name: "Seen", isolated: "س", initial: "سـ", medial: "ـسـ", final: "ـس" },
+        { name: "Sheen", isolated: "ش", initial: "شـ", medial: "ـشـ", final: "ـش" },
+        { name: "Saad", isolated: "ص", initial: "صـ", medial: "ـصـ", final: "ـص" },
+        { name: "Daad", isolated: "ض", initial: "ضـ", medial: "ـضـ", final: "ـض" },
+        { name: "Taa", isolated: "ط", initial: "طـ", medial: "ـطـ", final: "ـط" },
+        { name: "Zaa", isolated: "ظ", initial: "ظـ", medial: "ـظـ", final: "ـظ" },
+        { name: "Ayn", isolated: "ع", initial: "عـ", medial: "ـعـ", final: "ـع" },
+        { name: "Ghayn", isolated: "غ", initial: "غـ", medial: "ـغـ", final: "ـغ" },
+        { name: "Faa", isolated: "ف", initial: "فـ", medial: "ـفـ", final: "ـف" },
+        { name: "Qaaf", isolated: "ق", initial: "قـ", medial: "ـقـ", final: "ـق" },
+        { name: "Kaaf", isolated: "ك", initial: "كـ", medial: "ـكـ", final: "ـك" },
+        { name: "Laam", isolated: "ل", initial: "لـ", medial: "ـلـ", final: "ـل" },
+        { name: "Meem", isolated: "م", initial: "مـ", medial: "ـمـ", final: "ـم" },
+        { name: "Noon", isolated: "ن", initial: "نـ", medial: "ـنـ", final: "ـن" },
+        { name: "Haa", isolated: "ه", initial: "هـ", medial: "ـهـ", final: "ـه" },
+        { name: "Waw", isolated: "و", initial: "و", medial: "ـو", final: "ـو" },
+        { name: "Yaa", isolated: "ي", initial: "يـ", medial: "ـيـ", final: "ـي" }
+    ];
+
+    // Les voyelles (Harakat)
+    const harakat = [
+        { name: "Fatha", symbol: "َ" },
+        { name: "Kasra", symbol: "ِ" },
+        { name: "Damma", symbol: "ُ" },
+        { name: "Sukun", symbol: "ْ" },
+        { name: "Chedda", symbol: "ّ" },
+        { name: "Tanwin Fatha", symbol: "ً" },
+        { name: "Tanwin Kasra", symbol: "ٍ" },
+        { name: "Tanwin Damma", symbol: "ٌ" }
+    ];
+
+    let currentLetter = null;
+    let currentForm = ""; // Stocke la forme actuelle sélectionnée (ex: "ـبـ")
+    
+    let currentQuiz = { letter: null, sound: null };
+
+    // --- GESTION DU SON (Text-to-Speech) ---
+    let voices = [];
+    let arabicVoice = null;
+
+    // Charger les voix du navigateur
+    function loadVoices() {
+        voices = window.speechSynthesis.getVoices();
+        arabicVoice = voices.find(v => v.lang.startsWith('ar'));
+    }
+    if ('speechSynthesis' in window) {
+        loadVoices();
+        // Les voix se chargent parfois de manière asynchrone
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+    function speakArabic(text) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            let utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'ar'; // Forcer en arabe
+            if (arabicVoice) {
+                utterance.voice = arabicVoice; // Utiliser la voix arabe trouvée
+            }
+            utterance.rate = 0.8; // Lent pour les enfants
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert("Votre navigateur ne supporte pas la synthèse vocale.");
+        }
+    }
+
+    // --- AFFICHAGE ALPHABET ---
+    const alphabetList = document.getElementById('alphabet-list');
+    alphabet.forEach((letter, index) => {
+        let btn = document.createElement('button');
+        btn.className = 'letter-btn';
+        btn.innerText = letter.isolated;
+        btn.onclick = () => showLetter(index);
+        alphabetList.appendChild(btn);
+    });
+
+    // --- APPRENTISSAGE ---
+    function showLetter(index) {
+        currentLetter = alphabet[index];
+        
+        // Mettre en surbrillance la lettre active
+        document.querySelectorAll('#alphabet-list .letter-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('#alphabet-list .letter-btn')[index].classList.add('active');
+
+        document.getElementById('letter-detail').classList.remove('hidden');
+        document.getElementById('letter-name').innerText = "Lettre : " + currentLetter.name;
+        
+        // Par défaut, on sélectionne la forme isolée
+        currentForm = currentLetter.isolated;
+        renderForms();
+        renderHarakat();
+    }
+
+    function renderForms() {
+        const formsDisplay = document.getElementById('forms-display');
+        const forms = [
+            { key: 'isolated', label: 'Seule' },
+            { key: 'initial', label: 'Début' },
+            { key: 'medial', label: 'Milieu' },
+            { key: 'final', label: 'Fin' }
+        ];
+        
+        formsDisplay.innerHTML = '';
+        forms.forEach(f => {
+            let div = document.createElement('div');
+            div.className = 'form-box';
+            if (currentForm === currentLetter[f.key]) {
+                div.classList.add('selected-form');
+            }
+            div.innerHTML = `<span>${currentLetter[f.key]}</span><p>${f.label}</p>`;
+            div.onclick = () => selectForm(currentLetter[f.key]);
+            formsDisplay.appendChild(div);
+        });
+    }
+
+    function selectForm(form) {
+        currentForm = form;
+        speakArabic(form); // Lit la forme sélectionnée sans voyelle
+        renderForms(); // Met à jour l'affichage pour montrer laquelle est sélectionnée
+        renderHarakat(); // Met à jour les boutons de voyelles pour qu'ils affichent la bonne forme
+    }
+
+    function renderHarakat() {
+        const harakatDisplay = document.getElementById('harakat-display');
+        harakatDisplay.innerHTML = '';
+        harakat.forEach(h => {
+            let btn = document.createElement('button');
+            btn.className = 'sound-btn';
+            // Le bouton affiche la forme actuelle + le symbole de la voyelle (ex: ـبـَ )
+            btn.innerText = currentForm + h.symbol;
+            btn.onclick = () => speakArabic(currentForm + h.symbol);
+            harakatDisplay.appendChild(btn);
+        });
+    }
+
+    // --- GESTION DES ONGLETS ---
+    function switchTab(tab) {
+        if (tab === 'learn') {
+            document.getElementById('learn-section').classList.remove('hidden');
+            document.getElementById('quiz-section').classList.add('hidden');
+            document.querySelectorAll('.tab-btn')[0].classList.add('active');
+            document.querySelectorAll('.tab-btn')[1].classList.remove('active');
+        } else {
+            document.getElementById('learn-section').classList.add('hidden');
+            document.getElementById('quiz-section').classList.remove('hidden');
+            document.querySelectorAll('.tab-btn')[0].classList.remove('active');
+            document.querySelectorAll('.tab-btn')[1].classList.add('active');
+            generateQuiz();
+        }
+    }
+
+    // --- LOGIQUE DU QUIZ ---
+    function generateQuiz() {
+        let randomLetterIndex = Math.floor(Math.random() * alphabet.length);
+        let randomHarakatIndex = Math.floor(Math.random() * harakat.length);
+        
+        currentQuiz.letter = alphabet[randomLetterIndex];
+        // Le quiz teste toujours la forme isolée pour l'instant
+        currentQuiz.sound = currentQuiz.letter.isolated + harakat[randomHarakatIndex].symbol;
+        
+        document.getElementById('quiz-feedback').innerText = "";
+        document.getElementById('quiz-options').innerHTML = "";
+
+        // 1 bonne réponse + 3 fausses
+        let options = [currentQuiz.letter.isolated];
+        while(options.length < 4) {
+            let randomOption = alphabet[Math.floor(Math.random() * alphabet.length)].isolated;
+            if (!options.includes(randomOption)) options.push(randomOption);
+        }
+        
+        options.sort(() => Math.random() - 0.5);
+
+        options.forEach(opt => {
+            let btn = document.createElement('button');
+            btn.className = 'letter-btn';
+            btn.innerText = opt;
+            btn.onclick = () => checkAnswer(opt);
+            document.getElementById('quiz-options').appendChild(btn);
+        });
+
+        setTimeout(() => playQuizSound(), 500);
+    }
+
+    function playQuizSound() {
+        speakArabic(currentQuiz.sound);
+    }
+
+    function checkAnswer(selected) {
+        if (selected === currentQuiz.letter.isolated) {
+            document.getElementById('quiz-feedback').innerText = "✅ Bravo !";
+            document.getElementById('quiz-feedback').style.color = "green";
+            setTimeout(() => generateQuiz(), 1500);
+        } else {
+            document.getElementById('quiz-feedback').innerText = "❌ Réessaie !";
+            document.getElementById('quiz-feedback').style.color = "red";
+        }
+    }
+</script>
+
+<a href="index.html" title="Retour au menu principal" style="position:fixed;bottom:16px;right:16px;z-index:99999;background:#ff6b6b;color:#ffffff;padding:10px 16px;border-radius:999px;font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.3);display:inline-flex;align-items:center;gap:6px;">⬅️ Menu principal</a>
+</body>
+</html>

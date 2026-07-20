@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apprentissage des Lettres Arabes - V2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+        .arabic-text { font-family: 'Amiri', serif; }
+        .tab-active { background-color: #0ea5e9; color: white; }
+        .tab-inactive { background-color: #e0f2fe; color: #0369a1; }
+    </style>
+</head>
+<body class="bg-sky-50 min-h-screen flex flex-col items-center p-4">
+
+    <h1 class="text-3xl font-bold text-sky-800 mb-4 text-center">L'Aventure de l'Alphabet Arabe</h1>
+
+    <div class="flex gap-4 mb-6">
+        <button onclick="changerMode('labo')" id="tab-labo" class="tab-active px-6 py-3 rounded-full font-bold shadow-md transition">🔬 Laboratoire</button>
+        <button onclick="changerMode('quiz')" id="tab-quiz" class="tab-inactive px-6 py-3 rounded-full font-bold shadow-md transition">🎮 Mode Quiz</button>
+    </div>
+
+    <div id="mode-labo" class="w-full flex flex-col items-center">
+        <div class="bg-white rounded-3xl shadow-xl p-8 w-full max-w-lg flex flex-col items-center justify-center mb-6 border-4 border-sky-300">
+            <div id="display-area" class="arabic-text text-9xl text-sky-600 h-32 flex items-center justify-center" dir="rtl">بَ</div>
+            <button onclick="jouerSonLabo()" class="mt-8 bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-bold py-3 px-8 rounded-full text-xl shadow-lg transition transform hover:scale-105">
+                🔊 Écouter
+            </button>
+        </div>
+
+        <div class="w-full max-w-lg space-y-4">
+            <div class="bg-white p-4 rounded-xl shadow">
+                <h2 class="font-bold text-gray-700 mb-2 text-sm uppercase">1. Position dans le mot</h2>
+                <div class="grid grid-cols-4 gap-2">
+                    <button onclick="setPos('isolated')" class="bg-sky-100 hover:bg-sky-200 py-2 rounded-lg font-bold text-sky-900">Isolée</button>
+                    <button onclick="setPos('start')" class="bg-sky-100 hover:bg-sky-200 py-2 rounded-lg font-bold text-sky-900">Début</button>
+                    <button onclick="setPos('middle')" class="bg-sky-100 hover:bg-sky-200 py-2 rounded-lg font-bold text-sky-900">Milieu</button>
+                    <button onclick="setPos('end')" class="bg-sky-100 hover:bg-sky-200 py-2 rounded-lg font-bold text-sky-900">Fin</button>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl shadow">
+                <h2 class="font-bold text-gray-700 mb-2 text-sm uppercase">2. Voyelle (Harakat)</h2>
+                <div class="flex flex-wrap gap-2 justify-center">
+                    <button onclick="setHarakat('none')" class="bg-green-100 hover:bg-green-200 px-3 py-2 rounded-lg text-sm font-bold text-green-900">Aucune</button>
+                    <button onclick="setHarakat('fatha')" class="bg-green-100 hover:bg-green-200 w-12 h-12 rounded-lg text-2xl arabic-text text-green-900">َ</button>
+                    <button onclick="setHarakat('kasra')" class="bg-green-100 hover:bg-green-200 w-12 h-12 rounded-lg text-2xl arabic-text text-green-900">ِ</button>
+                    <button onclick="setHarakat('damma')" class="bg-green-100 hover:bg-green-200 w-12 h-12 rounded-lg text-2xl arabic-text text-green-900">ُ</button>
+                    <button onclick="setHarakat('soukoun')" class="bg-green-100 hover:bg-green-200 w-12 h-12 rounded-lg text-2xl arabic-text text-green-900">ْ</button>
+                    <button onclick="setHarakat('shadda')" class="bg-green-100 hover:bg-green-200 w-12 h-12 rounded-lg text-2xl arabic-text text-green-900">ّ</button>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl shadow">
+                <h2 class="font-bold text-gray-700 mb-2 text-sm uppercase">3. Lettre (Les 28 lettres)</h2>
+                <div class="grid grid-cols-7 gap-2" id="letters-container">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mode-quiz" class="w-full flex flex-col items-center hidden">
+        <div class="bg-white rounded-3xl shadow-xl p-8 w-full max-w-lg flex flex-col items-center text-center border-4 border-purple-300">
+            <h2 class="text-xl font-bold text-purple-800 mb-4">Trouve la bonne forme !</h2>
+            
+            <p class="text-gray-600 mb-2">Lettre à chercher :</p>
+            <div id="quiz-lettre-cible" class="arabic-text text-7xl text-gray-800 mb-4">ب</div>
+            
+            <p class="text-lg font-bold text-gray-700 bg-purple-100 px-4 py-2 rounded-full mb-6">
+                Position : <span id="quiz-position-cible" class="text-purple-600">Milieu</span>
+            </p>
+
+            <div id="quiz-choix-container" class="grid grid-cols-3 gap-4 w-full mb-6">
+                </div>
+
+            <div id="quiz-feedback" class="text-2xl font-bold h-8 mb-4"></div>
+            
+            <button onclick="genererQuestionQuiz()" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-6 rounded-full shadow-md transition hidden" id="btn-next-quiz">
+                Question Suivante ➡️
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. BASE DE DONNÉES COMPLÈTE (28 LETTRES) ---
+        const alphabet = {
+            'alif': { isolated: 'ا', start: 'ا', middle: 'ـا', end: 'ـا', baseChar: 'ا' },
+            'baa': { isolated: 'ب', start: 'بـ', middle: 'ـبـ', end: 'ـب', baseChar: 'ب' },
+            'taa': { isolated: 'ت', start: 'تـ', middle: 'ـتـ', end: 'ـت', baseChar: 'ت' },
+            'thaa': { isolated: 'ث', start: 'ثـ', middle: 'ـثـ', end: 'ـث', baseChar: 'ث' },
+            'jeem': { isolated: 'ج', start: 'جـ', middle: 'ـجـ', end: 'ـج', baseChar: 'ج' },
+            'haa': { isolated: 'ح', start: 'حـ', middle: 'ـحـ', end: 'ـح', baseChar: 'ح' },
+            'khaa': { isolated: 'خ', start: 'خـ', middle: 'ـخـ', end: 'ـخ', baseChar: 'خ' },
+            'daal': { isolated: 'د', start: 'د', middle: 'ـد', end: 'ـد', baseChar: 'د' },
+            'dhaal': { isolated: 'ذ', start: 'ذ', middle: 'ـذ', end: 'ـذ', baseChar: 'ذ' },
+            'raa': { isolated: 'ر', start: 'ر', middle: 'ـر', end: 'ـر', baseChar: 'ر' },
+            'zaay': { isolated: 'ز', start: 'ز', middle: 'ـز', end: 'ـز', baseChar: 'ز' },
+            'seen': { isolated: 'س', start: 'سـ', middle: 'ـسـ', end: 'ـس', baseChar: 'س' },
+            'sheen': { isolated: 'ش', start: 'شـ', middle: 'ـشـ', end: 'ـش', baseChar: 'ش' },
+            'saad': { isolated: 'ص', start: 'صـ', middle: 'ـصـ', end: 'ـص', baseChar: 'ص' },
+            'daad': { isolated: 'ض', start: 'ضـ', middle: 'ـضـ', end: 'ـض', baseChar: 'ض' },
+            'ta': { isolated: 'ط', start: 'طـ', middle: 'ـطـ', end: 'ـط', baseChar: 'ط' },
+            'dha': { isolated: 'ظ', start: 'ظـ', middle: 'ـظـ', end: 'ـظ', baseChar: 'ظ' },
+            'ayn': { isolated: 'ع', start: 'عـ', middle: 'ـعـ', end: 'ـع', baseChar: 'ع' },
+            'ghayn': { isolated: 'غ', start: 'غـ', middle: 'ـغـ', end: 'ـغ', baseChar: 'غ' },
+            'faa': { isolated: 'ف', start: 'فـ', middle: 'ـفـ', end: 'ـف', baseChar: 'ف' },
+            'qaaf': { isolated: 'ق', start: 'قـ', middle: 'ـقـ', end: 'ـق', baseChar: 'ق' },
+            'kaaf': { isolated: 'ك', start: 'كـ', middle: 'ـكـ', end: 'ـك', baseChar: 'ك' },
+            'laam': { isolated: 'ل', start: 'لـ', middle: 'ـلـ', end: 'ـل', baseChar: 'ل' },
+            'meem': { isolated: 'م', start: 'مـ', middle: 'ـمـ', end: 'ـم', baseChar: 'م' },
+            'noon': { isolated: 'ن', start: 'نـ', middle: 'ـنـ', end: 'ـن', baseChar: 'ن' },
+            'ha': { isolated: 'ه', start: 'هـ', middle: 'ـهـ', end: 'ـه', baseChar: 'ه' },
+            'waaw': { isolated: 'و', start: 'و', middle: 'ـو', end: 'ـو', baseChar: 'و' },
+            'yaa': { isolated: 'ي', start: 'يـ', middle: 'ـيـ', end: 'ـي', baseChar: 'ي' }
+        };
+
+        const harakatMap = { 'none': '', 'fatha': '\u064E', 'kasra': '\u0650', 'damma': '\u064F', 'soukoun': '\u0652', 'shadda': '\u0651' };
+        const positionNomsFR = { 'start': 'Début', 'middle': 'Milieu', 'end': 'Fin' };
+
+        // --- 2. LOGIQUE DU LABORATOIRE ---
+        let currentLetter = 'baa';
+        let currentPos = 'isolated';
+        let currentHarakat = 'fatha';
+
+        function initLabo() {
+            const container = document.getElementById('letters-container');
+            container.innerHTML = '';
+            for (const key in alphabet) {
+                const btn = document.createElement('button');
+                btn.className = `bg-gray-100 text-3xl arabic-text h-12 rounded-lg hover:bg-sky-300 border border-gray-200 transition`;
+                btn.innerText = alphabet[key].isolated;
+                btn.onclick = () => setLetter(key);
+                container.appendChild(btn);
+            }
+            updateDisplayLabo();
+        }
+
+        function setLetter(lettre) { currentLetter = lettre; updateDisplayLabo(); }
+        function setPos(pos) { currentPos = pos; updateDisplayLabo(); }
+        function setHarakat(harakat) { currentHarakat = harakat; updateDisplayLabo(); }
+
+        function updateDisplayLabo() {
+            const affichageFinal = alphabet[currentLetter][currentPos] + harakatMap[currentHarakat];
+            document.getElementById('display-area').innerText = affichageFinal;
+        }
+
+        function jouerSonLabo() {
+            const texte = alphabet[currentLetter].baseChar + harakatMap[currentHarakat];
+            const u = new SpeechSynthesisUtterance(texte);
+            u.lang = 'ar-SA';
+            u.rate = 0.8;
+            window.speechSynthesis.speak(u);
+        }
+
+        // --- 3. LOGIQUE DU QUIZ ---
+        let reponseActuelleQuiz = '';
+
+        function genererQuestionQuiz() {
+            // Réinitialiser l'interface du quiz
+            document.getElementById('quiz-feedback').innerText = '';
+            document.getElementById('btn-next-quiz').classList.add('hidden');
+            
+            const clesLettres = Object.keys(alphabet);
+            const lettreAleatoire = clesLettres[Math.floor(Math.random() * clesLettres.length)];
+            const posPossibles = ['start', 'middle', 'end'];
+            const posAleatoire = posPossibles[Math.floor(Math.random() * posPossibles.length)];
+
+            // Définir la cible
+            document.getElementById('quiz-lettre-cible').innerText = alphabet[lettreAleatoire].isolated;
+            document.getElementById('quiz-position-cible').innerText = positionNomsFR[posAleatoire];
+            reponseActuelleQuiz = alphabet[lettreAleatoire][posAleatoire];
+
+            // Générer des fausses réponses
+            let choix = [reponseActuelleQuiz];
+            while(choix.length < 3) {
+                const fausseLettre = clesLettres[Math.floor(Math.random() * clesLettres.length)];
+                const faussePos = posPossibles[Math.floor(Math.random() * posPossibles.length)];
+                const fausseForme = alphabet[fausseLettre][faussePos];
+                
+                if(!choix.includes(fausseForme)) {
+                    choix.push(fausseForme);
+                }
+            }
+
+            // Mélanger les choix
+            choix.sort(() => Math.random() - 0.5);
+
+            // Afficher les boutons de choix
+            const conteneurChoix = document.getElementById('quiz-choix-container');
+            conteneurChoix.innerHTML = '';
+            choix.forEach(forme => {
+                const btn = document.createElement('button');
+                btn.className = "bg-white border-4 border-gray-200 hover:border-purple-400 text-6xl arabic-text h-32 rounded-2xl shadow transition";
+                btn.innerText = forme;
+                btn.onclick = () => verifierReponse(forme, btn);
+                conteneurChoix.appendChild(btn);
+            });
+        }
+
+        function verifierReponse(formeChoisie, bouton) {
+            const feedback = document.getElementById('quiz-feedback');
+            if(formeChoisie === reponseActuelleQuiz) {
+                feedback.innerText = "✅ Excellent !";
+                feedback.className = "text-2xl font-bold h-8 mb-4 text-green-500";
+                bouton.classList.replace('border-gray-200', 'border-green-500');
+                bouton.classList.add('bg-green-50');
+                document.getElementById('btn-next-quiz').classList.remove('hidden');
+                
+                // Petit effet de confettis vocal (optionnel)
+                const u = new SpeechSynthesisUtterance("Mumtaz!"); // Excellent en arabe
+                u.lang = 'ar-SA';
+                window.speechSynthesis.speak(u);
+            } else {
+                feedback.innerText = "❌ Essaie encore !";
+                feedback.className = "text-2xl font-bold h-8 mb-4 text-red-500";
+                bouton.classList.replace('border-gray-200', 'border-red-500');
+                bouton.classList.add('opacity-50');
+            }
+        }
+
+        // --- 4. NAVIGATION ENTRE LES MODES ---
+        function changerMode(mode) {
+            const divLabo = document.getElementById('mode-labo');
+            const divQuiz = document.getElementById('mode-quiz');
+            const tabLabo = document.getElementById('tab-labo');
+            const tabQuiz = document.getElementById('tab-quiz');
+
+            if (mode === 'labo') {
+                divLabo.classList.remove('hidden');
+                divQuiz.classList.add('hidden');
+                tabLabo.className = "tab-active px-6 py-3 rounded-full font-bold shadow-md transition";
+                tabQuiz.className = "tab-inactive px-6 py-3 rounded-full font-bold shadow-md transition";
+            } else {
+                divLabo.classList.add('hidden');
+                divQuiz.classList.remove('hidden');
+                tabQuiz.className = "tab-active px-6 py-3 rounded-full font-bold shadow-md transition";
+                tabLabo.className = "tab-inactive px-6 py-3 rounded-full font-bold shadow-md transition";
+                genererQuestionQuiz(); // Lancer la première question
+            }
+        }
+
+        // Démarrage
+        window.onload = initLabo;
+    </script>
+<a href="index.html" title="Retour au menu principal" style="position:fixed;bottom:16px;right:16px;z-index:99999;background:#0c4a6e;color:#ffffff;padding:10px 16px;border-radius:999px;font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.3);display:inline-flex;align-items:center;gap:6px;">⬅️ Menu principal</a>
+</body>
+</html>

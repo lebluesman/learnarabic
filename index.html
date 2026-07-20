@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>حروفي — Choisis ta version</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&family=Noto+Naskh+Arabic:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5FAFF; --ink:#26293D; --muted:#7C8595; --line:#E3ECF5;
+    --amethyst:#7C5CFC; --sky:#3FA9F5; --coral:#FF7A5C; --palm:#2BB673; --sun:#FFC145;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; min-height:100vh; font-family:'Nunito',sans-serif; color:var(--ink);
+    background:
+      radial-gradient(circle at 8% 8%, #EAF7FF 0%, transparent 45%),
+      radial-gradient(circle at 95% 12%, #FFF3E0 0%, transparent 40%),
+      var(--bg);
+  }
+  .arabic{ font-family:'Noto Naskh Arabic', serif; direction:rtl; }
+  h1,h2,h3{ font-family:'Fredoka',sans-serif; margin:0; }
+  .wrap{ max-width:960px; margin:0 auto; padding:40px 18px 70px; }
+  .hero{
+    background:linear-gradient(135deg, var(--amethyst) 0%, var(--sky) 100%);
+    color:#fff; border-radius:28px; padding:36px 28px; text-align:center; margin-bottom:36px;
+    position:relative; overflow:hidden;
+  }
+  .hero::after{ content:""; position:absolute; right:-30px; bottom:-40px; width:220px; height:220px;
+    background:radial-gradient(circle, rgba(255,255,255,.18) 0%, transparent 70%); }
+  .hero .arabic{ font-size:2.6rem; color:#fff; display:block; margin-bottom:8px; }
+  .hero h1{ font-size:1.7rem; margin-bottom:8px; }
+  .hero p{ margin:0; opacity:.92; font-size:.95rem; }
+
+  .cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  @media(max-width:800px){ .cards{ grid-template-columns:1fr; } }
+  .card{
+    background:#fff; border:2px solid var(--line); border-radius:22px; padding:24px;
+    display:flex; flex-direction:column; text-decoration:none; color:var(--ink);
+    box-shadow:0 4px 0 var(--line); transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .card:hover{ transform:translateY(-4px); box-shadow:0 8px 0 var(--line); }
+  .card .badge{
+    align-self:flex-start; font-size:.7rem; font-weight:800; text-transform:uppercase;
+    letter-spacing:.04em; padding:5px 12px; border-radius:999px; margin-bottom:14px; color:#fff;
+  }
+  .card.v1 .badge{ background:var(--amethyst); }
+  .card.v2 .badge{ background:var(--sky); }
+  .card.v3 .badge{ background:var(--coral); }
+  .card .emoji{ font-size:2.2rem; margin-bottom:8px; }
+  .card h2{ font-size:1.2rem; margin-bottom:6px; }
+  .card p{ font-size:.86rem; color:var(--muted); line-height:1.5; margin:0 0 18px; flex:1; }
+  .card .go{
+    align-self:flex-start; font-weight:700; font-size:.86rem; color:var(--ink);
+    background:#F5FAFF; border:2px solid var(--line); padding:9px 16px; border-radius:12px;
+  }
+  .card:hover .go{ background:var(--sun); border-color:var(--sun); }
+
+  .footer-note{ text-align:center; color:var(--muted); font-size:.8rem; margin-top:40px; line-height:1.6; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <span class="arabic">حروفي</span>
+      <h1>Apprendre les lettres arabes</h1>
+      <p>Trois versions de l'application ont été créées — choisis celle que tu préfères. Chacune propose ses propres exercices !</p>
+    </div>
+
+    <div class="cards">
+      <a class="card v1" href="claude.html">
+        <span class="badge">Version Claude</span>
+        <div class="emoji">🐫</div>
+        <h2>Explorateur complet</h2>
+        <p>Les 28 lettres avec leurs 4 formes et 11 sons (fatha, kasra, damma, tanwîn, chedda...), quiz des formes, quiz des sons, jeu de mémoire, et un panneau de test audio.</p>
+        <span class="go">Lancer →</span>
+      </a>
+
+      <a class="card v2" href="gemini.html">
+        <span class="badge">Version Gemini</span>
+        <div class="emoji">🔬</div>
+        <h2>Laboratoire des lettres</h2>
+        <p>Compose toi-même une lettre : choisis sa position et sa voyelle dans un "laboratoire" interactif, puis teste-toi en mode quiz.</p>
+        <span class="go">Lancer →</span>
+      </a>
+
+      <a class="card v3" href="glm.html">
+        <span class="badge">Version GLM</span>
+        <div class="emoji">🎈</div>
+        <h2>Apprendre &amp; Jouer</h2>
+        <p>Choisis une lettre, découvre ses formes et ses voyelles avec le son, puis entraîne ton oreille dans le quiz "Quel est ce son ?".</p>
+        <span class="go">Lancer →</span>
+      </a>
+    </div>
+
+    <div class="footer-note">
+      💡 Depuis chaque version, un bouton <b>⬅️ Menu principal</b> en bas à droite te ramène toujours ici.
+    </div>
+  </div>
+</body>
+</html>

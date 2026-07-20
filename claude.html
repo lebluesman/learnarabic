@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>حروفي — Mes Lettres Arabes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&family=Noto+Naskh+Arabic:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5FAFF;
+  --bg2:#FFF9EF;
+  --card:#FFFFFF;
+  --ink:#26293D;
+  --muted:#7C8595;
+  --palm:#2BB673;
+  --palm-dk:#1E9760;
+  --coral:#FF7A5C;
+  --coral-dk:#F05F3E;
+  --sun:#FFC145;
+  --sun-dk:#F0A81E;
+  --amethyst:#7C5CFC;
+  --amethyst-dk:#6242E0;
+  --sky:#3FA9F5;
+  --line:#E3ECF5;
+  --radius:22px;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:
+    radial-gradient(circle at 8% 8%, #EAF7FF 0%, transparent 45%),
+    radial-gradient(circle at 95% 12%, #FFF3E0 0%, transparent 40%),
+    var(--bg);
+  color:var(--ink);
+  font-family:'Nunito',sans-serif;
+  min-height:100vh;
+  -webkit-tap-highlight-color:transparent;
+}
+.arabic{ font-family:'Noto Naskh Arabic', serif; direction:rtl; unicode-bidi:isolate; }
+h1,h2,h3,.title-font{ font-family:'Fredoka',sans-serif; }
+button{ font-family:inherit; cursor:pointer; border:none; }
+#app{ max-width:1000px; margin:0 auto; padding:18px 16px 60px; }
+
+/* ---------- Header ---------- */
+.app-header{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 4px 18px;
+}
+.brand{ display:flex; align-items:center; gap:10px; }
+.brand h1{ font-size:1.35rem; margin:0; color:var(--ink); }
+.brand .sub{ font-size:.78rem; color:var(--muted); margin-top:-2px; }
+.stars-badge{
+  background:var(--card); border:2px solid var(--sun);
+  border-radius:999px; padding:6px 14px; font-weight:800;
+  display:flex; align-items:center; gap:6px; font-size:.9rem;
+  box-shadow:0 3px 0 var(--line);
+}
+.home-btn{
+  background:var(--card); border:2px solid var(--line); border-radius:14px;
+  padding:8px 12px; font-weight:700; color:var(--muted); font-size:.85rem;
+}
+.home-btn:hover{ color:var(--ink); border-color:var(--sky); }
+
+/* ---------- Camel mascot ---------- */
+.mascot{ width:56px; height:56px; flex-shrink:0; }
+
+/* ---------- Home ---------- */
+.hero{
+  background:linear-gradient(135deg, var(--amethyst) 0%, var(--sky) 100%);
+  border-radius:28px; padding:28px 24px; color:white; position:relative; overflow:hidden;
+  margin-bottom:26px;
+}
+.hero::after{
+  content:""; position:absolute; right:-30px; bottom:-40px; width:220px; height:220px;
+  background:radial-gradient(circle, rgba(255,255,255,.18) 0%, transparent 70%);
+}
+.hero h2{ font-size:1.5rem; margin:0 0 6px; }
+.hero p{ margin:0; opacity:.92; font-size:.95rem; max-width:520px; }
+.caravan{ display:flex; gap:6px; margin-top:18px; align-items:center; }
+.caravan .arabic{ font-size:2rem; color:white; }
+.caravan .arrow{ opacity:.6; font-size:1rem; }
+
+.mode-grid{
+  display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-bottom:26px;
+}
+@media(max-width:560px){ .mode-grid{ grid-template-columns:1fr; } }
+.mode-card{
+  background:var(--card); border-radius:var(--radius); padding:20px;
+  border:2px solid var(--line); text-align:left; transition:transform .15s ease, box-shadow .15s ease;
+  box-shadow:0 4px 0 var(--line);
+}
+.mode-card:hover{ transform:translateY(-3px); box-shadow:0 7px 0 var(--line); }
+.mode-card .icon{
+  width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center;
+  font-size:1.5rem; margin-bottom:12px;
+}
+.mode-card h3{ margin:0 0 6px; font-size:1.1rem; }
+.mode-card p{ margin:0; color:var(--muted); font-size:.85rem; line-height:1.4; }
+.mode-card.learn .icon{ background:#E4F8EE; }
+.mode-card.quiz1 .icon{ background:#FFEFE9; }
+.mode-card.quiz2 .icon{ background:#FFF6E0; }
+.mode-card.memory .icon{ background:#F1ECFF; }
+
+.info-note{
+  background:#FFF6E0; border:1px solid #FFE1A0; border-radius:16px; padding:14px 16px;
+  font-size:.85rem; color:#8A6A16; margin-bottom:20px; line-height:1.5;
+}
+.info-note b{ color:#6B4E00; }
+
+/* ---------- Letters grid (learn) ---------- */
+.letters-grid{
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(90px,1fr)); gap:12px;
+}
+.letter-tile{
+  background:var(--card); border:2px solid var(--line); border-radius:16px;
+  padding:14px 6px 10px; text-align:center; box-shadow:0 3px 0 var(--line);
+  transition:transform .12s ease;
+}
+.letter-tile:hover{ transform:translateY(-2px); border-color:var(--sky); }
+.letter-tile .arabic{ font-size:2rem; display:block; }
+.letter-tile .fr{ font-size:.72rem; color:var(--muted); margin-top:4px; display:block; }
+.star-dot{ color:var(--sun); font-size:.7rem; }
+
+/* ---------- Letter detail ---------- */
+.detail-top{
+  display:flex; align-items:center; gap:18px; background:var(--card);
+  border-radius:var(--radius); padding:22px; margin-bottom:20px; border:2px solid var(--line);
+}
+.detail-top .big-letter{ font-size:4.2rem; line-height:1; }
+.detail-top .names{ flex:1; }
+.detail-top .names h2{ margin:0 0 2px; }
+.detail-top .names .ar-name{ font-size:1.1rem; color:var(--muted); }
+.detail-top .word-example{
+  margin-top:8px; font-size:.9rem; color:var(--ink); background:var(--bg2);
+  display:inline-flex; align-items:center; gap:8px; padding:6px 12px; border-radius:12px;
+}
+.detail-top .word-example .arabic{ font-size:1.2rem; }
+.nav-arrows{ display:flex; gap:8px; }
+.nav-arrows button{
+  width:38px; height:38px; border-radius:50%; background:var(--bg2); border:2px solid var(--line);
+  font-size:1rem; color:var(--ink);
+}
+.nav-arrows button:hover{ background:var(--sky); color:white; border-color:var(--sky); }
+
+.section-card{
+  background:var(--card); border-radius:var(--radius); padding:20px; margin-bottom:18px; border:2px solid var(--line);
+}
+.section-card h3{ margin:0 0 4px; font-size:1.05rem; }
+.section-card .desc{ font-size:.83rem; color:var(--muted); margin-bottom:14px; }
+.tip-box{
+  background:#EAF7FF; border-radius:14px; padding:12px 14px; font-size:.85rem; color:#1C5C86; margin-top:10px;
+}
+
+.forms-row{ display:flex; flex-wrap:wrap; gap:14px; align-items:stretch; }
+.form-chip{
+  flex:1; min-width:120px; background:var(--bg2); border-radius:16px; padding:14px 10px;
+  text-align:center; border:2px solid transparent;
+}
+.form-chip .lbl{ font-size:.72rem; font-weight:800; color:var(--amethyst); text-transform:uppercase; letter-spacing:.03em; }
+.form-chip .arabic{ font-size:2.1rem; display:block; margin:8px 0; }
+.form-chip .na{ color:var(--muted); font-size:.8rem; padding:20px 0; }
+
+.sounds-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:10px; }
+.sound-chip{
+  background:var(--bg2); border-radius:14px; padding:10px; text-align:center; border:2px solid transparent;
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+}
+.sound-chip .arabic{ font-size:1.9rem; }
+.sound-chip .lbl{ font-size:.72rem; color:var(--ink); font-weight:700; }
+.sound-chip .ph{ font-size:.72rem; color:var(--muted); }
+.play-btn{
+  background:var(--palm); color:white; border-radius:10px; padding:5px 10px; font-size:.72rem; font-weight:700;
+  margin-top:2px;
+}
+.play-btn:hover{ background:var(--palm-dk); }
+.play-btn.big{ padding:10px 18px; font-size:.9rem; border-radius:12px; }
+
+/* ---------- Buttons generic ---------- */
+.btn{
+  background:var(--sky); color:white; padding:12px 20px; border-radius:14px; font-weight:700; font-size:.92rem;
+  box-shadow:0 3px 0 #2381C4;
+}
+.btn:hover{ filter:brightness(1.05); }
+.btn:active{ transform:translateY(2px); box-shadow:none; }
+.btn.ghost{ background:var(--card); color:var(--ink); border:2px solid var(--line); box-shadow:0 3px 0 var(--line); }
+.btn.coral{ background:var(--coral); box-shadow:0 3px 0 var(--coral-dk); }
+.btn.amethyst{ background:var(--amethyst); box-shadow:0 3px 0 var(--amethyst-dk); }
+.btn:disabled{ opacity:.5; cursor:default; }
+
+/* ---------- Quiz ---------- */
+.quiz-progress{
+  height:10px; background:var(--line); border-radius:99px; overflow:hidden; margin-bottom:20px;
+}
+.quiz-progress > div{ height:100%; background:var(--palm); transition:width .3s ease; }
+.quiz-stage{
+  background:var(--card); border:2px solid var(--line); border-radius:var(--radius); padding:34px 20px;
+  text-align:center; margin-bottom:20px;
+}
+.quiz-stage .prompt{ font-size:.85rem; color:var(--muted); margin-bottom:14px; font-weight:700; }
+.quiz-stage .big-arabic{ font-size:4rem; margin:6px 0 18px; }
+.choices{ display:grid; grid-template-columns:repeat(2,1fr); gap:12px; max-width:520px; margin:0 auto; }
+@media(max-width:480px){ .choices{ grid-template-columns:1fr; } }
+.choice-btn{
+  background:var(--bg2); border:2px solid var(--line); border-radius:14px; padding:14px; font-size:.95rem;
+  font-weight:700; color:var(--ink);
+}
+.choice-btn:hover{ border-color:var(--sky); }
+.choice-btn.correct{ background:#E1F7EA; border-color:var(--palm); color:var(--palm-dk); }
+.choice-btn.wrong{ background:#FFE7E2; border-color:var(--coral); color:var(--coral-dk); }
+.quiz-footer{ display:flex; justify-content:space-between; align-items:center; }
+.score-pill{ font-weight:800; background:var(--bg2); padding:8px 14px; border-radius:99px; font-size:.85rem; }
+
+.result-card{
+  background:var(--card); border-radius:var(--radius); border:2px solid var(--line); padding:40px 24px; text-align:center;
+}
+.result-card .score{ font-size:2.4rem; font-weight:800; color:var(--amethyst); margin:10px 0; font-family:'Fredoka'; }
+
+/* ---------- Memory ---------- */
+.memory-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+@media(max-width:520px){ .memory-grid{ grid-template-columns:repeat(3,1fr); } }
+.mem-card{
+  aspect-ratio:1/1; background:var(--card); border:2px solid var(--line); border-radius:14px;
+  display:flex; align-items:center; justify-content:center; text-align:center; padding:6px;
+  font-size:.78rem; font-weight:700; color:var(--ink); position:relative;
+}
+.mem-card .arabic{ font-size:1.7rem; }
+.mem-card.hidden{ background:linear-gradient(135deg,var(--amethyst),var(--sky)); color:transparent; }
+.mem-card.hidden .arabic,.mem-card.hidden .wtext{ visibility:hidden; }
+.mem-card.hidden::before{ content:"؟"; visibility:visible; color:white; font-size:1.6rem; position:absolute; }
+.mem-card.matched{ background:#E1F7EA; border-color:var(--palm); opacity:.55; }
+.mem-card.flip-wrong{ background:#FFE7E2; border-color:var(--coral); }
+
+.footer-note{ text-align:center; color:var(--muted); font-size:.75rem; margin-top:30px; line-height:1.6; }
+
+/* ---------- Diagnostic & toast ---------- */
+.diag-card{ background:var(--card); border:2px dashed var(--line); border-radius:18px; padding:16px 18px; margin-bottom:22px; font-size:.85rem; }
+.diag-card h3{ margin:0 0 10px; font-size:.95rem; }
+.diag-row{ display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+.diag-dot{ width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+.diag-dot.ok{ background:var(--palm); }
+.diag-dot.bad{ background:var(--coral); }
+.diag-dot.warn{ background:var(--sun); }
+.diag-select{ font-family:inherit; padding:6px 10px; border-radius:10px; border:2px solid var(--line); font-size:.82rem; margin-top:6px; max-width:100%; }
+#toast-wrap{ position:fixed; bottom:16px; left:50%; transform:translateX(-50%); z-index:999; display:flex; flex-direction:column; gap:8px; align-items:center; pointer-events:none; }
+.toast{ background:var(--ink); color:white; padding:10px 18px; border-radius:12px; font-size:.85rem; box-shadow:0 6px 18px rgba(0,0,0,.2); max-width:90vw; text-align:center; }
+.mascot-msg{
+  display:flex; align-items:center; gap:12px; background:var(--card); border:2px solid var(--line);
+  border-radius:18px; padding:12px 16px; margin-bottom:18px;
+}
+.mascot-msg p{ margin:0; font-size:.88rem; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast-wrap"></div>
+
+<script>
+/* ======================= DATA ======================= */
+const LETTERS = [
+{id:'alef', char:'ا', nameFr:'Alif', nameAr:'أَلِف', connects:false, word:'أَسَد', wordFr:'lion', tip:'Une petite attaque douce du son, comme un souffle avant la voyelle.'},
+{id:'ba', char:'ب', nameFr:'Bâ', nameAr:'بَاء', connects:true, word:'بَاب', wordFr:'porte', tip:'Comme le B français : les lèvres se ferment puis se relâchent.'},
+{id:'ta', char:'ت', nameFr:'Tâ', nameAr:'تَاء', connects:true, word:'تُفَّاح', wordFr:'pomme', tip:'Comme le T français, le bout de la langue touche derrière les dents.'},
+{id:'tha', char:'ث', nameFr:'Thâ', nameAr:'ثَاء', connects:true, word:'ثَعْلَب', wordFr:'renard', tip:'La langue se glisse entre les dents, comme le "th" anglais de "think".'},
+{id:'jim', char:'ج', nameFr:'Jîm', nameAr:'جِيم', connects:true, word:'جَمَل', wordFr:'chameau', tip:'Comme le J français de "jardin".'},
+{id:'ha1', char:'ح', nameFr:'Hâ', nameAr:'حَاء', connects:true, word:'حِصَان', wordFr:'cheval', tip:'Un souffle chaud venant du fond de la gorge, sans faire vibrer la gorge.'},
+{id:'kha', char:'خ', nameFr:'Khâ', nameAr:'خَاء', connects:true, word:'خُبْز', wordFr:'pain', tip:'Comme la "jota" espagnole : un raclement doux au fond de la gorge.'},
+{id:'dal', char:'د', nameFr:'Dâl', nameAr:'دَال', connects:false, word:'دُبّ', wordFr:'ours', tip:'Comme le D français, mais bref et sec.'},
+{id:'dhal', char:'ذ', nameFr:'Dhâl', nameAr:'ذَال', connects:false, word:'ذِئْب', wordFr:'loup', tip:'La langue entre les dents, comme le "th" anglais de "this".'},
+{id:'ra', char:'ر', nameFr:'Râ', nameAr:'رَاء', connects:false, word:'نَهْر', wordFr:'rivière', tip:'Un R roulé, comme en espagnol ou en italien.'},
+{id:'zay', char:'ز', nameFr:'Zây', nameAr:'زَاي', connects:false, word:'زَرَافَة', wordFr:'girafe', tip:'Comme le Z français de "zèbre".'},
+{id:'sin', char:'س', nameFr:'Sîn', nameAr:'سِين', connects:true, word:'سَمَك', wordFr:'poisson', tip:'Comme le S français de "soleil".'},
+{id:'shin', char:'ش', nameFr:'Shîn', nameAr:'شِين', connects:true, word:'شَمْس', wordFr:'soleil', tip:'Comme le CH français de "chat".'},
+{id:'sad', char:'ص', nameFr:'Sâd', nameAr:'صَاد', connects:true, word:'صَقْر', wordFr:'faucon', tip:'Un S épais et emphatique, la bouche plus arrondie.'},
+{id:'dad', char:'ض', nameFr:'Dâd', nameAr:'ضَاد', connects:true, word:'ضِفْدَع', wordFr:'grenouille', tip:'Un D épais et emphatique, la langue large contre le palais.'},
+{id:'ta2', char:'ط', nameFr:'Tâ emphatique', nameAr:'طَاء', connects:true, word:'طَائِر', wordFr:'oiseau', tip:'Un T épais et emphatique, la bouche arrondie.'},
+{id:'dha', char:'ظ', nameFr:'Dhâ emphatique', nameAr:'ظَاء', connects:true, word:'ظِل', wordFr:'ombre', tip:'Un "th" anglais épais et emphatique.'},
+{id:'ain', char:'ع', nameFr:'Ayn', nameAr:'عَيْن', connects:true, word:'عَيْن', wordFr:'œil', tip:'Un son de gorge unique : on resserre doucement la gorge en poussant l\'air.'},
+{id:'ghain', char:'غ', nameFr:'Ghayn', nameAr:'غَيْن', connects:true, word:'غَزَال', wordFr:'gazelle', tip:'Comme un R français grasseyé, venant du fond de la gorge.'},
+{id:'fa', char:'ف', nameFr:'Fâ', nameAr:'فَاء', connects:true, word:'فِيل', wordFr:'éléphant', tip:'Comme le F français de "fleur".'},
+{id:'qaf', char:'ق', nameFr:'Qâf', nameAr:'قَاف', connects:true, word:'قَمَر', wordFr:'lune', tip:'Un K profond, prononcé tout au fond de la gorge.'},
+{id:'kaf', char:'ك', nameFr:'Kâf', nameAr:'كَاف', connects:true, word:'كَلْب', wordFr:'chien', tip:'Comme le K français de "kilo".'},
+{id:'lam', char:'ل', nameFr:'Lâm', nameAr:'لَام', connects:true, word:'لَيْمُون', wordFr:'citron', tip:'Comme le L français de "lune".'},
+{id:'mim', char:'م', nameFr:'Mîm', nameAr:'مِيم', connects:true, word:'مَاء', wordFr:'eau', tip:'Comme le M français de "maman".'},
+{id:'nun', char:'ن', nameFr:'Nûn', nameAr:'نُون', connects:true, word:'نَجْمَة', wordFr:'étoile', tip:'Comme le N français de "nuit".'},
+{id:'ha2', char:'ه', nameFr:'Hâ douce', nameAr:'هَاء', connects:true, word:'هِلَال', wordFr:'croissant de lune', tip:'Un souffle doux, comme le H aspiré anglais de "house".'},
+{id:'waw', char:'و', nameFr:'Wâw', nameAr:'وَاو', connects:false, word:'وَرْدَة', wordFr:'rose', tip:'Comme le OU français, les lèvres bien arrondies.'},
+{id:'ya', char:'ي', nameFr:'Yâ', nameAr:'يَاء', connects:true, word:'يَد', wordFr:'main', tip:'Comme le Y français de "yaourt".'}
+];
+
+const TATWEEL = '\u0640';
+const DIACRITICS = [
+{id:'sukoon', mark:'\u0652', label:'Soukoun', ph:'(pas de voyelle)'},
+{id:'fatha', mark:'\u064E', label:'Fatha', ph:'"a"'},
+{id:'kasra', mark:'\u0650', label:'Kasra', ph:'"i"'},
+{id:'damma', mark:'\u064F', label:'Damma', ph:'"ou"'},
+{id:'tanwin_fath', mark:'\u064B', label:'Tanwîn Fath', ph:'"an" (double fatha)'},
+{id:'tanwin_kasr', mark:'\u064D', label:'Tanwîn Kasr', ph:'"in" (double kasra)'},
+{id:'tanwin_damm', mark:'\u064C', label:'Tanwîn Damm', ph:'"oun" (double damma)'},
+{id:'shadda', mark:'\u0651', label:'Chedda', ph:'lettre doublée'},
+{id:'shadda_fatha', mark:'\u0651\u064E', label:'Chedda+Fatha', ph:'double + "a"'},
+{id:'shadda_kasra', mark:'\u0651\u0650', label:'Chedda+Kasra', ph:'double + "i"'},
+{id:'shadda_damma', mark:'\u0651\u064F', label:'Chedda+Damma', ph:'double + "ou"'}
+];
+
+const POSITIONS = [
+{id:'isolated', label:'Isolée'},
+{id:'initial', label:'Début'},
+{id:'medial', label:'Milieu'},
+{id:'final', label:'Fin'}
+];
+
+/* ======================= HELPERS ======================= */
+function shapeFor(letter, posId){
+  const c = letter.char;
+  if(posId==='isolated') return c;
+  if(!letter.connects){
+    if(posId==='final') return TATWEEL + c;
+    return null;
+  }
+  if(posId==='initial') return c + TATWEEL;
+  if(posId==='medial') return TATWEEL + c + TATWEEL;
+  if(posId==='final') return TATWEEL + c;
+}
+function withDiacritic(shapeStr, letterChar, mark){
+  return shapeStr.replace(letterChar, letterChar+mark);
+}
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+function pick(arr,n){ return shuffle(arr).slice(0,n); }
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* ======================= SPEECH ======================= */
+const SUPPORTS_TTS = ('speechSynthesis' in window);
+let cachedVoices = [];
+let voicePollTries = 0;
+
+function refreshVoices(){
+  if(!SUPPORTS_TTS) return;
+  cachedVoices = speechSynthesis.getVoices() || [];
+  if(App.screen==='home') render(); // update diagnostic panel live once voices arrive
+}
+function pollVoices(){
+  if(!SUPPORTS_TTS) return;
+  refreshVoices();
+  if(cachedVoices.length===0 && voicePollTries < 20){
+    voicePollTries++;
+    setTimeout(pollVoices, 300);
+  }
+}
+function arabicVoices(){ return cachedVoices.filter(v=>v.lang && v.lang.toLowerCase().startsWith('ar')); }
+
+function preferredVoice(){
+  const savedName = localStorage.getItem('huruf_voice_name');
+  if(savedName){ const m = cachedVoices.find(v=>v.name===savedName); if(m) return m; }
+  const ar = arabicVoices();
+  return ar[0] || null;
+}
+
+function toast(msg, ms){
+  const wrap = document.getElementById('toast-wrap');
+  if(!wrap) return;
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.textContent = msg;
+  wrap.appendChild(el);
+  setTimeout(()=>{ el.remove(); }, ms || 3800);
+}
+
+function speak(text){
+  if(!SUPPORTS_TTS){
+    toast('⚠️ Ton navigateur ne supporte pas la synthèse vocale. Essaie avec Chrome ou Safari.');
+    return;
+  }
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'ar-SA';
+    const v = preferredVoice();
+    if(v) u.voice = v;
+    u.rate = 0.75;
+    u.onerror = ()=>{ toast('⚠️ La lecture audio a échoué. Vérifie le volume de ton appareil, ou consulte "Réglages du son" ci-dessous.'); };
+    if(cachedVoices.length===0){
+      toast('🔎 Recherche d\'une voix arabe sur ton appareil… si rien ne se passe, vois "Réglages du son" en bas de l\'accueil.');
+    } else if(!v){
+      toast('ℹ️ Aucune voix arabe trouvée sur cet appareil — lecture avec la voix par défaut (peut être approximative).');
+    }
+    speechSynthesis.speak(u);
+  }catch(e){
+    toast('⚠️ Erreur audio : ' + e.message);
+  }
+}
+
+/* ======================= PROGRESS (localStorage) ======================= */
+const STORE_KEY = 'huruf_progress_v1';
+function loadProgress(){
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY)) || {stars:{}, quizBest:{}}; }
+  catch(e){ return {stars:{}, quizBest:{}}; }
+}
+function saveProgress(p){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(p)); }catch(e){} }
+let progress = loadProgress();
+function totalStars(){ return Object.values(progress.stars).reduce((a,b)=>a+b,0); }
+function markLetterSeen(id){ progress.stars[id] = Math.max(progress.stars[id]||0, 1); saveProgress(progress); }
+
+/* ======================= APP / ROUTER ======================= */
+const App = {
+  screen:'home',
+  letterIdx:0,
+  quiz:null,
+  memory:null,
+
+  go(screen, params){
+    this.screen = screen;
+    if(params) Object.assign(this, params);
+    render();
+    window.scrollTo({top:0, behavior:'smooth'});
+  },
+
+  openLetter(idx){ markLetterSeen(LETTERS[idx].id); this.go('detail', {letterIdx:idx}); },
+  prevLetter(){ this.openLetter((this.letterIdx-1+LETTERS.length)%LETTERS.length); },
+  nextLetter(){ this.openLetter((this.letterIdx+1)%LETTERS.length); },
+
+  playSound(text){ speak(text); },
+  testSound(){ speak('مَرْحَباً'); },
+  chooseVoice(name){ localStorage.setItem('huruf_voice_name', name); toast('✅ Voix choisie : ' + name); },
+  rescanVoices(){ voicePollTries = 0; pollVoices(); toast('🔎 Nouvelle recherche de voix en cours…'); },
+
+  /* ---- Quiz: Letters (shape recognition) ---- */
+  startQuizLetters(){
+    const questions = pick(LETTERS, 10).map(letter=>{
+      const applicablePos = POSITIONS.filter(p => letter.connects || p.id==='isolated' || p.id==='final');
+      const pos = applicablePos[Math.floor(Math.random()*applicablePos.length)];
+      const shape = shapeFor(letter, pos.id);
+      const distractors = pick(LETTERS.filter(l=>l.id!==letter.id), 3).map(l=>l.nameFr);
+      const choices = shuffle([letter.nameFr, ...distractors]);
+      return {shape, posLabel:pos.label, answer:letter.nameFr, choices};
+    });
+    this.quiz = {type:'letters', questions, i:0, score:0, answered:false};
+    this.go('quizLetters');
+  },
+  answerQuizLetters(choice){
+    const q = this.quiz.questions[this.quiz.i];
+    if(this.quiz.answered) return;
+    this.quiz.answered = choice;
+    if(choice === q.answer) this.quiz.score++;
+    render();
+  },
+  nextQuizLetters(){
+    if(this.quiz.i < this.quiz.questions.length-1){ this.quiz.i++; this.quiz.answered=false; render(); }
+    else { this.go('quizResult', {}); }
+  },
+
+  /* ---- Quiz: Sounds ---- */
+  startQuizSounds(){
+    const questions = pick(LETTERS, 10).map(letter=>{
+      const diac = DIACRITICS[Math.floor(Math.random()*DIACRITICS.length)];
+      const shape = withDiacritic(letter.char, letter.char, diac.mark);
+      const distractors = pick(DIACRITICS.filter(d=>d.id!==diac.id), 3).map(d=>d.label+' '+d.ph);
+      const answer = diac.label+' '+diac.ph;
+      const choices = shuffle([answer, ...distractors]);
+      return {shape, answer, choices, speakText: shape};
+    });
+    this.quiz = {type:'sounds', questions, i:0, score:0, answered:false};
+    this.go('quizSounds');
+  },
+  answerQuizSounds(choice){
+    const q = this.quiz.questions[this.quiz.i];
+    if(this.quiz.answered) return;
+    this.quiz.answered = choice;
+    if(choice === q.answer) this.quiz.score++;
+    render();
+  },
+  nextQuizSounds(){
+    if(this.quiz.i < this.quiz.questions.length-1){ this.quiz.i++; this.quiz.answered=false; render(); }
+    else { this.go('quizResult', {}); }
+  },
+
+  /* ---- Memory game ---- */
+  startMemory(){
+    const chosen = pick(LETTERS, 6);
+    let cards = [];
+    chosen.forEach((l, idx)=>{
+      cards.push({pairId:idx, kind:'letter', display:l.char, sub:l.nameFr});
+      cards.push({pairId:idx, kind:'word', display:l.word, sub:l.wordFr});
+    });
+    cards = shuffle(cards).map((c,i)=>({...c, cardId:i, flipped:false, matched:false}));
+    this.memory = {cards, flippedIds:[], moves:0, matches:0, total:chosen.length, lock:false};
+    this.go('memory');
+  },
+  flipMemCard(cardId){
+    const m = this.memory;
+    if(m.lock) return;
+    const card = m.cards.find(c=>c.cardId===cardId);
+    if(!card || card.flipped || card.matched) return;
+    card.flipped = true;
+    m.flippedIds.push(cardId);
+    if(m.flippedIds.length===2){
+      m.moves++;
+      const [a,b] = m.flippedIds.map(id=>m.cards.find(c=>c.cardId===id));
+      if(a.pairId===b.pairId){
+        a.matched=true; b.matched=true; m.matches++;
+        m.flippedIds=[];
+        render();
+      } else {
+        m.lock = true;
+        render();
+        setTimeout(()=>{
+          a.flipped=false; b.flipped=false; m.flippedIds=[]; m.lock=false; render();
+        }, 900);
+      }
+    } else { render(); }
+  }
+};
+
+/* ======================= RENDER ======================= */
+function render(){
+  const app = document.getElementById('app');
+  app.innerHTML = header() + body();
+}
+
+function header(){
+  return `
+  <div class="app-header">
+    <div class="brand">
+      ${mascotSvg(46)}
+      <div>
+        <h1>حروفي <span style="font-size:.7em;color:var(--muted);font-weight:600;">— Mes Lettres Arabes</span></h1>
+        <div class="sub">Apprendre à lire l'arabe, une lettre à la fois</div>
+      </div>
+    </div>
+    <div style="display:flex; gap:10px; align-items:center;">
+      <div class="stars-badge">⭐ ${totalStars()}/${LETTERS.length}</div>
+      ${App.screen!=='home' ? `<button class="home-btn" onclick="App.go('home')">🏠 Accueil</button>` : ''}
+    </div>
+  </div>`;
+}
+
+function mascotSvg(size){
+  return `<svg class="mascot" width="${size}" height="${size}" viewBox="0 0 64 64" style="width:${size}px;height:${size}px;">
+    <ellipse cx="32" cy="46" rx="20" ry="12" fill="#FFC145"/>
+    <circle cx="14" cy="40" r="9" fill="#FFC145"/>
+    <circle cx="18" cy="26" r="6" fill="#FFC145"/>
+    <ellipse cx="46" cy="30" rx="10" ry="12" fill="#FF7A5C"/>
+    <circle cx="47" cy="18" r="9" fill="#FF7A5C"/>
+    <circle cx="44" cy="15" r="1.6" fill="#26293D"/>
+    <path d="M50 20 q3 1 3 3" stroke="#26293D" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+    <path d="M8 52 v6 M20 52 v6 M40 54 v6 M52 50 v6" stroke="#26293D" stroke-width="2.4" stroke-linecap="round"/>
+  </svg>`;
+}
+
+function body(){
+  switch(App.screen){
+    case 'home': return screenHome();
+    case 'learn': return screenLearn();
+    case 'detail': return screenDetail();
+    case 'quizLetters': return screenQuizLetters();
+    case 'quizSounds': return screenQuizSounds();
+    case 'quizResult': return screenQuizResult();
+    case 'memory': return screenMemory();
+    default: return screenHome();
+  }
+}
+
+/* ---- Home ---- */
+function screenHome(){
+  const sample = LETTERS[22]; // lam - nice connecting example
+  const forms = ['isolated','initial','medial','final'].map(p=>shapeFor(sample,p));
+  return `
+  <div class="hero">
+    <h2>مرحباً! Bienvenue 👋</h2>
+    <p>Découvre les 28 lettres de l'alphabet arabe : leur forme selon leur position dans le mot (début, milieu, fin) et leur son selon la voyelle qui les accompagne.</p>
+    <div class="caravan">
+      ${forms.map((f,i)=>`<span class="arabic">${f}</span>${i<forms.length-1?'<span class="arrow">➜</span>':''}`).join('')}
+      <span style="margin-inline-start:12px; font-size:.85rem; opacity:.85;">même lettre (ل), 4 formes différentes !</span>
+    </div>
+  </div>
+
+  <div class="info-note">
+    💡 <b>Astuce pour bien comprendre :</b> la <b>position</b> (début / milieu / fin) change seulement la <b>forme écrite</b> de la lettre. La <b>diacritique</b> (fatha, kasra, damma...) change son <b>son</b>. Ce sont deux choses différentes !
+  </div>
+
+  <div class="mode-grid">
+    <button class="mode-card learn" onclick="App.go('learn')">
+      <div class="icon">📖</div>
+      <h3>Apprendre les lettres</h3>
+      <p>Explore chaque lettre : ses 4 formes et ses 11 sons possibles, avec audio.</p>
+    </button>
+    <button class="mode-card quiz1" onclick="App.startQuizLetters()">
+      <div class="icon">🔤</div>
+      <h3>Quiz des formes</h3>
+      <p>Reconnaître une lettre quelle que soit sa forme dans le mot.</p>
+    </button>
+    <button class="mode-card quiz2" onclick="App.startQuizSounds()">
+      <div class="icon">🔊</div>
+      <h3>Quiz des sons</h3>
+      <p>Associer chaque lettre voyellée à sa bonne prononciation.</p>
+    </button>
+    <button class="mode-card memory" onclick="App.startMemory()">
+      <div class="icon">🧠</div>
+      <h3>Jeu de mémoire</h3>
+      <p>Retrouve les paires lettre ↔ mot pour muscler ta mémoire.</p>
+    </button>
+  </div>
+  ${diagnosticPanel()}
+
+  <div class="footer-note">Astuce : le son 🔊 utilise la voix arabe de ton appareil / navigateur (idéalement Chrome). Si tu n'entends rien, la voix arabe n'est peut-être pas installée — la forme écrite reste le plus important pour apprendre !</div>
+  `;
+}
+
+function diagnosticPanel(){
+  const ar = arabicVoices();
+  const supported = SUPPORTS_TTS;
+  const hasAr = ar.length > 0;
+  return `
+  <div class="diag-card">
+    <h3>🔧 Réglages et test du son</h3>
+    <div class="diag-row"><span class="diag-dot ${supported?'ok':'bad'}"></span> Synthèse vocale supportée par ce navigateur : <b>${supported?'oui':'non'}</b></div>
+    <div class="diag-row"><span class="diag-dot ${cachedVoices.length>0?'ok':'warn'}"></span> Voix détectées sur cet appareil : <b>${cachedVoices.length}</b></div>
+    <div class="diag-row"><span class="diag-dot ${hasAr?'ok':'warn'}"></span> Voix arabe détectée : <b>${hasAr? ar.map(v=>v.name).join(', ') : 'aucune'}</b></div>
+    ${ar.length>1 ? `
+    <div style="margin-top:8px;">
+      <label style="font-size:.8rem; color:var(--muted);">Choisir la voix :</label><br>
+      <select class="diag-select" onchange="App.chooseVoice(this.value)">
+        ${ar.map(v=>`<option value="${esc(v.name)}" ${v.name===(preferredVoice()&&preferredVoice().name)?'selected':''}>${esc(v.name)} (${v.lang})</option>`).join('')}
+      </select>
+    </div>` : ''}
+    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+      <button class="btn" onclick="App.testSound()">🔊 Tester le son</button>
+      <button class="home-btn" onclick="App.rescanVoices()">↻ Rechercher à nouveau</button>
+    </div>
+    ${!hasAr ? `<div class="tip-box" style="margin-top:12px;">
+      Aucune voix arabe n'a été trouvée. Comment en ajouter une :<br>
+      • <b>Téléphone Android</b> : Réglages → Système → Langues → Synthèse vocale → installe le module "Arabe".<br>
+      • <b>iPhone/iPad</b> : Réglages → Accessibilité → Contenu énoncé → Voix → ajoute une voix Arabe.<br>
+      • <b>Windows</b> : Paramètres → Heure et langue → Voix → ajoute une langue Arabe.<br>
+      • <b>Mac</b> : Réglages Système → Accessibilité → Contenu énoncé → ajoute une voix Arabe.<br>
+      Si tu regardes cette page dans un aperçu intégré au chat, essaie aussi d'<b>ouvrir le fichier directement dans ton navigateur</b> (après téléchargement) : certains aperçus intégrés bloquent le son.
+    </div>` : ''}
+  </div>
+  `;
+}
+
+/* ---- Learn grid ---- */
+function screenLearn(){
+  return `
+  <h2 style="margin:6px 0 4px;">📖 Les 28 lettres</h2>
+  <p style="color:var(--muted); margin:0 0 18px; font-size:.9rem;">Touche une lettre pour découvrir toutes ses formes et tous ses sons.</p>
+  <div class="letters-grid">
+    ${LETTERS.map((l,i)=>`
+      <button class="letter-tile" onclick="App.openLetter(${i})">
+        <span class="arabic">${l.char}</span>
+        <span class="fr">${l.nameFr}</span>
+        <span class="star-dot">${progress.stars[l.id] ? '⭐' : '☆'}</span>
+      </button>
+    `).join('')}
+  </div>`;
+}
+
+/* ---- Letter detail ---- */
+function screenDetail(){
+  const letter = LETTERS[App.letterIdx];
+  const posForms = POSITIONS.map(p=>({...p, shape: shapeFor(letter,p.id)}));
+  return `
+  <div class="detail-top">
+    <div class="nav-arrows"><button onclick="App.prevLetter()">◀</button></div>
+    <div class="big-letter arabic">${letter.char}</div>
+    <div class="names">
+      <h2>${letter.nameFr} <span class="arabic" style="font-size:.75em;">— ${letter.nameAr}</span></h2>
+      <div class="ar-name">Lettre ${App.letterIdx+1} / ${LETTERS.length}${!letter.connects ? ' · ne se lie jamais vers la lettre suivante' : ''}</div>
+      <div class="word-example">
+        <span class="arabic">${letter.word}</span> = ${letter.wordFr}
+        <button class="play-btn" onclick="App.playSound('${letter.word}')">🔊</button>
+      </div>
+    </div>
+    <div class="nav-arrows"><button onclick="App.nextLetter()">▶</button></div>
+  </div>
+
+  <div class="section-card">
+    <h3>✏️ Les formes de la lettre</h3>
+    <div class="desc">Selon sa position dans le mot, une lettre change de forme — mais reste la même lettre !</div>
+    <div class="forms-row">
+      ${posForms.map(p=>`
+        <div class="form-chip">
+          <div class="lbl">${p.label}</div>
+          ${p.shape ? `<span class="arabic">${p.shape}</span>` : `<div class="na">— n'existe pas —</div>`}
+        </div>
+      `).join('')}
+    </div>
+    ${!letter.connects ? `<div class="tip-box">🔗 Cette lettre ne s'attache jamais à la lettre suivante. Elle n'a donc que 2 apparences : seule (ou en début de mot) et attachée à ce qui précède (au milieu ou à la fin).</div>` : ''}
+  </div>
+
+  <div class="section-card">
+    <h3>🔊 Les sons de la lettre</h3>
+    <div class="desc">Touche chaque bulle pour entendre la lettre avec sa voyelle (diacritique).</div>
+    <div class="sounds-grid">
+      ${DIACRITICS.map(d=>{
+        const shape = withDiacritic(letter.char, letter.char, d.mark);
+        return `
+        <div class="sound-chip">
+          <span class="arabic">${shape}</span>
+          <span class="lbl">${d.label}</span>
+          <span class="ph">${d.ph}</span>
+          <button class="play-btn" onclick="App.playSound('${shape}')">🔊 Écouter</button>
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="tip-box">🗣️ Comment prononcer : ${letter.tip}</div>
+  </div>
+
+  <div style="display:flex; justify-content:center; gap:12px;">
+    <button class="btn ghost" onclick="App.go('learn')">← Retour aux lettres</button>
+    <button class="btn amethyst" onclick="App.nextLetter()">Lettre suivante →</button>
+  </div>
+  `;
+}
+
+/* ---- Quiz shared bits ---- */
+function quizHeader(title, q, total, score){
+  return `
+  <h2 style="margin:6px 0 14px;">${title}</h2>
+  <div class="quiz-progress"><div style="width:${(q/total)*100}%"></div></div>
+  `;
+}
+
+function screenQuizLetters(){
+  const quiz = App.quiz;
+  const q = quiz.questions[quiz.i];
+  return `
+  ${quizHeader('🔤 Quiz des formes', quiz.i, quiz.questions.length, quiz.score)}
+  <div class="quiz-stage">
+    <div class="prompt">Position : ${q.posLabel} — Quelle lettre est-ce ?</div>
+    <div class="big-arabic arabic">${q.shape}</div>
+    <div class="choices">
+      ${q.choices.map(c=>{
+        let cls='choice-btn';
+        if(quiz.answered){
+          if(c===q.answer) cls+=' correct';
+          else if(c===quiz.answered) cls+=' wrong';
+        }
+        return `<button class="${cls}" ${quiz.answered?'disabled':''} onclick="App.answerQuizLetters('${esc(c)}')">${c}</button>`;
+      }).join('')}
+    </div>
+  </div>
+  <div class="quiz-footer">
+    <div class="score-pill">Score : ${quiz.score}/${quiz.questions.length}</div>
+    <button class="btn" ${quiz.answered?'':'disabled'} onclick="App.nextQuizLetters()">${quiz.i<quiz.questions.length-1?'Suivant →':'Voir mon résultat →'}</button>
+  </div>
+  `;
+}
+
+function screenQuizSounds(){
+  const quiz = App.quiz;
+  const q = quiz.questions[quiz.i];
+  return `
+  ${quizHeader('🔊 Quiz des sons', quiz.i, quiz.questions.length, quiz.score)}
+  <div class="quiz-stage">
+    <div class="prompt">Quel est le bon son pour cette lettre ?</div>
+    <div class="big-arabic arabic">${q.shape}</div>
+    <button class="play-btn big" onclick="App.playSound('${q.speakText}')">🔊 Écouter un indice</button>
+    <div class="choices" style="margin-top:20px;">
+      ${q.choices.map(c=>{
+        let cls='choice-btn';
+        if(quiz.answered){
+          if(c===q.answer) cls+=' correct';
+          else if(c===quiz.answered) cls+=' wrong';
+        }
+        return `<button class="${cls}" ${quiz.answered?'disabled':''} onclick="App.answerQuizSounds('${esc(c)}')">${c}</button>`;
+      }).join('')}
+    </div>
+  </div>
+  <div class="quiz-footer">
+    <div class="score-pill">Score : ${quiz.score}/${quiz.questions.length}</div>
+    <button class="btn" ${quiz.answered?'':'disabled'} onclick="App.nextQuizSounds()">${quiz.i<quiz.questions.length-1?'Suivant →':'Voir mon résultat →'}</button>
+  </div>
+  `;
+}
+
+function screenQuizResult(){
+  const quiz = App.quiz;
+  const pct = Math.round((quiz.score/quiz.questions.length)*100);
+  const stars = pct>=90?'⭐⭐⭐':pct>=60?'⭐⭐':pct>=30?'⭐':'💪';
+  const msg = pct>=90?'Excellent, tu es un champion des lettres arabes !'
+            : pct>=60?'Bien joué, continue comme ça !'
+            : pct>=30?'Bon début, encore un peu de pratique !'
+            : 'Ne lâche rien, recommence pour progresser !';
+  return `
+  <div class="result-card">
+    <div style="font-size:3rem;">${stars}</div>
+    <div class="score">${quiz.score} / ${quiz.questions.length}</div>
+    <p style="color:var(--muted);">${msg}</p>
+    <div style="display:flex; gap:12px; justify-content:center; margin-top:24px; flex-wrap:wrap;">
+      <button class="btn ghost" onclick="App.go('home')">🏠 Accueil</button>
+      <button class="btn amethyst" onclick="${quiz.type==='letters'?'App.startQuizLetters()':'App.startQuizSounds()'}">🔁 Recommencer</button>
+    </div>
+  </div>
+  `;
+}
+
+/* ---- Memory ---- */
+function screenMemory(){
+  const m = App.memory;
+  const done = m.matches===m.total;
+  return `
+  <h2 style="margin:6px 0 4px;">🧠 Jeu de mémoire</h2>
+  <p style="color:var(--muted); margin:0 0 16px; font-size:.9rem;">Retrouve la paire : la lettre isolée et un mot qui la contient.</p>
+  <div class="quiz-footer" style="margin-bottom:14px;">
+    <div class="score-pill">Paires trouvées : ${m.matches}/${m.total}</div>
+    <div class="score-pill">Coups : ${m.moves}</div>
+  </div>
+  <div class="memory-grid">
+    ${m.cards.map(c=>{
+      const show = c.flipped || c.matched;
+      const cls = 'mem-card' + (show?'':' hidden') + (c.matched?' matched':'');
+      return `<button class="${cls}" onclick="App.flipMemCard(${c.cardId})">
+        ${c.kind==='letter' ? `<span class="arabic">${c.display}</span>` : `<span><span class="arabic">${c.display}</span><br><span class="wtext" style="font-size:.68rem;color:var(--muted);">${c.sub}</span></span>`}
+      </button>`;
+    }).join('')}
+  </div>
+  ${done ? `
+  <div class="result-card" style="margin-top:20px;">
+    <div style="font-size:2.4rem;">🎉</div>
+    <p><b>Bravo, toutes les paires sont trouvées en ${m.moves} coups !</b></p>
+    <div style="display:flex; gap:12px; justify-content:center; margin-top:16px; flex-wrap:wrap;">
+      <button class="btn ghost" onclick="App.go('home')">🏠 Accueil</button>
+      <button class="btn amethyst" onclick="App.startMemory()">🔁 Nouvelle partie</button>
+    </div>
+  </div>` : ''}
+  `;
+}
+
+/* ======================= INIT ======================= */
+if(SUPPORTS_TTS){
+  speechSynthesis.onvoiceschanged = refreshVoices;
+  pollVoices();
+}
+render();
+</script>
+<a href="index.html" title="Retour au menu principal" style="position:fixed;bottom:16px;right:16px;z-index:99999;background:#26293D;color:#ffffff;padding:10px 16px;border-radius:999px;font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.3);display:inline-flex;align-items:center;gap:6px;">⬅️ Menu principal</a>
+</body>
+</html>
