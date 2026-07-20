@@ -33,8 +33,9 @@
   .hero h1{ font-size:1.7rem; margin-bottom:8px; }
   .hero p{ margin:0; opacity:.92; font-size:.95rem; }
 
-  .cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-  @media(max-width:800px){ .cards{ grid-template-columns:1fr; } }
+  .cards{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+  @media(max-width:1000px){ .cards{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:560px){ .cards{ grid-template-columns:1fr; } }
   .card{
     background:#fff; border:2px solid var(--line); border-radius:22px; padding:24px;
     display:flex; flex-direction:column; text-decoration:none; color:var(--ink);
@@ -48,6 +49,13 @@
   .card.v1 .badge{ background:var(--amethyst); }
   .card.v2 .badge{ background:var(--sky); }
   .card.v3 .badge{ background:var(--coral); }
+  .card.v4{ border-color:#C8952F; box-shadow:0 4px 0 #C8952F; position:relative; }
+  .card.v4:hover{ box-shadow:0 8px 0 #C8952F; }
+  .card.v4 .badge{ background:linear-gradient(135deg,#C8952F,#1F6F5C); }
+  .card.v4 .ribbon{
+    position:absolute; top:-10px; right:16px; background:#1B2140; color:#F7EFDC;
+    font-size:.68rem; font-weight:800; padding:5px 10px; border-radius:999px; letter-spacing:.03em;
+  }
   .card .emoji{ font-size:2.2rem; margin-bottom:8px; }
   .card h2{ font-size:1.2rem; margin-bottom:6px; }
   .card p{ font-size:.86rem; color:var(--muted); line-height:1.5; margin:0 0 18px; flex:1; }
@@ -65,10 +73,19 @@
     <div class="hero">
       <span class="arabic">حروفي</span>
       <h1>Apprendre les lettres arabes</h1>
-      <p>Trois versions de l'application ont été créées — choisis celle que tu préfères. Chacune propose ses propres exercices !</p>
+      <p>Quatre versions de l'application ont été créées — choisis celle que tu préfères. La première réunit le meilleur des trois autres !</p>
     </div>
 
     <div class="cards">
+      <a class="card v4" href="arabic.html">
+        <span class="ribbon">✦ Édition complète</span>
+        <span class="badge">حروفي</span>
+        <div class="emoji">🕌</div>
+        <h2>L'Atelier des Lettres</h2>
+        <p>Le meilleur des 3 versions réuni en une seule appli : les 28 lettres avec leurs formes et 12 sons, un laboratoire pour composer, un quiz des formes, un quiz à l'écoute, et un jeu de mémoire.</p>
+        <span class="go">Lancer →</span>
+      </a>
+
       <a class="card v1" href="claude.html">
         <span class="badge">Version Claude</span>
         <div class="emoji">🐫</div>

@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>حروفي — L'Atelier des Lettres Arabes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#1B2140;
+  --night2:#262C52;
+  --ink:#232A45;
+  --paper:#F7EFDC;
+  --card:#FFFCF4;
+  --gold:#C8952F;
+  --gold-dk:#9C7420;
+  --emerald:#1F6F5C;
+  --emerald-dk:#154F41;
+  --clay:#C1442E;
+  --line:#E7DAB4;
+  --muted:#847A5E;
+  --radius:22px;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Nunito',sans-serif;
+  min-height:100vh;
+  -webkit-tap-highlight-color:transparent;
+}
+.arabic{ font-family:'Amiri', serif; direction:rtl; unicode-bidi:isolate; }
+h1,h2,h3,.title-font{ font-family:'Baloo 2',sans-serif; }
+button{ font-family:inherit; cursor:pointer; border:none; background:none; }
+button:focus-visible, a:focus-visible{ outline:3px solid var(--emerald); outline-offset:2px; border-radius:8px; }
+#app{ max-width:1000px; margin:0 auto; padding:0 0 70px; }
+
+/* ---------- lattice pattern (signature texture) ---------- */
+.lattice{
+  background-image:
+    repeating-linear-gradient(45deg, rgba(200,149,47,.16) 0 2px, transparent 2px 30px),
+    repeating-linear-gradient(-45deg, rgba(200,149,47,.16) 0 2px, transparent 2px 30px);
+}
+.lattice-soft{
+  background-image:
+    repeating-linear-gradient(45deg, rgba(200,149,47,.07) 0 2px, transparent 2px 30px),
+    repeating-linear-gradient(-45deg, rgba(200,149,47,.07) 0 2px, transparent 2px 30px);
+}
+
+/* ---------- signature arch shape ---------- */
+.arch{
+  border-radius: 120px 120px 18px 18px / 70px 70px 18px 18px;
+}
+.arch-sm{
+  border-radius: 60px 60px 12px 12px / 34px 34px 12px 12px;
+}
+
+/* ---------- Header ---------- */
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 20px; max-width:1000px; margin:0 auto;
+}
+.brand{ display:flex; align-items:center; gap:10px; }
+.brand .mark{ font-family:'Amiri',serif; font-size:1.7rem; color:var(--gold-dk); }
+.brand h1{ font-size:1.15rem; margin:0; color:var(--ink); }
+.brand .sub{ font-size:.72rem; color:var(--muted); margin-top:-2px; letter-spacing:.02em; }
+.stars-badge{
+  background:var(--card); border:2px solid var(--gold); color:var(--gold-dk);
+  border-radius:999px; padding:6px 14px; font-weight:800;
+  display:flex; align-items:center; gap:6px; font-size:.88rem;
+  box-shadow:0 3px 0 var(--line);
+}
+
+/* ---------- Hero ---------- */
+.hero{
+  background:linear-gradient(160deg, var(--night) 0%, var(--night2) 100%);
+  padding:38px 24px 46px; text-align:center; position:relative; overflow:hidden;
+}
+.hero-inner{ max-width:640px; margin:0 auto; position:relative; z-index:2; }
+.hero-niche{
+  width:180px; height:190px; margin:0 auto 18px; background:rgba(255,255,255,.04);
+  border:2px solid rgba(200,149,47,.55); display:flex; align-items:center; justify-content:center;
+  position:relative;
+}
+.hero-niche .letter{
+  font-family:'Amiri',serif; font-size:6.5rem; color:var(--gold); line-height:1;
+  transition:opacity .5s ease, transform .5s ease;
+}
+.hero h2{ color:#fff; font-size:1.5rem; margin:6px 0 8px; }
+.hero p{ color:#D8DAEC; margin:0; font-size:.95rem; max-width:440px; margin:0 auto; line-height:1.5; }
+@media(prefers-reduced-motion: reduce){ .hero-niche .letter{ transition:none; } }
+
+/* ---------- Nav pills ---------- */
+.nav-pills{
+  display:flex; gap:8px; overflow-x:auto; padding:14px 20px 0; max-width:1000px; margin:0 auto;
+  scrollbar-width:none;
+}
+.nav-pills::-webkit-scrollbar{ display:none; }
+.nav-pill{
+  flex-shrink:0; padding:9px 16px; border-radius:999px; font-weight:700; font-size:.85rem;
+  border:2px solid var(--line); background:var(--card); color:var(--muted); white-space:nowrap;
+}
+.nav-pill.active{ background:var(--emerald); border-color:var(--emerald); color:#fff; }
+.nav-pill:hover:not(.active){ border-color:var(--gold); color:var(--ink); }
+
+.content{ padding:22px 20px 0; }
+
+/* ---------- Mode grid (home) ---------- */
+.mode-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+@media(max-width:560px){ .mode-grid{ grid-template-columns:1fr; } }
+.mode-card{
+  background:var(--card); padding:22px 20px 20px; border:2px solid var(--line);
+  text-align:left; box-shadow:0 4px 0 var(--line); transition:transform .15s ease, box-shadow .15s ease;
+}
+.mode-card:hover{ transform:translateY(-3px); box-shadow:0 7px 0 var(--line); }
+.mode-card .icon{
+  width:52px; height:56px; display:flex; align-items:center; justify-content:center;
+  font-size:1.5rem; margin-bottom:10px; background:var(--paper);
+  border-radius:40px 40px 8px 8px / 24px 24px 8px 8px; border:2px solid var(--line);
+}
+.mode-card h3{ margin:0 0 6px; font-size:1.08rem; }
+.mode-card p{ margin:0; color:var(--muted); font-size:.85rem; line-height:1.45; }
+
+.info-note{
+  background:#FBF0DC; border:1px solid var(--gold); color:#7A5A12;
+  padding:13px 16px; font-size:.83rem; line-height:1.5; margin-top:22px;
+  border-radius:16px;
+}
+.info-note b{ color:#5A3F08; }
+
+/* ---------- Letters grid (learn) ---------- */
+.letters-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(92px,1fr)); gap:12px; }
+.letter-tile{
+  background:var(--card); border:2px solid var(--line); padding:16px 6px 10px; text-align:center;
+  box-shadow:0 3px 0 var(--line); transition:transform .12s ease;
+  border-radius:60px 60px 10px 10px / 34px 34px 10px 10px;
+}
+.letter-tile:hover{ transform:translateY(-2px); border-color:var(--gold); }
+.letter-tile .arabic{ font-size:2.1rem; color:var(--ink); display:block; }
+.letter-tile .fr{ font-size:.72rem; color:var(--muted); font-weight:700; margin-top:4px; }
+.letter-tile .dot{
+  width:7px; height:7px; border-radius:50%; background:var(--gold); margin:5px auto 0;
+  opacity:0; 
+}
+.letter-tile.seen .dot{ opacity:1; }
+
+/* ---------- Detail screen ---------- */
+.home-btn{
+  background:var(--card); border:2px solid var(--line); border-radius:14px;
+  padding:8px 12px; font-weight:700; color:var(--muted); font-size:.85rem;
+}
+.home-btn:hover{ color:var(--ink); border-color:var(--gold); }
+.detail-top{ display:flex; align-items:center; gap:14px; margin-bottom:22px; }
+.nav-arrows button{
+  width:38px; height:38px; border-radius:50%; background:var(--card); border:2px solid var(--line);
+  font-size:1.1rem; color:var(--ink);
+}
+.nav-arrows button:hover{ border-color:var(--gold); }
+.big-letter-frame{
+  flex-shrink:0; width:112px; height:118px; background:var(--night);
+  border:2px solid var(--gold); display:flex; align-items:center; justify-content:center;
+}
+.big-letter-frame .arabic{ font-size:3.4rem; color:var(--gold); }
+.names{ flex:1; min-width:0; }
+.names h2{ font-size:1.3rem; margin:0 0 2px; }
+.ar-name{ color:var(--muted); font-size:.82rem; }
+.word-example{
+  margin-top:10px; display:flex; align-items:center; gap:10px; background:var(--card);
+  border:2px solid var(--line); border-radius:14px; padding:10px 14px; width:fit-content;
+}
+.word-example .arabic{ font-size:1.5rem; }
+
+.section-card{
+  background:var(--card); border-radius:var(--radius); padding:22px; margin-bottom:18px; border:2px solid var(--line);
+}
+.section-card h3{ margin:0 0 6px; font-size:1.05rem; }
+.desc{ color:var(--muted); font-size:.85rem; margin-bottom:14px; }
+.forms-row{ display:flex; gap:10px; flex-wrap:wrap; }
+.form-chip{
+  flex:1; min-width:110px; background:var(--paper); border-radius:16px; padding:14px 10px; text-align:center;
+  border:2px solid var(--line);
+}
+.form-chip .lbl{ font-size:.72rem; color:var(--muted); font-weight:700; margin-bottom:6px; }
+.form-chip .arabic{ font-size:1.9rem; }
+.form-chip .na{ font-size:.75rem; color:var(--muted); font-style:italic; }
+
+.sounds-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(126px,1fr)); gap:10px; }
+.sound-chip{
+  background:var(--paper); border-radius:14px; padding:12px 8px; text-align:center; border:2px solid transparent;
+}
+.sound-chip .arabic{ font-size:1.7rem; display:block; }
+.sound-chip .lbl{ display:block; font-size:.74rem; font-weight:700; color:var(--ink); margin-top:2px; }
+.sound-chip .ph{ display:block; font-size:.68rem; color:var(--muted); margin-bottom:6px; }
+
+.play-btn{
+  background:var(--emerald); color:white; border-radius:10px; padding:6px 12px; font-size:.74rem; font-weight:700;
+}
+.play-btn:hover{ background:var(--emerald-dk); }
+.play-btn.big{ padding:11px 20px; font-size:.92rem; border-radius:14px; }
+.play-btn.gold{ background:var(--gold); color:#3a2a04; }
+.play-btn.gold:hover{ background:var(--gold-dk); color:#fff; }
+
+.tip-box{
+  background:#EAF3EF; border-radius:14px; padding:12px 14px; font-size:.85rem; color:#1F5346; margin-top:12px;
+}
+
+.btn{
+  background:var(--emerald); color:white; padding:12px 22px; border-radius:14px; font-weight:700; font-size:.92rem;
+}
+.btn:hover{ background:var(--emerald-dk); }
+.btn.ghost{ background:var(--card); color:var(--ink); border:2px solid var(--line); }
+.btn.ghost:hover{ border-color:var(--gold); }
+.btn.gold{ background:var(--gold); color:#3a2a04; }
+.btn.gold:hover{ background:var(--gold-dk); color:#fff; }
+.btn:disabled{ opacity:.4; cursor:not-allowed; }
+
+/* ---------- Laboratoire ---------- */
+.lab-display{
+  background:var(--night); border:2px solid var(--gold); padding:36px 20px; text-align:center; margin-bottom:20px;
+}
+.lab-display .arabic{ font-size:5.5rem; color:var(--gold); min-height:100px; display:flex; align-items:center; justify-content:center; }
+.seg{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+.seg button{
+  background:var(--paper); border:2px solid var(--line); border-radius:12px; padding:10px 4px; font-weight:700;
+  font-size:.82rem; color:var(--ink);
+}
+.seg button.active{ background:var(--emerald); border-color:var(--emerald); color:#fff; }
+.seg button:disabled{ opacity:.35; cursor:not-allowed; }
+.diac-grid{ display:flex; flex-wrap:wrap; gap:8px; }
+.diac-grid button{
+  background:var(--paper); border:2px solid var(--line); border-radius:12px; padding:10px 14px;
+  font-size:.82rem; font-weight:700; color:var(--ink);
+}
+.diac-grid button .arabic{ font-size:1.3rem; }
+.diac-grid button.active{ background:var(--gold); border-color:var(--gold); color:#3a2a04; }
+.lab-letters{ display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
+@media(max-width:480px){ .lab-letters{ grid-template-columns:repeat(5,1fr); } }
+.lab-letters button{
+  background:var(--card); border:2px solid var(--line); border-radius:10px; height:44px; font-size:1.4rem;
+  color:var(--ink);
+}
+.lab-letters button.active{ border-color:var(--gold); background:#FBF0DC; }
+
+/* ---------- Quiz ---------- */
+.quiz-progress{ height:10px; background:var(--line); border-radius:99px; overflow:hidden; margin-bottom:22px; }
+.quiz-progress div{ height:100%; background:var(--gold); transition:width .3s ease; }
+.quiz-stage{
+  background:var(--card); border-radius:var(--radius); padding:34px 20px; text-align:center; border:2px solid var(--line);
+}
+.quiz-stage .prompt{ font-weight:700; margin-bottom:16px; color:var(--muted); font-size:.92rem; }
+.big-arabic{ font-size:4.2rem; margin-bottom:18px; }
+.choices{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:6px; }
+@media(max-width:480px){ .choices{ grid-template-columns:1fr; } }
+.choice-btn{
+  background:var(--paper); border:2px solid var(--line); border-radius:14px; padding:14px; font-size:.95rem; font-weight:700;
+  color:var(--ink);
+}
+.choice-btn:hover{ border-color:var(--gold); }
+.choice-btn.correct{ background:#E1F3EA; border-color:var(--emerald); color:var(--emerald-dk); }
+.choice-btn.wrong{ background:#FBE4DF; border-color:var(--clay); color:#8E2E1C; }
+.choice-btn .arabic{ font-size:1.8rem; }
+.quiz-footer{ display:flex; justify-content:space-between; align-items:center; margin-top:20px; }
+.score-pill{
+  background:var(--card); border:2px solid var(--line); border-radius:999px; padding:8px 16px; font-weight:800; font-size:.85rem;
+}
+.result-card{
+  background:var(--card); border-radius:var(--radius); padding:40px 24px; text-align:center; border:2px solid var(--line);
+}
+.result-card .big-score{ font-family:'Baloo 2',sans-serif; font-size:3rem; color:var(--emerald); margin:6px 0 14px; }
+
+/* ---------- Memory ---------- */
+.memory-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+@media(max-width:480px){ .memory-grid{ grid-template-columns:repeat(3,1fr); } }
+.memo-card{
+  aspect-ratio:1; background:var(--night); border-radius:14px; display:flex; align-items:center; justify-content:center;
+  color:var(--gold); font-size:1.6rem; text-align:center; padding:4px; border:2px solid var(--gold);
+}
+.memo-card.hidden-face{ background:var(--card); color:transparent; border-color:var(--line); }
+.memo-card.hidden-face::after{ content:'✦'; color:var(--gold); font-size:1.3rem; }
+.memo-card.matched{ opacity:.35; }
+.memo-card .sub{ font-size:.55rem; color:#D8DAEC; margin-top:2px; }
+.memory-meta{ display:flex; justify-content:space-between; margin-bottom:14px; font-weight:700; color:var(--muted); font-size:.85rem; }
+
+/* ---------- Toasts ---------- */
+#toast-wrap{ position:fixed; top:16px; left:50%; transform:translateX(-50%); z-index:9999; display:flex; flex-direction:column; gap:8px; }
+.toast{ background:var(--ink); color:#fff; padding:10px 18px; border-radius:999px; font-size:.85rem; font-weight:700; box-shadow:0 4px 14px rgba(0,0,0,.25); }
+</style>
+</head>
+<body>
+<div id="toast-wrap"></div>
+<div id="app"></div>
+
+<a href="index.html" title="Retour au menu principal" style="position:fixed;bottom:16px;right:16px;z-index:99999;background:#1B2140;color:#ffffff;padding:10px 16px;border-radius:999px;font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.3);display:inline-flex;align-items:center;gap:6px;">⬅️ Menu principal</a>
+
+<script>
+/* ======================= DONNÉES ======================= */
+const LETTERS = [
+{id:'alif', char:'ا', nameFr:'Alif', nameAr:'أَلِف', connects:false, word:'أَسَد', wordFr:'lion', tip:'Une petite attaque douce du son, comme un souffle avant la voyelle.'},
+{id:'ba', char:'ب', nameFr:'Bâ', nameAr:'بَاء', connects:true, word:'بَاب', wordFr:'porte', tip:'Comme le B français : les lèvres se ferment puis se relâchent.'},
+{id:'ta', char:'ت', nameFr:'Tâ', nameAr:'تَاء', connects:true, word:'تُفَّاح', wordFr:'pomme', tip:'Comme le T français, le bout de la langue touche derrière les dents.'},
+{id:'tha', char:'ث', nameFr:'Thâ', nameAr:'ثَاء', connects:true, word:'ثَعْلَب', wordFr:'renard', tip:'La langue se glisse entre les dents, comme le "th" anglais de "think".'},
+{id:'jim', char:'ج', nameFr:'Jîm', nameAr:'جِيم', connects:true, word:'جَمَل', wordFr:'chameau', tip:'Comme le J français de "jardin".'},
+{id:'ha1', char:'ح', nameFr:'Hâ', nameAr:'حَاء', connects:true, word:'حِصَان', wordFr:'cheval', tip:'Un souffle chaud venant du fond de la gorge, sans faire vibrer la gorge.'},
+{id:'kha', char:'خ', nameFr:'Khâ', nameAr:'خَاء', connects:true, word:'خُبْز', wordFr:'pain', tip:'Comme la "jota" espagnole : un raclement doux au fond de la gorge.'},
+{id:'dal', char:'د', nameFr:'Dâl', nameAr:'دَال', connects:false, word:'دُبّ', wordFr:'ours', tip:'Comme le D français, mais bref et sec.'},
+{id:'dhal', char:'ذ', nameFr:'Dhâl', nameAr:'ذَال', connects:false, word:'ذِئْب', wordFr:'loup', tip:'La langue entre les dents, comme le "th" anglais de "this".'},
+{id:'ra', char:'ر', nameFr:'Râ', nameAr:'رَاء', connects:false, word:'نَهْر', wordFr:'rivière', tip:'Un R roulé, comme en espagnol ou en italien.'},
+{id:'zay', char:'ز', nameFr:'Zây', nameAr:'زَاي', connects:false, word:'زَرَافَة', wordFr:'girafe', tip:'Comme le Z français de "zèbre".'},
+{id:'sin', char:'س', nameFr:'Sîn', nameAr:'سِين', connects:true, word:'سَمَك', wordFr:'poisson', tip:'Comme le S français de "soleil".'},
+{id:'shin', char:'ش', nameFr:'Shîn', nameAr:'شِين', connects:true, word:'شَمْس', wordFr:'soleil', tip:'Comme le CH français de "chat".'},
+{id:'sad', char:'ص', nameFr:'Sâd', nameAr:'صَاد', connects:true, word:'صَقْر', wordFr:'faucon', tip:'Un S épais et emphatique, la bouche plus arrondie.'},
+{id:'dad', char:'ض', nameFr:'Dâd', nameAr:'ضَاد', connects:true, word:'ضِفْدَع', wordFr:'grenouille', tip:'Un D épais et emphatique, la langue large contre le palais.'},
+{id:'ta2', char:'ط', nameFr:'Tâ emphatique', nameAr:'طَاء', connects:true, word:'طَائِر', wordFr:'oiseau', tip:'Un T épais et emphatique, la bouche arrondie.'},
+{id:'dha', char:'ظ', nameFr:'Dhâ emphatique', nameAr:'ظَاء', connects:true, word:'ظِل', wordFr:'ombre', tip:'Un "th" anglais épais et emphatique.'},
+{id:'ain', char:'ع', nameFr:'Ayn', nameAr:'عَيْن', connects:true, word:'عَيْن', wordFr:'œil', tip:"Un son de gorge unique : on resserre doucement la gorge en poussant l'air."},
+{id:'ghain', char:'غ', nameFr:'Ghayn', nameAr:'غَيْن', connects:true, word:'غَزَال', wordFr:'gazelle', tip:'Comme un R français grasseyé, venant du fond de la gorge.'},
+{id:'fa', char:'ف', nameFr:'Fâ', nameAr:'فَاء', connects:true, word:'فِيل', wordFr:'éléphant', tip:'Comme le F français de "fleur".'},
+{id:'qaf', char:'ق', nameFr:'Qâf', nameAr:'قَاف', connects:true, word:'قَمَر', wordFr:'lune', tip:'Un K profond, prononcé tout au fond de la gorge.'},
+{id:'kaf', char:'ك', nameFr:'Kâf', nameAr:'كَاف', connects:true, word:'كَلْب', wordFr:'chien', tip:'Comme le K français de "kilo".'},
+{id:'lam', char:'ل', nameFr:'Lâm', nameAr:'لَام', connects:true, word:'لَيْمُون', wordFr:'citron', tip:'Comme le L français de "lune".'},
+{id:'mim', char:'م', nameFr:'Mîm', nameAr:'مِيم', connects:true, word:'مَاء', wordFr:'eau', tip:'Comme le M français de "maman".'},
+{id:'nun', char:'ن', nameFr:'Nûn', nameAr:'نُون', connects:true, word:'نَجْمَة', wordFr:'étoile', tip:'Comme le N français de "nuit".'},
+{id:'ha2', char:'ه', nameFr:'Hâ douce', nameAr:'هَاء', connects:true, word:'هِلَال', wordFr:'croissant de lune', tip:'Un souffle doux, comme le H aspiré anglais de "house".'},
+{id:'waw', char:'و', nameFr:'Wâw', nameAr:'وَاو', connects:false, word:'وَرْدَة', wordFr:'rose', tip:'Comme le OU français, les lèvres bien arrondies.'},
+{id:'ya', char:'ي', nameFr:'Yâ', nameAr:'يَاء', connects:true, word:'يَد', wordFr:'main', tip:'Comme le Y français de "yaourt".'}
+];
+
+const TATWEEL = '\u0640';
+const DIACRITICS = [
+{id:'none', mark:'', label:'Aucune', ph:'(lettre seule)'},
+{id:'sukun', mark:'\u0652', label:'Soukoun', ph:'(pas de voyelle)'},
+{id:'fatha', mark:'\u064E', label:'Fatha', ph:'a'},
+{id:'kasra', mark:'\u0650', label:'Kasra', ph:'i'},
+{id:'damma', mark:'\u064F', label:'Damma', ph:'ou'},
+{id:'tanwin_fath', mark:'\u064B', label:'Tanwîn Fath', ph:'an'},
+{id:'tanwin_kasr', mark:'\u064D', label:'Tanwîn Kasr', ph:'in'},
+{id:'tanwin_damm', mark:'\u064C', label:'Tanwîn Damm', ph:'oun'},
+{id:'shadda', mark:'\u0651', label:'Chedda', ph:'lettre doublée'},
+{id:'shadda_fatha', mark:'\u0651\u064E', label:'Chedda+Fatha', ph:'double + a'},
+{id:'shadda_kasra', mark:'\u0651\u0650', label:'Chedda+Kasra', ph:'double + i'},
+{id:'shadda_damma', mark:'\u0651\u064F', label:'Chedda+Damma', ph:'double + ou'}
+];
+
+const POSITIONS = [
+{id:'isolated', label:'Isolée'},
+{id:'initial', label:'Début'},
+{id:'medial', label:'Milieu'},
+{id:'final', label:'Fin'}
+];
+
+/* ======================= HELPERS ======================= */
+function shapeFor(letter, posId){
+  const c = letter.char;
+  if(posId==='isolated') return c;
+  if(!letter.connects){
+    if(posId==='final') return TATWEEL + c;
+    return null;
+  }
+  if(posId==='initial') return c + TATWEEL;
+  if(posId==='medial') return TATWEEL + c + TATWEEL;
+  if(posId==='final') return TATWEEL + c;
+}
+function withDiacritic(shapeStr, letterChar, mark){ return shapeStr.replace(letterChar, letterChar+mark); }
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+function pick(arr,n){ return shuffle(arr).slice(0,n); }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
+/* ======================= AUDIO (pré-généré + repli) ======================= */
+const SUPPORTS_TTS = ('speechSynthesis' in window);
+let AUDIO_MANIFEST = {};
+fetch('audio/manifest.json').then(r=>r.ok?r.json():{}).then(m=>{AUDIO_MANIFEST=m;}).catch(()=>{});
+
+function toast(msg, ms){
+  const wrap = document.getElementById('toast-wrap');
+  if(!wrap) return;
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.textContent = msg;
+  wrap.appendChild(el);
+  setTimeout(()=>{ el.remove(); }, ms || 3200);
+}
+
+function speakBrowser(text){
+  if(!SUPPORTS_TTS) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ar-SA';
+  u.rate = 0.78;
+  speechSynthesis.speak(u);
+}
+function speakOnline(text){
+  try{
+    const url = 'https://translate.google.com/translate_tts?ie=UTF-8&q=' + encodeURIComponent(text) + '&tl=ar&client=tw-ob';
+    const audio = new Audio(url);
+    audio.play().catch(()=> speakBrowser(text));
+  }catch(e){ speakBrowser(text); }
+}
+function speak(text){
+  const clean = text.replace(/\u0640/g, '');
+  const filename = AUDIO_MANIFEST[clean];
+  if(filename){
+    const audio = new Audio('audio/' + filename);
+    audio.play().catch(()=> speakOnline(text));
+    return;
+  }
+  speakOnline(text);
+}
+
+/* ======================= PROGRESSION ======================= */
+const STORE_KEY = 'huruf_arabic_mega_v1';
+function loadProgress(){
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY)) || {stars:{}}; }
+  catch(e){ return {stars:{}}; }
+}
+function saveProgress(p){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(p)); }catch(e){} }
+let progress = loadProgress();
+function totalStars(){ return Object.values(progress.stars).reduce((a,b)=>a+b,0); }
+function markLetterSeen(id){ progress.stars[id] = 1; saveProgress(progress); }
+
+/* ======================= APP / ROUTER ======================= */
+const App = {
+  screen:'home',
+  letterIdx:0,
+  quiz:null,
+  memory:null,
+  lab:{letterIdx:1, pos:'isolated', diacId:'fatha'},
+
+  go(screen, params){
+    this.screen = screen;
+    if(params) Object.assign(this, params);
+    render();
+    window.scrollTo({top:0, behavior:'smooth'});
+  },
+
+  openLetter(idx){ markLetterSeen(LETTERS[idx].id); this.go('detail', {letterIdx:idx}); },
+  prevLetter(){ this.openLetter((this.letterIdx-1+LETTERS.length)%LETTERS.length); },
+  nextLetter(){ this.openLetter((this.letterIdx+1)%LETTERS.length); },
+  playSound(text){ speak(text); },
+
+  /* ---- Laboratoire ---- */
+  labSetLetter(idx){ this.lab.letterIdx = idx; render(); },
+  labSetPos(pos){ this.lab.pos = pos; render(); },
+  labSetDiac(id){ this.lab.diacId = id; render(); },
+  labPlay(){
+    const letter = LETTERS[this.lab.letterIdx];
+    const diac = DIACRITICS.find(d=>d.id===this.lab.diacId);
+    speak(letter.char + diac.mark);
+  },
+
+  /* ---- Quiz: Formes ---- */
+  startQuizShapes(){
+    const questions = pick(LETTERS, 10).map(letter=>{
+      const applicablePos = POSITIONS.filter(p => letter.connects || p.id==='isolated' || p.id==='final');
+      const pos = applicablePos[Math.floor(Math.random()*applicablePos.length)];
+      const shape = shapeFor(letter, pos.id);
+      const distractors = pick(LETTERS.filter(l=>l.id!==letter.id), 3).map(l=>l.nameFr);
+      const choices = shuffle([letter.nameFr, ...distractors]);
+      return {shape, posLabel:pos.label, answer:letter.nameFr, choices};
+    });
+    this.quiz = {type:'shapes', questions, i:0, score:0, answered:false};
+    this.go('quizShapes');
+  },
+  answerQuizShapes(choice){
+    const q = this.quiz.questions[this.quiz.i];
+    if(this.quiz.answered) return;
+    this.quiz.answered = choice;
+    if(choice === q.answer) this.quiz.score++;
+    render();
+  },
+  nextQuizShapes(){
+    if(this.quiz.i < this.quiz.questions.length-1){ this.quiz.i++; this.quiz.answered=false; render(); }
+    else { this.go('quizResult', {}); }
+  },
+
+  /* ---- Quiz: À l'écoute (audio d'abord) ---- */
+  startQuizListen(){
+    const questions = [];
+    for(let k=0;k<8;k++){
+      const letter = LETTERS[Math.floor(Math.random()*LETTERS.length)];
+      const diac = DIACRITICS[Math.floor(Math.random()*DIACRITICS.length)];
+      const text = letter.char + diac.mark;
+      const answerShape = letter.char + diac.mark;
+      const distractors = [];
+      while(distractors.length < 2){
+        const l2 = LETTERS[Math.floor(Math.random()*LETTERS.length)];
+        const d2 = DIACRITICS[Math.floor(Math.random()*DIACRITICS.length)];
+        const s2 = l2.char + d2.mark;
+        if(s2 !== answerShape && !distractors.includes(s2)) distractors.push(s2);
+      }
+      const choices = shuffle([answerShape, ...distractors]);
+      questions.push({text, answer:answerShape, choices});
+    }
+    this.quiz = {type:'listen', questions, i:0, score:0, answered:false};
+    this.go('quizListen');
+    setTimeout(()=> speak(questions[0].text), 400);
+  },
+  answerQuizListen(choice){
+    const q = this.quiz.questions[this.quiz.i];
+    if(this.quiz.answered) return;
+    this.quiz.answered = choice;
+    if(choice === q.answer) this.quiz.score++;
+    render();
+  },
+  nextQuizListen(){
+    if(this.quiz.i < this.quiz.questions.length-1){
+      this.quiz.i++; this.quiz.answered=false; render();
+      setTimeout(()=> speak(this.quiz.questions[this.quiz.i].text), 350);
+    } else { this.go('quizResult', {}); }
+  },
+  replayListen(){ speak(this.quiz.questions[this.quiz.i].text); },
+
+  /* ---- Mémoire ---- */
+  startMemory(){
+    const chosen = pick(LETTERS, 6);
+    let cards = [];
+    chosen.forEach((l, idx)=>{
+      cards.push({pairId:idx, kind:'letter', display:l.char, sub:l.nameFr, speak:l.char});
+      cards.push({pairId:idx, kind:'word', display:l.word, sub:l.wordFr, speak:l.word});
+    });
+    cards = shuffle(cards).map((c,i)=>({...c, cardId:i, flipped:false, matched:false}));
+    this.memory = {cards, flippedIds:[], moves:0, matches:0, total:chosen.length, lock:false};
+    this.go('memory');
+  },
+  flipCard(cardId){
+    const m = this.memory;
+    if(m.lock) return;
+    const card = m.cards.find(c=>c.cardId===cardId);
+    if(!card || card.flipped || card.matched) return;
+    card.flipped = true;
+    speak(card.speak);
+    m.flippedIds.push(cardId);
+    if(m.flippedIds.length===2){
+      m.moves++;
+      const [a,b] = m.flippedIds.map(id=>m.cards.find(c=>c.cardId===id));
+      if(a.pairId===b.pairId){
+        a.matched=true; b.matched=true; m.matches++;
+        m.flippedIds=[];
+      } else {
+        m.lock=true;
+        setTimeout(()=>{ a.flipped=false; b.flipped=false; m.flippedIds=[]; m.lock=false; render(); }, 800);
+      }
+    }
+    render();
+  },
+
+  chooseVoice(){}
+};
+
+/* ======================= RENDER ======================= */
+function render(){
+  const app = document.getElementById('app');
+  app.innerHTML = header() + body();
+  window.App = App;
+}
+
+function header(){
+  return `
+  <div class="hero lattice">
+    <div class="topbar" style="padding:0 0 22px;">
+      <div class="brand">
+        <span class="mark">ح</span>
+        <div><h1 style="color:#fff;">حروفي</h1><div class="sub" style="color:#B9BEDA;">L'Atelier des Lettres</div></div>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <div class="stars-badge">✦ ${totalStars()}/28</div>
+        <a href="index.html" class="home-btn" style="text-decoration:none; background:rgba(255,255,255,.08); color:#fff; border-color:rgba(200,149,47,.5);">Menu</a>
+      </div>
+    </div>
+    <div class="hero-inner">
+      <div class="hero-niche arch"><span class="letter arabic" id="hero-letter">${LETTERS[Math.floor(Math.random()*LETTERS.length)].char}</span></div>
+      <h2>Apprends les 28 lettres arabes en t'amusant</h2>
+      <p>Formes, voyelles, sons, quiz et jeu de mémoire — tout au même endroit.</p>
+    </div>
+  </div>
+  <div class="nav-pills">
+    ${navPill('home','🏠 Accueil')}
+    ${navPill('learn','📖 Apprendre')}
+    ${navPill('lab','🧪 Laboratoire')}
+    ${navPill('quizShapes','🔤 Quiz des formes', ['detail'])}
+    ${navPill('quizListen','👂 Quiz à l\u2019écoute')}
+    ${navPill('memory','🧠 Mémoire')}
+  </div>
+  `;
+}
+function navPill(target, label){
+  const activeSet = {
+    home:['home'], learn:['learn','detail'], lab:['lab'],
+    quizShapes:['quizShapes'], quizListen:['quizListen'], memory:['memory']
+  };
+  const isActive = (activeSet[target]||[target]).includes(App.screen) || (target==='quizShapes' && App.screen==='quizShapes') ;
+  const action = target==='learn' ? "App.go('learn')" :
+                 target==='lab' ? "App.go('lab')" :
+                 target==='quizShapes' ? "App.startQuizShapes()" :
+                 target==='quizListen' ? "App.startQuizListen()" :
+                 target==='memory' ? "App.startMemory()" : "App.go('home')";
+  return `<button class="nav-pill ${isActive?'active':''}" onclick="${action}">${label}</button>`;
+}
+
+function body(){
+  switch(App.screen){
+    case 'home': return `<div class="content">${screenHome()}</div>`;
+    case 'learn': return `<div class="content">${screenLearn()}</div>`;
+    case 'detail': return `<div class="content">${screenDetail()}</div>`;
+    case 'lab': return `<div class="content">${screenLab()}</div>`;
+    case 'quizShapes': return `<div class="content">${screenQuizShapes()}</div>`;
+    case 'quizListen': return `<div class="content">${screenQuizListen()}</div>`;
+    case 'quizResult': return `<div class="content">${screenQuizResult()}</div>`;
+    case 'memory': return `<div class="content">${screenMemory()}</div>`;
+    default: return '';
+  }
+}
+
+function screenHome(){
+  return `
+  <div class="mode-grid">
+    <div class="mode-card" onclick="App.go('learn')" style="cursor:pointer;">
+      <div class="icon">📖</div>
+      <h3>Apprendre</h3>
+      <p>Explore chaque lettre : ses 4 formes, ses 12 sons possibles et un mot d'exemple illustré.</p>
+    </div>
+    <div class="mode-card" onclick="App.go('lab')" style="cursor:pointer;">
+      <div class="icon">🧪</div>
+      <h3>Laboratoire</h3>
+      <p>Compose toi-même une lettre : choisis sa position dans le mot et sa voyelle, puis écoute le résultat.</p>
+    </div>
+    <div class="mode-card" onclick="App.startQuizShapes()" style="cursor:pointer;">
+      <div class="icon">🔤</div>
+      <h3>Quiz des formes</h3>
+      <p>Une forme s'affiche : à toi de reconnaître quelle lettre se cache derrière.</p>
+    </div>
+    <div class="mode-card" onclick="App.startQuizListen()" style="cursor:pointer;">
+      <div class="icon">👂</div>
+      <h3>Quiz à l'écoute</h3>
+      <p>Écoute le son, puis retrouve la bonne lettre parmi 3 propositions. Entraîne ton oreille !</p>
+    </div>
+    <div class="mode-card" onclick="App.startMemory()" style="cursor:pointer;">
+      <div class="icon">🧠</div>
+      <h3>Mémoire</h3>
+      <p>Retrouve les paires lettre / mot dans ce jeu de mémoire classique, en arabe.</p>
+    </div>
+  </div>
+  <div class="info-note">
+    🔊 <b>Le son vient de fichiers audio pré-enregistrés</b> (dossier <code>audio/</code>). S'ils ne sont pas encore en place, l'appli se replie automatiquement sur une voix en ligne, puis sur la voix de ton navigateur.
+  </div>
+  `;
+}
+
+function screenLearn(){
+  return `
+  <h2 style="margin:0 0 4px;">Les 28 lettres</h2>
+  <p style="color:var(--muted); margin:0 0 18px; font-size:.9rem;">Touche une lettre pour découvrir toutes ses formes et tous ses sons.</p>
+  <div class="letters-grid">
+    ${LETTERS.map((l,i)=>`
+      <button class="letter-tile ${progress.stars[l.id]?'seen':''}" onclick="App.openLetter(${i})">
+        <span class="arabic">${l.char}</span>
+        <span class="fr">${l.nameFr}</span>
+        <span class="dot"></span>
+      </button>
+    `).join('')}
+  </div>
+  `;
+}
+
+function screenDetail(){
+  const letter = LETTERS[App.letterIdx];
+  const posForms = POSITIONS.map(p=>({label:p.label, shape:shapeFor(letter,p.id)}));
+  return `
+  <div class="detail-top">
+    <div class="nav-arrows"><button onclick="App.prevLetter()">◀</button></div>
+    <div class="big-letter-frame arch-sm"><span class="arabic">${letter.char}</span></div>
+    <div class="names">
+      <h2>${letter.nameFr} <span class="arabic" style="font-size:.75em;">— ${letter.nameAr}</span></h2>
+      <div class="ar-name">Lettre ${App.letterIdx+1} / ${LETTERS.length}${!letter.connects ? ' · ne se lie jamais vers la lettre suivante' : ''}</div>
+      <div class="word-example">
+        <span class="arabic">${letter.word}</span> = ${letter.wordFr}
+        <button class="play-btn" onclick="App.playSound('${esc(letter.word)}')">🔊</button>
+      </div>
+    </div>
+    <div class="nav-arrows"><button onclick="App.nextLetter()">▶</button></div>
+  </div>
+
+  <div class="section-card">
+    <h3>✏️ Les formes de la lettre</h3>
+    <div class="desc">Selon sa position dans le mot, une lettre change de forme — mais reste la même lettre !</div>
+    <div class="forms-row">
+      ${posForms.map(p=>`
+        <div class="form-chip">
+          <div class="lbl">${p.label}</div>
+          ${p.shape ? `<span class="arabic">${p.shape}</span>` : `<div class="na">— n'existe pas —</div>`}
+        </div>
+      `).join('')}
+    </div>
+    ${!letter.connects ? `<div class="tip-box">🔗 Cette lettre ne s'attache jamais à la lettre suivante. Elle n'a donc que 2 apparences : seule (ou en début de mot) et attachée à ce qui précède (au milieu ou à la fin).</div>` : ''}
+  </div>
+
+  <div class="section-card">
+    <h3>🔊 Les sons de la lettre</h3>
+    <div class="desc">Touche chaque bulle pour entendre la lettre avec sa voyelle (diacritique).</div>
+    <div class="sounds-grid">
+      ${DIACRITICS.map(d=>{
+        const shape = letter.char + d.mark;
+        return `
+        <div class="sound-chip">
+          <span class="arabic">${shape}</span>
+          <span class="lbl">${d.label}</span>
+          <span class="ph">${d.ph}</span>
+          <button class="play-btn" onclick="App.playSound('${esc(shape)}')">🔊 Écouter</button>
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="tip-box">🗣️ Comment prononcer : ${letter.tip}</div>
+  </div>
+
+  <div style="display:flex; justify-content:center; gap:12px; margin-bottom:20px;">
+    <button class="btn ghost" onclick="App.go('learn')">← Retour aux lettres</button>
+    <button class="btn gold" onclick="App.nextLetter()">Lettre suivante →</button>
+  </div>
+  `;
+}
+
+function screenLab(){
+  const letter = LETTERS[App.lab.letterIdx];
+  const diac = DIACRITICS.find(d=>d.id===App.lab.diacId);
+  const baseShape = shapeFor(letter, App.lab.pos);
+  const display = baseShape ? withDiacritic(baseShape, letter.char, diac.mark) : '—';
+
+  return `
+  <h2 style="margin:0 0 4px;">🧪 Laboratoire</h2>
+  <p style="color:var(--muted); margin:0 0 18px; font-size:.9rem;">Compose une lettre toi-même : choisis sa position, sa voyelle, puis écoute.</p>
+
+  <div class="lab-display arch">
+    <span class="arabic">${baseShape ? display : ''}</span>
+  </div>
+  ${!baseShape ? `<div class="info-note" style="margin-top:-10px; margin-bottom:18px;">Cette forme n'existe pas : "${letter.nameFr}" ne se lie pas à la lettre suivante.</div>` : ''}
+  <div style="text-align:center; margin-bottom:22px;">
+    <button class="btn gold" onclick="App.labPlay()">🔊 Écouter</button>
+  </div>
+
+  <div class="section-card">
+    <h3 style="font-size:.9rem; text-transform:uppercase; letter-spacing:.03em;">1. Position dans le mot</h3>
+    <div class="seg">
+      ${POSITIONS.map(p=>{
+        const valid = shapeFor(letter,p.id) !== null;
+        return `<button class="${App.lab.pos===p.id?'active':''}" ${valid?'':'disabled'} onclick="App.labSetPos('${p.id}')">${p.label}</button>`;
+      }).join('')}
+    </div>
+  </div>
+
+  <div class="section-card">
+    <h3 style="font-size:.9rem; text-transform:uppercase; letter-spacing:.03em;">2. Voyelle (Harakat)</h3>
+    <div class="diac-grid">
+      ${DIACRITICS.map(d=>`
+        <button class="${App.lab.diacId===d.id?'active':''}" onclick="App.labSetDiac('${d.id}')">
+          ${d.mark ? `<span class="arabic">${letter.char}${d.mark}</span>` : d.label}
+        </button>
+      `).join('')}
+    </div>
+  </div>
+
+  <div class="section-card">
+    <h3 style="font-size:.9rem; text-transform:uppercase; letter-spacing:.03em;">3. Lettre</h3>
+    <div class="lab-letters">
+      ${LETTERS.map((l,i)=>`<button class="${App.lab.letterIdx===i?'active':''}" onclick="App.labSetLetter(${i})">${l.char}</button>`).join('')}
+    </div>
+  </div>
+  `;
+}
+
+function quizHeader(title, q, total, score){
+  return `
+  <h2 style="margin:6px 0 14px;">${title}</h2>
+  <div class="quiz-progress"><div style="width:${(q/total)*100}%"></div></div>
+  `;
+}
+
+function screenQuizShapes(){
+  const quiz = App.quiz;
+  const q = quiz.questions[quiz.i];
+  return `
+  ${quizHeader('🔤 Quiz des formes', quiz.i, quiz.questions.length, quiz.score)}
+  <div class="quiz-stage">
+    <div class="prompt">Position : ${q.posLabel} — Quelle lettre est-ce ?</div>
+    <div class="big-arabic arabic">${q.shape}</div>
+    <div class="choices">
+      ${q.choices.map(c=>{
+        let cls='choice-btn';
+        if(quiz.answered){
+          if(c===q.answer) cls+=' correct';
+          else if(c===quiz.answered) cls+=' wrong';
+        }
+        return `<button class="${cls}" ${quiz.answered?'disabled':''} onclick="App.answerQuizShapes('${esc(c)}')">${c}</button>`;
+      }).join('')}
+    </div>
+  </div>
+  <div class="quiz-footer">
+    <div class="score-pill">Score : ${quiz.score}/${quiz.questions.length}</div>
+    <button class="btn" ${quiz.answered?'':'disabled'} onclick="App.nextQuizShapes()">${quiz.i<quiz.questions.length-1?'Suivant →':'Voir mon résultat →'}</button>
+  </div>
+  `;
+}
+
+function screenQuizListen(){
+  const quiz = App.quiz;
+  const q = quiz.questions[quiz.i];
+  return `
+  ${quizHeader("👂 Quiz à l'écoute", quiz.i, quiz.questions.length, quiz.score)}
+  <div class="quiz-stage">
+    <div class="prompt">Écoute bien, puis choisis la bonne lettre</div>
+    <button class="play-btn big gold" onclick="App.replayListen()" style="margin-bottom:24px;">🔊 Réécouter</button>
+    <div class="choices">
+      ${q.choices.map(c=>{
+        let cls='choice-btn';
+        if(quiz.answered){
+          if(c===q.answer) cls+=' correct';
+          else if(c===quiz.answered) cls+=' wrong';
+        }
+        return `<button class="${cls}" ${quiz.answered?'disabled':''} onclick="App.answerQuizListen('${esc(c)}')"><span class="arabic">${c}</span></button>`;
+      }).join('')}
+    </div>
+  </div>
+  <div class="quiz-footer">
+    <div class="score-pill">Score : ${quiz.score}/${quiz.questions.length}</div>
+    <button class="btn" ${quiz.answered?'':'disabled'} onclick="App.nextQuizListen()">${quiz.i<quiz.questions.length-1?'Suivant →':'Voir mon résultat →'}</button>
+  </div>
+  `;
+}
+
+function screenQuizResult(){
+  const quiz = App.quiz;
+  const pct = Math.round((quiz.score/quiz.questions.length)*100);
+  const msg = pct>=80 ? 'Excellent ! ما شاء الله' : pct>=50 ? 'Bien joué, continue à t\u2019entraîner !' : 'Bon début — réessaie pour progresser !';
+  const restart = quiz.type==='shapes' ? "App.startQuizShapes()" : "App.startQuizListen()";
+  return `
+  <div class="result-card">
+    <div style="font-size:2.2rem;">${pct>=80?'🏆':pct>=50?'⭐':'🌱'}</div>
+    <div class="big-score">${quiz.score}/${quiz.questions.length}</div>
+    <p style="color:var(--muted);">${msg}</p>
+    <div style="display:flex; gap:12px; justify-content:center; margin-top:20px; flex-wrap:wrap;">
+      <button class="btn gold" onclick="${restart}">🔁 Rejouer</button>
+      <button class="btn ghost" onclick="App.go('home')">🏠 Accueil</button>
+    </div>
+  </div>
+  `;
+}
+
+function screenMemory(){
+  const m = App.memory;
+  const done = m.matches === m.total;
+  return `
+  <h2 style="margin:0 0 14px;">🧠 Jeu de mémoire</h2>
+  <div class="memory-meta">
+    <span>Coups : ${m.moves}</span>
+    <span>Paires trouvées : ${m.matches}/${m.total}</span>
+  </div>
+  <div class="memory-grid">
+    ${m.cards.map(c=>{
+      const show = c.flipped || c.matched;
+      const cls = `memo-card ${!show?'hidden-face':''} ${c.matched?'matched':''}`;
+      return `<button class="${cls}" onclick="App.flipCard(${c.cardId})">
+        ${show ? `<div><div class="arabic" style="font-size:${c.kind==='word'?'1.1rem':'1.8rem'};">${c.display}</div><div class="sub">${c.sub}</div></div>` : ''}
+      </button>`;
+    }).join('')}
+  </div>
+  ${done ? `
+    <div class="result-card" style="margin-top:24px;">
+      <div style="font-size:2.2rem;">🎉</div>
+      <p style="color:var(--muted);">Bravo, toutes les paires sont trouvées en ${m.moves} coups !</p>
+      <div style="display:flex; gap:12px; justify-content:center; margin-top:16px; flex-wrap:wrap;">
+        <button class="btn gold" onclick="App.startMemory()">🔁 Nouvelle partie</button>
+        <button class="btn ghost" onclick="App.go('home')">🏠 Accueil</button>
+      </div>
+    </div>` : ''}
+  `;
+}
+
+/* ======================= DÉMARRAGE ======================= */
+render();
+
+/* Rotation douce de la lettre héro (respecte prefers-reduced-motion) */
+const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!reduceMotion){
+  setInterval(()=>{
+    const el = document.getElementById('hero-letter');
+    if(!el) return;
+    el.style.opacity = 0;
+    setTimeout(()=>{
+      el.textContent = LETTERS[Math.floor(Math.random()*LETTERS.length)].char;
+      el.style.opacity = 1;
+    }, 400);
+  }, 3200);
+}
+</script>
+</body>
+</html>
