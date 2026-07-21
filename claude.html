@@ -392,18 +392,31 @@ function speakOnline(text){
   }
 }
 
-/* ---- Audio pré-généré (prioritaire) : voir generer_audio.py / dossier audio/ ---- */
+/* ---- Audio pré-généré (prioritaire), dossier sélectionnable : voir generer_audio.py ---- */
+const VOICE_KEY = 'huruf_voice_dir';
+const VOICE_OPTIONS = ['audio1','audio2','audio3','audio4','audio5'];
+function getVoiceDir(){
+  const saved = localStorage.getItem(VOICE_KEY);
+  return VOICE_OPTIONS.includes(saved) ? saved : 'audio1';
+}
 let AUDIO_MANIFEST = {};
-fetch('audio/manifest.json')
-  .then(r => r.ok ? r.json() : {})
-  .then(m => { AUDIO_MANIFEST = m; })
-  .catch(() => {});
+function loadManifest(){
+  return fetch(getVoiceDir() + '/manifest.json')
+    .then(r => r.ok ? r.json() : {})
+    .then(m => { AUDIO_MANIFEST = m; })
+    .catch(() => { AUDIO_MANIFEST = {}; });
+}
+function setVoiceDir(dir){
+  localStorage.setItem(VOICE_KEY, dir);
+  loadManifest().then(()=>{ toast('🎙️ Voix changée : ' + dir.replace('audio','Voix ')); render(); });
+}
+loadManifest();
 
 function speakPreRecorded(text){
   const clean = text.replace(/\u0640/g, ''); // enlève les tatwîl (tirets d'allongement)
   const filename = AUDIO_MANIFEST[clean];
   if(!filename) return false;
-  const audio = new Audio('audio/' + filename);
+  const audio = new Audio(getVoiceDir() + '/' + filename);
   audio.play().catch(()=> speakFallback(text));
   return true;
 }
@@ -560,6 +573,12 @@ function header(){
       </div>
     </div>
     <div style="display:flex; gap:10px; align-items:center;">
+      <label style="display:flex; align-items:center; gap:6px; font-size:.82rem; font-weight:700; color:var(--muted); background:var(--card); border:2px solid var(--line); border-radius:12px; padding:6px 10px;">
+        🎙️
+        <select onchange="setVoiceDir(this.value)" style="border:none; background:transparent; font-weight:700; font-size:.82rem; color:var(--ink);">
+          ${VOICE_OPTIONS.map((v,i)=>`<option value="${v}" ${getVoiceDir()===v?'selected':''}>Voix ${i+1}</option>`).join('')}
+        </select>
+      </label>
       <div class="stars-badge">⭐ ${totalStars()}/${LETTERS.length}</div>
       ${App.screen!=='home' ? `<button class="home-btn" onclick="App.go('home')">🏠 Accueil</button>` : ''}
     </div>

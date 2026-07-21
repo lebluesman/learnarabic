@@ -373,8 +373,21 @@ function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').rep
 
 /* ======================= AUDIO (pré-généré + repli) ======================= */
 const SUPPORTS_TTS = ('speechSynthesis' in window);
+const VOICE_KEY = 'huruf_voice_dir';
+const VOICE_OPTIONS = ['audio1','audio2','audio3','audio4','audio5'];
+function getVoiceDir(){
+  const saved = localStorage.getItem(VOICE_KEY);
+  return VOICE_OPTIONS.includes(saved) ? saved : 'audio1';
+}
 let AUDIO_MANIFEST = {};
-fetch('audio/manifest.json').then(r=>r.ok?r.json():{}).then(m=>{AUDIO_MANIFEST=m;}).catch(()=>{});
+function loadManifest(){
+  return fetch(getVoiceDir() + '/manifest.json').then(r=>r.ok?r.json():{}).then(m=>{AUDIO_MANIFEST=m;}).catch(()=>{AUDIO_MANIFEST={};});
+}
+function setVoiceDir(dir){
+  localStorage.setItem(VOICE_KEY, dir);
+  loadManifest().then(()=>{ toast('🎙️ Voix changée : ' + dir.replace('audio','Voix ')); render(); });
+}
+loadManifest();
 
 function toast(msg, ms){
   const wrap = document.getElementById('toast-wrap');
@@ -405,7 +418,7 @@ function speak(text){
   const clean = text.replace(/\u0640/g, '');
   const filename = AUDIO_MANIFEST[clean];
   if(filename){
-    const audio = new Audio('audio/' + filename);
+    const audio = new Audio(getVoiceDir() + '/' + filename);
     audio.play().catch(()=> speakOnline(text));
     return;
   }
@@ -567,7 +580,13 @@ function header(){
         <span class="mark">ح</span>
         <div><h1 style="color:#fff;">حروفي</h1><div class="sub" style="color:#B9BEDA;">L'Atelier des Lettres</div></div>
       </div>
-      <div style="display:flex; gap:8px;">
+      <div style="display:flex; gap:8px; align-items:center;">
+        <label style="display:flex; align-items:center; gap:6px; background:rgba(255,255,255,.06); border:2px solid rgba(200,149,47,.5); border-radius:999px; padding:6px 12px; font-size:.82rem; font-weight:700; color:#F0E9D4;">
+          🎙️
+          <select onchange="setVoiceDir(this.value)" style="border:none; background:transparent; font-weight:700; font-size:.82rem; color:#F0E9D4;">
+            ${VOICE_OPTIONS.map((v,i)=>`<option value="${v}" style="color:#1B2140;" ${getVoiceDir()===v?'selected':''}>Voix ${i+1}</option>`).join('')}
+          </select>
+        </label>
         <div class="stars-badge">✦ ${totalStars()}/28</div>
         <a href="index.html" class="home-btn" style="text-decoration:none; background:rgba(255,255,255,.08); color:#fff; border-color:rgba(200,149,47,.5);">Menu</a>
       </div>

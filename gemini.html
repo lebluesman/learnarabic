@@ -16,6 +16,17 @@
 
     <h1 class="text-3xl font-bold text-sky-800 mb-4 text-center">L'Aventure de l'Alphabet Arabe</h1>
 
+    <label class="flex items-center gap-2 bg-white border-2 border-sky-200 rounded-full px-4 py-2 mb-4 shadow text-sky-800 font-bold text-sm">
+        🎙️ Voix :
+        <select id="voice-select" onchange="setVoiceDir(this.value)" class="bg-transparent font-bold text-sky-800 outline-none">
+            <option value="audio1">Voix 1</option>
+            <option value="audio2">Voix 2</option>
+            <option value="audio3">Voix 3</option>
+            <option value="audio4">Voix 4</option>
+            <option value="audio5">Voix 5</option>
+        </select>
+    </label>
+
     <div class="flex gap-4 mb-6">
         <button onclick="changerMode('labo')" id="tab-labo" class="tab-active px-6 py-3 rounded-full font-bold shadow-md transition">🔬 Laboratoire</button>
         <button onclick="changerMode('quiz')" id="tab-quiz" class="tab-inactive px-6 py-3 rounded-full font-bold shadow-md transition">🎮 Mode Quiz</button>
@@ -118,18 +129,31 @@
         const harakatMap = { 'none': '', 'fatha': '\u064E', 'kasra': '\u0650', 'damma': '\u064F', 'soukoun': '\u0652', 'shadda': '\u0651' };
         const positionNomsFR = { 'start': 'Début', 'middle': 'Milieu', 'end': 'Fin' };
 
-        /* --- Audio pré-généré (prioritaire) : voir generer_audio.py / dossier audio/ --- */
+        /* --- Audio pré-généré (prioritaire), dossier sélectionnable : voir generer_audio.py --- */
+        const VOICE_KEY = 'huruf_voice_dir';
+        const VOICE_OPTIONS = ['audio1','audio2','audio3','audio4','audio5'];
+        function getVoiceDir() {
+            const saved = localStorage.getItem(VOICE_KEY);
+            return VOICE_OPTIONS.includes(saved) ? saved : 'audio1';
+        }
         let AUDIO_MANIFEST = {};
-        fetch('audio/manifest.json')
-            .then(r => r.ok ? r.json() : {})
-            .then(m => { AUDIO_MANIFEST = m; })
-            .catch(() => {});
+        function loadManifest() {
+            return fetch(getVoiceDir() + '/manifest.json')
+                .then(r => r.ok ? r.json() : {})
+                .then(m => { AUDIO_MANIFEST = m; })
+                .catch(() => { AUDIO_MANIFEST = {}; });
+        }
+        function setVoiceDir(dir) {
+            localStorage.setItem(VOICE_KEY, dir);
+            loadManifest();
+        }
+        loadManifest();
 
         function jouerArabe(texte) {
             const propre = texte.replace(/\u0640/g, ''); // enlève les tatwîl
             const fichier = AUDIO_MANIFEST[propre];
             if (fichier) {
-                const audio = new Audio('audio/' + fichier);
+                const audio = new Audio(getVoiceDir() + '/' + fichier);
                 audio.play().catch(() => jouerArabeNavigateur(texte));
                 return;
             }
@@ -261,7 +285,10 @@
         }
 
         // Démarrage
-        window.onload = initLabo;
+        window.onload = function(){
+            document.getElementById('voice-select').value = getVoiceDir();
+            initLabo();
+        };
     </script>
 <a href="index.html" title="Retour au menu principal" style="position:fixed;bottom:16px;right:16px;z-index:99999;background:#0c4a6e;color:#ffffff;padding:10px 16px;border-radius:999px;font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.3);display:inline-flex;align-items:center;gap:6px;">⬅️ Menu principal</a>
 </body>

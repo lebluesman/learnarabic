@@ -134,7 +134,20 @@
 
 <div class="container">
     <h1>🎈 Apprendre l'Arabe 🎈</h1>
-    
+
+    <div style="display:flex; justify-content:center; margin-bottom:16px;">
+      <label style="display:flex; align-items:center; gap:8px; background:#fff; border:2px solid #4ecdc4; border-radius:999px; padding:8px 16px; font-weight:700; color:#2a8a82; font-size:.9rem;">
+        🎙️ Voix :
+        <select id="voice-select" onchange="setVoiceDir(this.value)" style="border:none; background:transparent; font-weight:700; color:#2a8a82;">
+          <option value="audio1">Voix 1</option>
+          <option value="audio2">Voix 2</option>
+          <option value="audio3">Voix 3</option>
+          <option value="audio4">Voix 4</option>
+          <option value="audio5">Voix 5</option>
+        </select>
+      </label>
+    </div>
+
     <div class="tab-container">
         <button class="tab-btn active" onclick="switchTab('learn')">📖 Apprendre</button>
         <button class="tab-btn" onclick="switchTab('quiz')">🎯 Jouer (Quiz)</button>
@@ -238,18 +251,35 @@
         speakArabicNavigateur(text);
     }
 
-    /* --- Audio pré-généré (prioritaire) : voir generer_audio.py / dossier audio/ --- */
+    /* --- Audio pré-généré (prioritaire), dossier sélectionnable : voir generer_audio.py --- */
+    const VOICE_KEY = 'huruf_voice_dir';
+    const VOICE_OPTIONS = ['audio1','audio2','audio3','audio4','audio5'];
+    function getVoiceDir() {
+        const saved = localStorage.getItem(VOICE_KEY);
+        return VOICE_OPTIONS.includes(saved) ? saved : 'audio1';
+    }
     let AUDIO_MANIFEST = {};
-    fetch('audio/manifest.json')
-        .then(r => r.ok ? r.json() : {})
-        .then(m => { AUDIO_MANIFEST = m; })
-        .catch(() => {});
+    function loadManifest() {
+        return fetch(getVoiceDir() + '/manifest.json')
+            .then(r => r.ok ? r.json() : {})
+            .then(m => { AUDIO_MANIFEST = m; })
+            .catch(() => { AUDIO_MANIFEST = {}; });
+    }
+    function setVoiceDir(dir) {
+        localStorage.setItem(VOICE_KEY, dir);
+        loadManifest();
+    }
+    loadManifest();
+    document.addEventListener('DOMContentLoaded', () => {
+        const sel = document.getElementById('voice-select');
+        if (sel) sel.value = getVoiceDir();
+    });
 
     function playPreRecorded(text) {
         const clean = text.replace(/\u0640/g, ''); // enlève les tatwîl (tirets d'allongement)
         const fichier = AUDIO_MANIFEST[clean];
         if (!fichier) return false;
-        const audio = new Audio('audio/' + fichier);
+        const audio = new Audio(getVoiceDir() + '/' + fichier);
         audio.play().catch(() => speakArabicNavigateur(text));
         return true;
     }
