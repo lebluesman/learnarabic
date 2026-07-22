@@ -809,161 +809,189 @@
           "id": "porte",
           "ar": "بَاب",
           "fr": "porte",
-          "emoji": "🚪"
+          "emoji": "🚪",
+          "img": "images/maison__porte.png"
         },
         {
           "id": "fenetre",
           "ar": "نَافِذَة",
           "fr": "fenêtre",
-          "emoji": "🪟"
+          "emoji": "🪟",
+          "img": "images/maison__fenetre.png"
         },
         {
           "id": "table",
           "ar": "طَاوِلَة",
-          "fr": "table"
+          "fr": "table",
+          "img": "images/maison__table.png"
         },
         {
           "id": "chaise",
           "ar": "كُرْسِيّ",
           "fr": "chaise",
-          "emoji": "🪑"
+          "emoji": "🪑",
+          "img": "images/maison__chaise.png"
         },
         {
           "id": "lit",
           "ar": "سَرِير",
           "fr": "lit",
-          "emoji": "🛏️"
+          "emoji": "🛏️",
+          "img": "images/maison__lit.png"
         },
         {
           "id": "armoire",
           "ar": "خِزَانَة",
-          "fr": "armoire"
+          "fr": "armoire",
+          "img": "images/maison__armoire.png"
         },
         {
           "id": "miroir",
           "ar": "مِرْآة",
           "fr": "miroir",
-          "emoji": "🪞"
+          "emoji": "🪞",
+          "img": "images/maison__miroir.png"
         },
         {
           "id": "lampe",
           "ar": "مِصْبَاح",
           "fr": "lampe",
-          "emoji": "💡"
+          "emoji": "💡",
+          "img": "images/maison__lampe.png"
         },
         {
           "id": "telephone",
           "ar": "هَاتِف",
           "fr": "téléphone",
-          "emoji": "☎️"
+          "emoji": "☎️",
+          "img": "images/maison__telephone.png"
         },
         {
           "id": "television",
           "ar": "تِلْفَاز",
           "fr": "télévision",
-          "emoji": "📺"
+          "emoji": "📺",
+          "img": "images/maison__television.png"
         },
         {
           "id": "refrigerateur",
           "ar": "ثَلَّاجَة",
-          "fr": "réfrigérateur"
+          "fr": "réfrigérateur",
+          "img": "images/maison__refrigerateur.png"
         },
         {
           "id": "four",
           "ar": "فُرْن",
-          "fr": "four"
+          "fr": "four",
+          "img": "images/maison__four.png"
         },
         {
           "id": "evier",
           "ar": "مِغْسَلَة",
           "fr": "évier",
-          "emoji": "🚰"
+          "emoji": "🚰",
+          "img": "images/maison__evier.png"
         },
         {
           "id": "sallebain",
           "ar": "حَمَّام",
           "fr": "salle de bain",
-          "emoji": "🛁"
+          "emoji": "🛁",
+          "img": "images/maison__sallebain.png"
         },
         {
           "id": "cle",
           "ar": "مِفْتَاح",
           "fr": "clé",
-          "emoji": "🔑"
+          "emoji": "🔑",
+          "img": "images/maison__cle.png"
         },
         {
           "id": "horloge",
           "ar": "سَاعَة",
           "fr": "horloge",
-          "emoji": "⏰"
+          "emoji": "⏰",
+          "img": "images/maison__horloge.png"
         },
         {
           "id": "oreiller",
           "ar": "وِسَادَة",
-          "fr": "oreiller"
+          "fr": "oreiller",
+          "img": "images/maison__oreiller.png"
         },
         {
           "id": "couverture",
           "ar": "بِطَّانِيَة",
-          "fr": "couverture"
+          "fr": "couverture",
+          "img": "images/maison__couverture.png"
         },
         {
           "id": "tapis",
           "ar": "سَجَّادَة",
-          "fr": "tapis"
+          "fr": "tapis",
+          "img": "images/maison__tapis.png"
         },
         {
           "id": "balai",
           "ar": "مِكْنَسَة",
           "fr": "balai",
-          "emoji": "🧹"
+          "emoji": "🧹",
+          "img": "images/maison__balai.png"
         },
         {
           "id": "savon",
           "ar": "صَابُون",
           "fr": "savon",
-          "emoji": "🧼"
+          "emoji": "🧼",
+          "img": "images/maison__savon.png"
         },
         {
           "id": "serviette",
           "ar": "مِنْشَفَة",
-          "fr": "serviette"
+          "fr": "serviette",
+          "img": "images/maison__serviette.png"
         },
         {
           "id": "cuillere",
           "ar": "مِلْعَقَة",
           "fr": "cuillère",
-          "emoji": "🥄"
+          "emoji": "🥄",
+          "img": "images/maison__cuillere.png"
         },
         {
           "id": "fourchette",
           "ar": "شَوْكَة",
           "fr": "fourchette",
-          "emoji": "🍴"
+          "emoji": "🍴",
+          "img": "images/maison__fourchette.png"
         },
         {
           "id": "couteau",
           "ar": "سِكِّين",
           "fr": "couteau",
-          "emoji": "🔪"
+          "emoji": "🔪",
+          "img": "images/maison__couteau.png"
         },
         {
           "id": "assiette",
           "ar": "طَبَق",
           "fr": "assiette",
-          "emoji": "🍽️"
+          "emoji": "🍽️",
+          "img": "images/maison__assiette.png"
         },
         {
           "id": "verre",
           "ar": "كُوب",
           "fr": "verre",
-          "emoji": "🥛"
+          "emoji": "🥛",
+          "img": "images/maison__verre.png"
         },
         {
           "id": "theiere",
           "ar": "إِبْرِيق",
           "fr": "théière",
-          "emoji": "🫖"
+          "emoji": "🫖",
+          "img": "images/maison__theiere.png"
         }
       ]
     },
