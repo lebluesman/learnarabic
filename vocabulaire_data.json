@@ -561,87 +561,102 @@
           "id": "ananas",
           "ar": "أَنَانَاس",
           "fr": "ananas",
-          "emoji": "🍍"
+          "emoji": "🍍",
+          "img": "images/fruits__ananas.png"
         },
         {
           "id": "pasteque",
           "ar": "بِطِّيخ",
           "fr": "pastèque",
-          "emoji": "🍉"
+          "emoji": "🍉",
+          "img": "images/fruits__pasteque.png"
         },
         {
           "id": "melon",
           "ar": "شَمَّام",
           "fr": "melon",
-          "emoji": "🍈"
+          "emoji": "🍈",
+          "img": "images/fruits__melon.png"
         },
         {
           "id": "peche",
           "ar": "خَوْخ",
           "fr": "pêche",
-          "emoji": "🍑"
+          "emoji": "🍑",
+          "img": "images/fruits__peche.png"
         },
         {
           "id": "poire",
           "ar": "كُمَّثْرَى",
           "fr": "poire",
-          "emoji": "🍐"
+          "emoji": "🍐",
+          "img": "images/fruits__poire.png"
         },
         {
           "id": "abricot",
           "ar": "مِشْمِش",
-          "fr": "abricot"
+          "fr": "abricot",
+          "img": "images/fruits__abricot.png"
         },
         {
           "id": "cerise",
           "ar": "كَرَز",
           "fr": "cerise",
-          "emoji": "🍒"
+          "emoji": "🍒",
+          "img": "images/fruits__cerise.png"
         },
         {
           "id": "citron",
           "ar": "لَيْمُون",
           "fr": "citron",
-          "emoji": "🍋"
+          "emoji": "🍋",
+          "img": "images/fruits__citron.png"
         },
         {
           "id": "mangue",
           "ar": "مَانْجَا",
           "fr": "mangue",
-          "emoji": "🥭"
+          "emoji": "🥭",
+          "img": "images/fruits__mangue.png"
         },
         {
           "id": "grenade",
           "ar": "رُمَّان",
-          "fr": "grenade"
+          "fr": "grenade",
+          "img": "images/fruits__grenade.png"
         },
         {
           "id": "noixdecoco",
           "ar": "جَوْزُ الْهِنْد",
           "fr": "noix de coco",
-          "emoji": "🥥"
+          "emoji": "🥥",
+          "img": "images/fruits__noixdecoco.png"
         },
         {
           "id": "figue",
           "ar": "تِين",
-          "fr": "figue"
+          "fr": "figue",
+          "img": "images/fruits__figue.png"
         },
         {
           "id": "datte",
           "ar": "تَمْر",
-          "fr": "datte"
+          "fr": "datte",
+          "img": "images/fruits__datte.png"
         },
         {
           "id": "avocat",
           "ar": "أَفُوكَادُو",
           "fr": "avocat",
-          "emoji": "🥑"
+          "emoji": "🥑",
+          "img": "images/fruits__avocat.png"
         },
         {
           "id": "kiwi",
           "ar": "كِيوِي",
           "fr": "kiwi",
-          "emoji": "🥝"
+          "emoji": "🥝",
+          "img": "images/fruits__kiwi.png"
         }
       ]
     },
