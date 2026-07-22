@@ -231,12 +231,22 @@ function wordCard(w, badge){
   return `
   <div class="word-card">
     ${badge ? `<div style="font-size:.7rem; color:var(--muted); font-weight:800; margin-bottom:8px;">${badge}</div>` : ''}
-    <div class="word-img"><span class="ph-icon">🖼️</span><span>Image à venir</span></div>
+    ${imageBlock(w)}
     <div class="word-ar arabic">${w.ar}</div>
     <div class="word-fr">${escHtml(w.fr)}</div>
     <button class="play-word" onclick="speak('${escAttr(w.ar)}')">🔊 Écouter</button>
   </div>
   `;
+}
+
+function imageBlock(w){
+  if(w.img){
+    return `<div class="word-img" style="border-style:solid; background:var(--card);"><img src="${escAttr(w.img)}" alt="${escAttr(w.fr)}" style="width:100%; height:100%; object-fit:contain; border-radius:12px;"></div>`;
+  }
+  if(w.emoji){
+    return `<div class="word-img" style="border-style:solid; background:#F0F9F6; font-size:2.6rem;">${w.emoji}</div>`;
+  }
+  return `<div class="word-img"><span class="ph-icon">🖼️</span><span>Image à venir</span></div>`;
 }
 
 function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
