@@ -328,164 +328,192 @@
         {
           "id": "ouvrir",
           "ar": "فَتَحَ",
-          "fr": "ouvrir"
+          "fr": "ouvrir",
+          "img": "images/verbes__ouvrir.png"
         },
         {
           "id": "fermer",
           "ar": "أَغْلَقَ",
-          "fr": "fermer"
+          "fr": "fermer",
+          "img": "images/verbes__fermer.png"
         },
         {
           "id": "courir",
           "ar": "رَكَضَ",
           "fr": "courir",
-          "emoji": "🏃"
+          "emoji": "🏃",
+          "img": "images/verbes__courir.png"
         },
         {
           "id": "sauter",
           "ar": "قَفَزَ",
           "fr": "sauter",
-          "emoji": "🤸"
+          "emoji": "🤸",
+          "img": "images/verbes__sauter.png"
         },
         {
           "id": "nager",
           "ar": "سَبَحَ",
           "fr": "nager",
-          "emoji": "🏊"
+          "emoji": "🏊",
+          "img": "images/verbes__nager.png"
         },
         {
           "id": "rire",
           "ar": "ضَحِكَ",
           "fr": "rire",
-          "emoji": "😂"
+          "emoji": "😂",
+          "img": "images/verbes__rire.png"
         },
         {
           "id": "pleurer",
           "ar": "بَكَى",
           "fr": "pleurer",
-          "emoji": "😢"
+          "emoji": "😢",
+          "img": "images/verbes__pleurer.png"
         },
         {
           "id": "chanter",
           "ar": "غَنَّى",
           "fr": "chanter",
-          "emoji": "🎤"
+          "emoji": "🎤",
+          "img": "images/verbes__chanter.png"
         },
         {
           "id": "danser",
           "ar": "رَقَصَ",
           "fr": "danser",
-          "emoji": "💃"
+          "emoji": "💃",
+          "img": "images/verbes__danser.png"
         },
         {
           "id": "entendre",
           "ar": "سَمِعَ",
           "fr": "entendre",
-          "emoji": "👂"
+          "emoji": "👂",
+          "img": "images/verbes__entendre.png"
         },
         {
           "id": "voir",
           "ar": "رَأَى",
           "fr": "voir",
-          "emoji": "👀"
+          "emoji": "👀",
+          "img": "images/verbes__voir.png"
         },
         {
           "id": "parler",
           "ar": "تَكَلَّمَ",
           "fr": "parler",
-          "emoji": "🗣️"
+          "emoji": "🗣️",
+          "img": "images/verbes__parler.png"
         },
         {
           "id": "ecouter",
           "ar": "اِسْتَمَعَ",
           "fr": "écouter",
-          "emoji": "🎧"
+          "emoji": "🎧",
+          "img": "images/verbes__ecouter.png"
         },
         {
           "id": "demander",
           "ar": "سَأَلَ",
-          "fr": "demander"
+          "fr": "demander",
+          "img": "images/verbes__demander.png"
         },
         {
           "id": "repondre",
           "ar": "أَجَابَ",
-          "fr": "répondre"
+          "fr": "répondre",
+          "img": "images/verbes__repondre.png"
         },
         {
           "id": "aider",
           "ar": "سَاعَدَ",
           "fr": "aider",
-          "emoji": "🤝"
+          "emoji": "🤝",
+          "img": "images/verbes__aider.png"
         },
         {
           "id": "aimer",
           "ar": "أَحَبَّ",
           "fr": "aimer",
-          "emoji": "❤️"
+          "emoji": "❤️",
+          "img": "images/verbes__aimer.png"
         },
         {
           "id": "acheter",
           "ar": "اِشْتَرَى",
           "fr": "acheter",
-          "emoji": "🛒"
+          "emoji": "🛒",
+          "img": "images/verbes__acheter.png"
         },
         {
           "id": "vendre",
           "ar": "بَاعَ",
           "fr": "vendre",
-          "emoji": "💰"
+          "emoji": "💰",
+          "img": "images/verbes__vendre.png"
         },
         {
           "id": "etudier",
           "ar": "دَرَسَ",
           "fr": "étudier",
-          "emoji": "📚"
+          "emoji": "📚",
+          "img": "images/verbes__etudier.png"
         },
         {
           "id": "enseigner",
           "ar": "عَلَّمَ",
           "fr": "enseigner",
-          "emoji": "👨‍🏫"
+          "emoji": "👨‍🏫",
+          "img": "images/verbes__enseigner.png"
         },
         {
           "id": "toucher",
           "ar": "لَمَسَ",
           "fr": "toucher",
-          "emoji": "✋"
+          "emoji": "✋",
+          "img": "images/verbes__toucher.png"
         },
         {
           "id": "sentir",
           "ar": "شَمَّ",
           "fr": "sentir",
-          "emoji": "👃"
+          "emoji": "👃",
+          "img": "images/verbes__sentir.png"
         },
         {
           "id": "voler",
           "ar": "طَارَ",
           "fr": "voler (dans les airs)",
-          "emoji": "🕊️"
+          "emoji": "🕊️",
+          "img": "images/verbes__voler.png"
         },
         {
           "id": "monter",
           "ar": "صَعِدَ",
           "fr": "monter",
-          "emoji": "⬆️"
+          "emoji": "⬆️",
+          "img": "images/verbes__monter.png"
         },
         {
           "id": "descendre",
           "ar": "نَزَلَ",
           "fr": "descendre",
-          "emoji": "⬇️"
+          "emoji": "⬇️",
+          "img": "images/verbes__descendre.png"
         },
         {
           "id": "entrer",
           "ar": "دَخَلَ",
-          "fr": "entrer"
+          "fr": "entrer",
+          "img": "images/verbes__entrer.png"
         },
         {
           "id": "sortir",
           "ar": "خَرَجَ",
-          "fr": "sortir"
+          "fr": "sortir",
+          "img": "images/verbes__sortir.png"
         }
       ]
     },
