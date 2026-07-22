@@ -669,114 +669,134 @@
           "id": "tomate",
           "ar": "طَمَاطِم",
           "fr": "tomate",
-          "emoji": "🍅"
+          "emoji": "🍅",
+          "img": "images/legumes__tomate.png"
         },
         {
           "id": "concombre",
           "ar": "خِيَار",
           "fr": "concombre",
-          "emoji": "🥒"
+          "emoji": "🥒",
+          "img": "images/legumes__concombre.png"
         },
         {
           "id": "carotte",
           "ar": "جَزَر",
           "fr": "carotte",
-          "emoji": "🥕"
+          "emoji": "🥕",
+          "img": "images/legumes__carotte.png"
         },
         {
           "id": "pommedeterre",
           "ar": "بَطَاطَا",
           "fr": "pomme de terre",
-          "emoji": "🥔"
+          "emoji": "🥔",
+          "img": "images/legumes__pommedeterre.png"
         },
         {
           "id": "oignon",
           "ar": "بَصَل",
           "fr": "oignon",
-          "emoji": "🧅"
+          "emoji": "🧅",
+          "img": "images/legumes__oignon.png"
         },
         {
           "id": "ail",
           "ar": "ثُوم",
           "fr": "ail",
-          "emoji": "🧄"
+          "emoji": "🧄",
+          "img": "images/legumes__ail.png"
         },
         {
           "id": "poivron",
           "ar": "فُلْفُل",
           "fr": "poivron",
-          "emoji": "🫑"
+          "emoji": "🫑",
+          "img": "images/legumes__poivron.png"
         },
         {
           "id": "aubergine",
           "ar": "بَاذِنْجَان",
           "fr": "aubergine",
-          "emoji": "🍆"
+          "emoji": "🍆",
+          "img": "images/legumes__aubergine.png"
         },
         {
           "id": "laitue",
           "ar": "خَسّ",
           "fr": "laitue",
-          "emoji": "🥬"
+          "emoji": "🥬",
+          "img": "images/legumes__laitue.png"
         },
         {
           "id": "chou",
           "ar": "مَلْفُوف",
-          "fr": "chou"
+          "fr": "chou",
+          "img": "images/legumes__chou.png"
         },
         {
           "id": "haricot",
           "ar": "فَاصُولْيَا",
           "fr": "haricot",
-          "emoji": "🫘"
+          "emoji": "🫘",
+          "img": "images/legumes__haricot.png"
         },
         {
           "id": "petitspois",
           "ar": "بَازِلَّاء",
           "fr": "petits pois",
-          "emoji": "🫛"
+          "emoji": "🫛",
+          "img": "images/legumes__petitspois.png"
         },
         {
           "id": "mais",
           "ar": "ذُرَة",
           "fr": "maïs",
-          "emoji": "🌽"
+          "emoji": "🌽",
+          "img": "images/legumes__mais.png"
         },
         {
           "id": "radis",
           "ar": "فِجْل",
-          "fr": "radis"
+          "fr": "radis",
+          "img": "images/legumes__radis.png"
         },
         {
           "id": "epinard",
           "ar": "سَبَانِخ",
-          "fr": "épinard"
+          "fr": "épinard",
+          "img": "images/legumes__epinard.png"
         },
         {
           "id": "courge",
           "ar": "قَرْع",
-          "fr": "courge"
+          "fr": "courge",
+          "img": "images/legumes__courge.png"
         },
         {
           "id": "courgette",
           "ar": "كُوسَة",
-          "fr": "courgette"
+          "fr": "courgette",
+          "img": "images/legumes__courgette.png"
         },
         {
           "id": "navet",
           "ar": "لِفْت",
-          "fr": "navet"
+          "fr": "navet",
+          "img": "images/legumes__navet.png"
         },
         {
           "id": "persil",
           "ar": "بَقْدُونِس",
-          "fr": "persil"
+          "fr": "persil",
+          "img": "images/legumes__persil.png"
         },
         {
           "id": "champignon",
           "ar": "فُطْر",
           "fr": "champignon",
-          "emoji": "🍄"
+          "emoji": "🍄",
+          "img": "images/legumes__champignon.png"
         }
       ]
     },
