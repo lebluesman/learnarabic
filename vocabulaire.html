@@ -49,6 +49,8 @@ button{ font-family:inherit; cursor:pointer; border:none; background:none; }
 }
 .cat-card:hover{ transform:translateY(-3px); border-color:var(--teal); }
 .cat-card .icon{ font-size:2rem; margin-bottom:8px; }
+.cat-icon-img{ width:1.2em; height:1.2em; object-fit:contain; vertical-align:middle; }
+.cat-card .icon .cat-icon-img{ width:48px; height:48px; }
 .cat-card h3{ font-size:.92rem; margin-bottom:4px; }
 .cat-card .count{ font-size:.75rem; color:var(--muted); font-weight:700; }
 
@@ -145,7 +147,15 @@ function speak(text){
 /* ======================= NAVIGATION ======================= */
 function openCategory(catId){ currentCat = catId; screen='category'; render(); window.scrollTo({top:0, behavior:'smooth'}); }
 function goHome(){ screen='home'; currentCat=null; searchTerm=''; render(); window.scrollTo({top:0, behavior:'smooth'}); }
-function onSearch(v){ searchTerm = v; render(); }
+function onSearch(v){
+  searchTerm = v;
+  render();
+  const input = document.getElementById('searchInput');
+  if(input){
+    input.focus();
+    input.setSelectionRange(v.length, v.length);
+  }
+}
 
 /* ======================= RENDU ======================= */
 function render(){
@@ -180,14 +190,14 @@ function renderHome(){
     VOCAB.categories.forEach(cat=>{
       cat.words.forEach(w=>{
         if(w.fr.toLowerCase().includes(term) || w.ar.includes(term)){
-          matches.push({...w, catLabel:cat.label, catIcon:cat.icon});
+          matches.push({...w, catLabel:cat.label, catIcon:catIconHtml(cat)});
         }
       });
     });
   }
   return `
   <div class="search-bar">
-    🔍 <input type="text" placeholder="Chercher un mot en français..." value="${escAttr(searchTerm)}" oninput="onSearch(this.value)">
+    🔍 <input id="searchInput" type="text" placeholder="Chercher un mot en français..." value="${escAttr(searchTerm)}" oninput="onSearch(this.value)">
   </div>
   ${term ? renderSearchResults(matches) : renderCatGrid()}
   `;
@@ -198,7 +208,7 @@ function renderCatGrid(){
   <div class="cat-grid">
     ${VOCAB.categories.map(cat=>`
       <button class="cat-card" onclick="openCategory('${cat.id}')">
-        <div class="icon">${cat.icon}</div>
+        <div class="icon">${catIconHtml(cat)}</div>
         <h3>${cat.label}</h3>
         <div class="count">${cat.words.length} mots</div>
       </button>
@@ -221,7 +231,7 @@ function renderCategory(){
   return `
   <div class="back-row">
     <button class="back-btn" onclick="goHome()">← Toutes les catégories</button>
-    <h2 style="font-size:1.1rem;">${cat.icon} ${cat.label} <span style="color:var(--muted); font-weight:600; font-size:.8rem;">(${cat.words.length} mots)</span></h2>
+    <h2 style="font-size:1.1rem; display:flex; align-items:center; gap:8px;">${cat.img ? `<img src="${escAttr(cat.img)}" alt="" style="width:28px; height:28px; object-fit:contain; vertical-align:middle;">` : cat.icon} ${cat.label} <span style="color:var(--muted); font-weight:600; font-size:.8rem;">(${cat.words.length} mots)</span></h2>
   </div>
   <div class="word-grid">${cat.words.map(w=>wordCard(w)).join('')}</div>
   `;
@@ -247,6 +257,11 @@ function imageBlock(w){
     return `<div class="word-img" style="border-style:solid; background:#F0F9F6; font-size:2.6rem;">${w.emoji}</div>`;
   }
   return `<div class="word-img"><span class="ph-icon">🖼️</span><span>Image à venir</span></div>`;
+}
+
+function catIconHtml(cat){
+  if(cat.img) return `<img class="cat-icon-img" src="${escAttr(cat.img)}" alt="${escAttr(cat.label)}">`;
+  return cat.icon;
 }
 
 function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }

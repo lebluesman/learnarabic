@@ -142,7 +142,8 @@
           "fr": "vingt",
           "img": "images/chiffres__20.png"
         }
-      ]
+      ],
+      "img": "images/categorie__chiffres.png"
     },
     {
       "id": "couleurs",
@@ -237,7 +238,8 @@
           "fr": "argenté",
           "img": "images/couleurs__argente.png"
         }
-      ]
+      ],
+      "img": "images/categorie__couleurs.png"
     },
     {
       "id": "verbes",
@@ -515,7 +517,8 @@
           "fr": "sortir",
           "img": "images/verbes__sortir.png"
         }
-      ]
+      ],
+      "img": "images/categorie__verbes.png"
     },
     {
       "id": "fruits",
@@ -658,7 +661,8 @@
           "emoji": "🥝",
           "img": "images/fruits__kiwi.png"
         }
-      ]
+      ],
+      "img": "images/categorie__fruits.png"
     },
     {
       "id": "legumes",
@@ -798,7 +802,8 @@
           "emoji": "🍄",
           "img": "images/legumes__champignon.png"
         }
-      ]
+      ],
+      "img": "images/categorie__legumes.png"
     },
     {
       "id": "maison",
@@ -993,7 +998,8 @@
           "emoji": "🫖",
           "img": "images/maison__theiere.png"
         }
-      ]
+      ],
+      "img": "images/categorie__maison.png"
     },
     {
       "id": "ecole",
@@ -1127,7 +1133,8 @@
           "emoji": "🎓",
           "img": "images/ecole__eleve.png"
         }
-      ]
+      ],
+      "img": "images/categorie__ecole.png"
     },
     {
       "id": "animaux",
@@ -1330,7 +1337,8 @@
           "emoji": "🐍",
           "img": "images/animaux__serpent.png"
         }
-      ]
+      ],
+      "img": "images/categorie__animaux.png"
     },
     {
       "id": "corps",
@@ -1450,7 +1458,8 @@
           "emoji": "❤️",
           "img": "images/corps__coeur.png"
         }
-      ]
+      ],
+      "img": "images/categorie__corps.png"
     },
     {
       "id": "famille",
@@ -1549,7 +1558,8 @@
           "fr": "épouse",
           "img": "images/famille__epouse.png"
         }
-      ]
+      ],
+      "img": "images/categorie__famille.png"
     },
     {
       "id": "vetements",
@@ -1649,7 +1659,8 @@
           "fr": "tablier",
           "img": "images/vetements__tablier.png"
         }
-      ]
+      ],
+      "img": "images/categorie__vetements.png"
     },
     {
       "id": "nature",
@@ -1794,7 +1805,8 @@
           "emoji": "🌋",
           "img": "images/nature__volcan.png"
         }
-      ]
+      ],
+      "img": "images/categorie__nature.png"
     },
     {
       "id": "transport",
@@ -1892,7 +1904,8 @@
           "emoji": "🚁",
           "img": "images/transport__helicoptere.png"
         }
-      ]
+      ],
+      "img": "images/categorie__transport.png"
     },
     {
       "id": "metiers",
@@ -2017,7 +2030,8 @@
           "emoji": "💇",
           "img": "images/metiers__coiffeur.png"
         }
-      ]
+      ],
+      "img": "images/categorie__metiers.png"
     },
     {
       "id": "nourriture",
@@ -2183,7 +2197,8 @@
           "emoji": "🍿",
           "img": "images/nourriture__popcorn.png"
         }
-      ]
+      ],
+      "img": "images/categorie__nourriture.png"
     },
     {
       "id": "jours",
@@ -2238,7 +2253,8 @@
           "fr": "semaine",
           "img": "images/jours__semaine.png"
         }
-      ]
+      ],
+      "img": "images/categorie__jours.png"
     },
     {
       "id": "formes",
@@ -2299,7 +2315,8 @@
           "emoji": "🔶",
           "img": "images/formes__losange.png"
         }
-      ]
+      ],
+      "img": "images/categorie__formes.png"
     },
     {
       "id": "sport",
@@ -2376,7 +2393,8 @@
           "emoji": "♟️",
           "img": "images/sport__echecs.png"
         }
-      ]
+      ],
+      "img": "images/categorie__sport.png"
     }
   ]
 }
