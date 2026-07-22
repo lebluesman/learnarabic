@@ -1004,109 +1004,128 @@
           "id": "stylo",
           "ar": "قَلَم",
           "fr": "stylo / crayon",
-          "emoji": "🖊️"
+          "emoji": "🖊️",
+          "img": "images/ecole__stylo.png"
         },
         {
           "id": "livre",
           "ar": "كِتَاب",
           "fr": "livre",
-          "emoji": "📚"
+          "emoji": "📚",
+          "img": "images/ecole__livre.png"
         },
         {
           "id": "cahier",
           "ar": "دَفْتَر",
           "fr": "cahier",
-          "emoji": "📓"
+          "emoji": "📓",
+          "img": "images/ecole__cahier.png"
         },
         {
           "id": "gomme",
           "ar": "مِمْحَاة",
-          "fr": "gomme"
+          "fr": "gomme",
+          "img": "images/ecole__gomme.png"
         },
         {
           "id": "regle",
           "ar": "مِسْطَرَة",
           "fr": "règle",
-          "emoji": "📏"
+          "emoji": "📏",
+          "img": "images/ecole__regle.png"
         },
         {
           "id": "taillecrayon",
           "ar": "مِبْرَاة",
-          "fr": "taille-crayon"
+          "fr": "taille-crayon",
+          "img": "images/ecole__taillecrayon.png"
         },
         {
           "id": "sac",
           "ar": "حَقِيبَة",
           "fr": "sac",
-          "emoji": "🎒"
+          "emoji": "🎒",
+          "img": "images/ecole__sac.png"
         },
         {
           "id": "tableau",
           "ar": "سَبُّورَة",
-          "fr": "tableau"
+          "fr": "tableau",
+          "img": "images/ecole__tableau.png"
         },
         {
           "id": "craie",
           "ar": "طَبَاشِير",
-          "fr": "craie"
+          "fr": "craie",
+          "img": "images/ecole__craie.png"
         },
         {
           "id": "ciseaux",
           "ar": "مِقَصّ",
           "fr": "ciseaux",
-          "emoji": "✂️"
+          "emoji": "✂️",
+          "img": "images/ecole__ciseaux.png"
         },
         {
           "id": "colle",
           "ar": "غِرَاء",
-          "fr": "colle"
+          "fr": "colle",
+          "img": "images/ecole__colle.png"
         },
         {
           "id": "crayonscouleur",
           "ar": "أَلْوَان",
           "fr": "crayons de couleur",
-          "emoji": "🖍️"
+          "emoji": "🖍️",
+          "img": "images/ecole__crayonscouleur.png"
         },
         {
           "id": "bureau",
           "ar": "مِنْضَدَة",
-          "fr": "bureau / pupitre"
+          "fr": "bureau / pupitre",
+          "img": "images/ecole__bureau.png"
         },
         {
           "id": "ordinateur",
           "ar": "حَاسُوب",
           "fr": "ordinateur",
-          "emoji": "💻"
+          "emoji": "💻",
+          "img": "images/ecole__ordinateur.png"
         },
         {
           "id": "carte",
           "ar": "خَرِيطَة",
           "fr": "carte",
-          "emoji": "🗺️"
+          "emoji": "🗺️",
+          "img": "images/ecole__carte.png"
         },
         {
           "id": "cloche",
           "ar": "جَرَس",
           "fr": "cloche",
-          "emoji": "🔔"
+          "emoji": "🔔",
+          "img": "images/ecole__cloche.png"
         },
         {
           "id": "enseignant",
           "ar": "مُعَلِّم",
           "fr": "enseignant",
-          "emoji": "👨‍🏫"
+          "emoji": "👨‍🏫",
+          "img": "images/ecole__enseignant.png"
         },
         {
           "id": "enseignante",
           "ar": "مُعَلِّمَة",
           "fr": "enseignante",
-          "emoji": "👩‍🏫"
+          "emoji": "👩‍🏫",
+          "img": "images/ecole__enseignante.png"
         },
         {
           "id": "eleve",
           "ar": "تِلْمِيذ",
           "fr": "élève",
-          "emoji": "🎓"
+          "emoji": "🎓",
+          "img": "images/ecole__eleve.png"
         }
       ]
     },
