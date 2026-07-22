@@ -1660,119 +1660,139 @@
           "id": "soleil",
           "ar": "شَمْس",
           "fr": "soleil",
-          "emoji": "☀️"
+          "emoji": "☀️",
+          "img": "images/nature__soleil.png"
         },
         {
           "id": "lune",
           "ar": "قَمَر",
           "fr": "lune",
-          "emoji": "🌙"
+          "emoji": "🌙",
+          "img": "images/nature__lune.png"
         },
         {
           "id": "etoile",
           "ar": "نَجْمَة",
           "fr": "étoile",
-          "emoji": "⭐"
+          "emoji": "⭐",
+          "img": "images/nature__etoile.png"
         },
         {
           "id": "nuage",
           "ar": "سَحَاب",
           "fr": "nuage",
-          "emoji": "☁️"
+          "emoji": "☁️",
+          "img": "images/nature__nuage.png"
         },
         {
           "id": "pluie",
           "ar": "مَطَر",
           "fr": "pluie",
-          "emoji": "🌧️"
+          "emoji": "🌧️",
+          "img": "images/nature__pluie.png"
         },
         {
           "id": "neige",
           "ar": "ثَلْج",
           "fr": "neige",
-          "emoji": "❄️"
+          "emoji": "❄️",
+          "img": "images/nature__neige.png"
         },
         {
           "id": "vent",
           "ar": "رِيح",
           "fr": "vent",
-          "emoji": "💨"
+          "emoji": "💨",
+          "img": "images/nature__vent.png"
         },
         {
           "id": "tempete",
           "ar": "عَاصِفَة",
           "fr": "tempête",
-          "emoji": "🌪️"
+          "emoji": "🌪️",
+          "img": "images/nature__tempete.png"
         },
         {
           "id": "arcenciel",
           "ar": "قَوْس قُزَح",
           "fr": "arc-en-ciel",
-          "emoji": "🌈"
+          "emoji": "🌈",
+          "img": "images/nature__arcenciel.png"
         },
         {
           "id": "arbre",
           "ar": "شَجَرَة",
           "fr": "arbre",
-          "emoji": "🌳"
+          "emoji": "🌳",
+          "img": "images/nature__arbre.png"
         },
         {
           "id": "fleur",
           "ar": "وَرْدَة",
           "fr": "fleur",
-          "emoji": "🌸"
+          "emoji": "🌸",
+          "img": "images/nature__fleur.png"
         },
         {
           "id": "herbe",
           "ar": "عُشْب",
           "fr": "herbe",
-          "emoji": "🌿"
+          "emoji": "🌿",
+          "img": "images/nature__herbe.png"
         },
         {
           "id": "montagne",
           "ar": "جَبَل",
           "fr": "montagne",
-          "emoji": "⛰️"
+          "emoji": "⛰️",
+          "img": "images/nature__montagne.png"
         },
         {
           "id": "mer",
           "ar": "بَحْر",
           "fr": "mer",
-          "emoji": "🌊"
+          "emoji": "🌊",
+          "img": "images/nature__mer.png"
         },
         {
           "id": "riviere",
           "ar": "نَهْر",
-          "fr": "rivière"
+          "fr": "rivière",
+          "img": "images/nature__riviere.png"
         },
         {
           "id": "desert",
           "ar": "صَحْرَاء",
           "fr": "désert",
-          "emoji": "🏜️"
+          "emoji": "🏜️",
+          "img": "images/nature__desert.png"
         },
         {
           "id": "foret",
           "ar": "غَابَة",
           "fr": "forêt",
-          "emoji": "🌲"
+          "emoji": "🌲",
+          "img": "images/nature__foret.png"
         },
         {
           "id": "pierre",
           "ar": "حَجَر",
           "fr": "pierre",
-          "emoji": "🪨"
+          "emoji": "🪨",
+          "img": "images/nature__pierre.png"
         },
         {
           "id": "sable",
           "ar": "رَمْل",
-          "fr": "sable"
+          "fr": "sable",
+          "img": "images/nature__sable.png"
         },
         {
           "id": "volcan",
           "ar": "بُرْكَان",
           "fr": "volcan",
-          "emoji": "🌋"
+          "emoji": "🌋",
+          "img": "images/nature__volcan.png"
         }
       ]
     },
@@ -1785,79 +1805,92 @@
           "id": "voiture",
           "ar": "سَيَّارَة",
           "fr": "voiture",
-          "emoji": "🚗"
+          "emoji": "🚗",
+          "img": "images/transport__voiture.png"
         },
         {
           "id": "bus",
           "ar": "حَافِلَة",
           "fr": "bus",
-          "emoji": "🚌"
+          "emoji": "🚌",
+          "img": "images/transport__bus.png"
         },
         {
           "id": "train",
           "ar": "قِطَار",
           "fr": "train",
-          "emoji": "🚆"
+          "emoji": "🚆",
+          "img": "images/transport__train.png"
         },
         {
           "id": "avion",
           "ar": "طَائِرَة",
           "fr": "avion",
-          "emoji": "✈️"
+          "emoji": "✈️",
+          "img": "images/transport__avion.png"
         },
         {
           "id": "bateau",
           "ar": "سَفِينَة",
           "fr": "bateau",
-          "emoji": "🚢"
+          "emoji": "🚢",
+          "img": "images/transport__bateau.png"
         },
         {
           "id": "velo",
           "ar": "دَرَّاجَة",
           "fr": "vélo",
-          "emoji": "🚲"
+          "emoji": "🚲",
+          "img": "images/transport__velo.png"
         },
         {
           "id": "moto",
           "ar": "دَرَّاجَة نَارِيَّة",
           "fr": "moto",
-          "emoji": "🏍️"
+          "emoji": "🏍️",
+          "img": "images/transport__moto.png"
         },
         {
           "id": "camion",
           "ar": "شَاحِنَة",
           "fr": "camion",
-          "emoji": "🚚"
+          "emoji": "🚚",
+          "img": "images/transport__camion.png"
         },
         {
           "id": "fusee",
           "ar": "صَارُوخ",
           "fr": "fusée",
-          "emoji": "🚀"
+          "emoji": "🚀",
+          "img": "images/transport__fusee.png"
         },
         {
           "id": "ambulance",
           "ar": "سَيَّارَة إِسْعَاف",
           "fr": "ambulance",
-          "emoji": "🚑"
+          "emoji": "🚑",
+          "img": "images/transport__ambulance.png"
         },
         {
           "id": "pompiers",
           "ar": "سَيَّارَة إِطْفَاء",
           "fr": "camion de pompiers",
-          "emoji": "🚒"
+          "emoji": "🚒",
+          "img": "images/transport__pompiers.png"
         },
         {
           "id": "barque",
           "ar": "قَارِب",
           "fr": "barque",
-          "emoji": "🛶"
+          "emoji": "🛶",
+          "img": "images/transport__barque.png"
         },
         {
           "id": "helicoptere",
           "ar": "مِرْوَحِيَّة",
           "fr": "hélicoptère",
-          "emoji": "🚁"
+          "emoji": "🚁",
+          "img": "images/transport__helicoptere.png"
         }
       ]
     },
@@ -1870,101 +1903,119 @@
           "id": "medecin",
           "ar": "طَبِيب",
           "fr": "médecin",
-          "emoji": "👨‍⚕️"
+          "emoji": "👨‍⚕️",
+          "img": "images/metiers__medecin.png"
         },
         {
           "id": "infirmiere",
           "ar": "مُمَرِّضَة",
           "fr": "infirmière",
-          "emoji": "👩‍⚕️"
+          "emoji": "👩‍⚕️",
+          "img": "images/metiers__infirmiere.png"
         },
         {
           "id": "ingenieur",
           "ar": "مُهَنْدِس",
           "fr": "ingénieur",
-          "emoji": "👷"
+          "emoji": "👷",
+          "img": "images/metiers__ingenieur.png"
         },
         {
           "id": "enseignant",
           "ar": "مُعَلِّم",
-          "fr": "enseignant"
+          "fr": "enseignant",
+          "img": "images/metiers__enseignant.png"
         },
         {
           "id": "policier",
           "ar": "شُرْطِيّ",
           "fr": "policier",
-          "emoji": "👮"
+          "emoji": "👮",
+          "img": "images/metiers__policier.png"
         },
         {
           "id": "pompier",
           "ar": "إِطْفَائِيّ",
           "fr": "pompier",
-          "emoji": "👨‍🚒"
+          "emoji": "👨‍🚒",
+          "img": "images/metiers__pompier.png"
         },
         {
           "id": "cuisinier",
           "ar": "طَبَّاخ",
           "fr": "cuisinier",
-          "emoji": "👨‍🍳"
+          "emoji": "👨‍🍳",
+          "img": "images/metiers__cuisinier.png"
         },
         {
           "id": "boulanger",
           "ar": "خَبَّاز",
-          "fr": "boulanger"
+          "fr": "boulanger",
+          "img": "images/metiers__boulanger.png"
         },
         {
           "id": "menuisier",
           "ar": "نَجَّار",
-          "fr": "menuisier"
+          "fr": "menuisier",
+          "img": "images/metiers__menuisier.png"
         },
         {
           "id": "agriculteur",
           "ar": "فَلَّاح",
           "fr": "agriculteur",
-          "emoji": "👨‍🌾"
+          "emoji": "👨‍🌾",
+          "img": "images/metiers__agriculteur.png"
         },
         {
           "id": "pecheur",
           "ar": "صَيَّاد",
           "fr": "pêcheur",
-          "emoji": "🎣"
+          "emoji": "🎣",
+          "img": "images/metiers__pecheur.png"
         },
         {
           "id": "pilote",
           "ar": "طَيَّار",
-          "fr": "pilote"
+          "fr": "pilote",
+          "img": "images/metiers__pilote.png"
         },
         {
           "id": "chanteur",
           "ar": "مُغَنِّي",
-          "fr": "chanteur"
+          "fr": "chanteur",
+          "img": "images/metiers__chanteur.png"
         },
         {
           "id": "peintre",
           "ar": "رَسَّام",
-          "fr": "peintre / artiste"
+          "fr": "peintre / artiste",
+          "img": "images/metiers__peintre.png"
         },
         {
           "id": "ecrivain",
           "ar": "كَاتِب",
-          "fr": "écrivain"
+          "fr": "écrivain",
+          "img": "images/metiers__ecrivain.png"
         },
         {
           "id": "chauffeur",
           "ar": "سَائِق",
-          "fr": "chauffeur"
+          "fr": "chauffeur",
+          "img": "images/metiers__chauffeur.png"
         },
         {
           "id": "vendeur",
           "ar": "بَائِع",
           "fr": "vendeur",
-          "emoji": "🛍️"
+          "emoji": "🛍️",
+          "img": "images/metiers__vendeur.png"
         },
         {
           "id": "coiffeur",
           "ar": "حَلَّاق",
           "fr": "coiffeur",
-          "emoji": "💇"
+          "emoji": "💇",
+          "img": "images/metiers__coiffeur.png"
         }
       ]
     },
@@ -1977,137 +2028,160 @@
           "id": "pain",
           "ar": "خُبْز",
           "fr": "pain",
-          "emoji": "🍞"
+          "emoji": "🍞",
+          "img": "images/nourriture__pain.png"
         },
         {
           "id": "riz",
           "ar": "أَرُزّ",
           "fr": "riz",
-          "emoji": "🍚"
+          "emoji": "🍚",
+          "img": "images/nourriture__riz.png"
         },
         {
           "id": "lait",
           "ar": "حَلِيب",
           "fr": "lait",
-          "emoji": "🥛"
+          "emoji": "🥛",
+          "img": "images/nourriture__lait.png"
         },
         {
           "id": "fromage",
           "ar": "جُبْن",
           "fr": "fromage",
-          "emoji": "🧀"
+          "emoji": "🧀",
+          "img": "images/nourriture__fromage.png"
         },
         {
           "id": "oeufs",
           "ar": "بَيْض",
           "fr": "œufs",
-          "emoji": "🥚"
+          "emoji": "🥚",
+          "img": "images/nourriture__oeufs.png"
         },
         {
           "id": "viande",
           "ar": "لَحْم",
           "fr": "viande",
-          "emoji": "🥩"
+          "emoji": "🥩",
+          "img": "images/nourriture__viande.png"
         },
         {
           "id": "poulet",
           "ar": "دَجَاج",
           "fr": "poulet",
-          "emoji": "🍗"
+          "emoji": "🍗",
+          "img": "images/nourriture__poulet.png"
         },
         {
           "id": "miel",
           "ar": "عَسَل",
           "fr": "miel",
-          "emoji": "🍯"
+          "emoji": "🍯",
+          "img": "images/nourriture__miel.png"
         },
         {
           "id": "beurre",
           "ar": "زُبْدَة",
           "fr": "beurre",
-          "emoji": "🧈"
+          "emoji": "🧈",
+          "img": "images/nourriture__beurre.png"
         },
         {
           "id": "sucre",
           "ar": "سُكَّر",
-          "fr": "sucre"
+          "fr": "sucre",
+          "img": "images/nourriture__sucre.png"
         },
         {
           "id": "sel",
           "ar": "مِلْح",
           "fr": "sel",
-          "emoji": "🧂"
+          "emoji": "🧂",
+          "img": "images/nourriture__sel.png"
         },
         {
           "id": "huile",
           "ar": "زَيْت",
-          "fr": "huile"
+          "fr": "huile",
+          "img": "images/nourriture__huile.png"
         },
         {
           "id": "the",
           "ar": "شَاي",
           "fr": "thé",
-          "emoji": "🍵"
+          "emoji": "🍵",
+          "img": "images/nourriture__the.png"
         },
         {
           "id": "cafe",
           "ar": "قَهْوَة",
           "fr": "café",
-          "emoji": "☕"
+          "emoji": "☕",
+          "img": "images/nourriture__cafe.png"
         },
         {
           "id": "jus",
           "ar": "عَصِير",
           "fr": "jus",
-          "emoji": "🧃"
+          "emoji": "🧃",
+          "img": "images/nourriture__jus.png"
         },
         {
           "id": "eau",
           "ar": "مَاء",
           "fr": "eau",
-          "emoji": "💧"
+          "emoji": "💧",
+          "img": "images/nourriture__eau.png"
         },
         {
           "id": "soupe",
           "ar": "شُورَبَة",
           "fr": "soupe",
-          "emoji": "🍲"
+          "emoji": "🍲",
+          "img": "images/nourriture__soupe.png"
         },
         {
           "id": "salade",
           "ar": "سَلَطَة",
           "fr": "salade",
-          "emoji": "🥗"
+          "emoji": "🥗",
+          "img": "images/nourriture__salade.png"
         },
         {
           "id": "gateau",
           "ar": "كَعْكَة",
           "fr": "gâteau",
-          "emoji": "🍰"
+          "emoji": "🍰",
+          "img": "images/nourriture__gateau.png"
         },
         {
           "id": "biscuit",
           "ar": "بِسْكِوِيت",
           "fr": "biscuit",
-          "emoji": "🍪"
+          "emoji": "🍪",
+          "img": "images/nourriture__biscuit.png"
         },
         {
           "id": "chocolat",
           "ar": "شُوكُولَاتَة",
           "fr": "chocolat",
-          "emoji": "🍫"
+          "emoji": "🍫",
+          "img": "images/nourriture__chocolat.png"
         },
         {
           "id": "glace",
           "ar": "آيْس كِرِيم",
           "fr": "glace",
-          "emoji": "🍦"
+          "emoji": "🍦",
+          "img": "images/nourriture__glace.png"
         },
         {
           "id": "popcorn",
           "ar": "فُشَار",
           "fr": "popcorn",
-          "emoji": "🍿"
+          "emoji": "🍿",
+          "img": "images/nourriture__popcorn.png"
         }
       ]
     },
@@ -2119,37 +2193,50 @@
         {
           "id": "dimanche",
           "ar": "الْأَحَد",
-          "fr": "dimanche"
+          "fr": "dimanche",
+          "img": "images/jours__dimanche.png"
         },
         {
           "id": "lundi",
           "ar": "الِاثْنَيْن",
-          "fr": "lundi"
+          "fr": "lundi",
+          "img": "images/jours__lundi.png"
         },
         {
           "id": "mardi",
           "ar": "الثُّلَاثَاء",
-          "fr": "mardi"
+          "fr": "mardi",
+          "img": "images/jours__mardi.png"
         },
         {
           "id": "mercredi",
           "ar": "الْأَرْبِعَاء",
-          "fr": "mercredi"
+          "fr": "mercredi",
+          "img": "images/jours__mercredi.png"
         },
         {
           "id": "jeudi",
           "ar": "الْخَمِيس",
-          "fr": "jeudi"
+          "fr": "jeudi",
+          "img": "images/jours__jeudi.png"
         },
         {
           "id": "vendredi",
           "ar": "الْجُمُعَة",
-          "fr": "vendredi"
+          "fr": "vendredi",
+          "img": "images/jours__vendredi.png"
         },
         {
           "id": "samedi",
           "ar": "السَّبْت",
-          "fr": "samedi"
+          "fr": "samedi",
+          "img": "images/jours__samedi.png"
+        },
+        {
+          "id": "semaine",
+          "ar": "أُسْبُوع",
+          "fr": "semaine",
+          "img": "images/jours__semaine.png"
         }
       ]
     },
@@ -2162,47 +2249,55 @@
           "id": "cercle",
           "ar": "دَائِرَة",
           "fr": "cercle",
-          "emoji": "⚪"
+          "emoji": "⚪",
+          "img": "images/formes__cercle.png"
         },
         {
           "id": "carre",
           "ar": "مُرَبَّع",
           "fr": "carré",
-          "emoji": "🔲"
+          "emoji": "🔲",
+          "img": "images/formes__carre.png"
         },
         {
           "id": "triangle",
           "ar": "مُثَلَّث",
           "fr": "triangle",
-          "emoji": "🔺"
+          "emoji": "🔺",
+          "img": "images/formes__triangle.png"
         },
         {
           "id": "rectangle",
           "ar": "مُسْتَطِيل",
-          "fr": "rectangle"
+          "fr": "rectangle",
+          "img": "images/formes__rectangle.png"
         },
         {
           "id": "etoileforme",
           "ar": "نَجْمَة",
           "fr": "étoile",
-          "emoji": "⭐"
+          "emoji": "⭐",
+          "img": "images/formes__etoileforme.png"
         },
         {
           "id": "coeurforme",
           "ar": "قَلْب",
           "fr": "cœur",
-          "emoji": "❤️"
+          "emoji": "❤️",
+          "img": "images/formes__coeurforme.png"
         },
         {
           "id": "ovale",
           "ar": "بَيْضَاوِيّ",
-          "fr": "ovale"
+          "fr": "ovale",
+          "img": "images/formes__ovale.png"
         },
         {
           "id": "losange",
           "ar": "مُعَيَّن",
           "fr": "losange",
-          "emoji": "🔶"
+          "emoji": "🔶",
+          "img": "images/formes__losange.png"
         }
       ]
     },
@@ -2215,61 +2310,71 @@
           "id": "football",
           "ar": "كُرَة الْقَدَم",
           "fr": "football",
-          "emoji": "⚽"
+          "emoji": "⚽",
+          "img": "images/sport__football.png"
         },
         {
           "id": "basketball",
           "ar": "كُرَة السَّلَّة",
           "fr": "basketball",
-          "emoji": "🏀"
+          "emoji": "🏀",
+          "img": "images/sport__basketball.png"
         },
         {
           "id": "natation",
           "ar": "سِبَاحَة",
           "fr": "natation",
-          "emoji": "🏊"
+          "emoji": "🏊",
+          "img": "images/sport__natation.png"
         },
         {
           "id": "course",
           "ar": "جَرْي",
           "fr": "course",
-          "emoji": "🏃"
+          "emoji": "🏃",
+          "img": "images/sport__course.png"
         },
         {
           "id": "danse",
           "ar": "رَقْص",
           "fr": "danse",
-          "emoji": "💃"
+          "emoji": "💃",
+          "img": "images/sport__danse.png"
         },
         {
           "id": "dessin",
           "ar": "رَسْم",
           "fr": "dessin",
-          "emoji": "🎨"
+          "emoji": "🎨",
+          "img": "images/sport__dessin.png"
         },
         {
           "id": "lecture",
           "ar": "قِرَاءَة",
           "fr": "lecture",
-          "emoji": "📖"
+          "emoji": "📖",
+          "img": "images/sport__lecture.png"
         },
         {
           "id": "musique",
           "ar": "مُوسِيقَى",
           "fr": "musique",
-          "emoji": "🎵"
+          "emoji": "🎵",
+          "img": "images/sport__musique.png"
         },
         {
           "id": "escalade",
           "ar": "تَسَلُّق",
           "fr": "escalade",
-          "emoji": "🧗"
+          "emoji": "🧗",
+          "img": "images/sport__escalade.png"
         },
         {
           "id": "echecs",
           "ar": "شِطْرَنْج",
           "fr": "échecs",
-          "emoji": "♟️"
+          "emoji": "♟️",
+          "img": "images/sport__echecs.png"
         }
       ]
     }
