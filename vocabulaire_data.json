@@ -1138,169 +1138,197 @@
           "id": "chat",
           "ar": "قِطّ",
           "fr": "chat",
-          "emoji": "🐱"
+          "emoji": "🐱",
+          "img": "images/animaux__chat.png"
         },
         {
           "id": "chien",
           "ar": "كَلْب",
           "fr": "chien",
-          "emoji": "🐶"
+          "emoji": "🐶",
+          "img": "images/animaux__chien.png"
         },
         {
           "id": "lion",
           "ar": "أَسَد",
           "fr": "lion",
-          "emoji": "🦁"
+          "emoji": "🦁",
+          "img": "images/animaux__lion.png"
         },
         {
           "id": "elephant",
           "ar": "فِيل",
           "fr": "éléphant",
-          "emoji": "🐘"
+          "emoji": "🐘",
+          "img": "images/animaux__elephant.png"
         },
         {
           "id": "cheval",
           "ar": "حِصَان",
           "fr": "cheval",
-          "emoji": "🐴"
+          "emoji": "🐴",
+          "img": "images/animaux__cheval.png"
         },
         {
           "id": "vache",
           "ar": "بَقَرَة",
           "fr": "vache",
-          "emoji": "🐄"
+          "emoji": "🐄",
+          "img": "images/animaux__vache.png"
         },
         {
           "id": "mouton",
           "ar": "خَرُوف",
           "fr": "mouton",
-          "emoji": "🐑"
+          "emoji": "🐑",
+          "img": "images/animaux__mouton.png"
         },
         {
           "id": "poule",
           "ar": "دَجَاجَة",
           "fr": "poule",
-          "emoji": "🐔"
+          "emoji": "🐔",
+          "img": "images/animaux__poule.png"
         },
         {
           "id": "coq",
           "ar": "دِيك",
           "fr": "coq",
-          "emoji": "🐓"
+          "emoji": "🐓",
+          "img": "images/animaux__coq.png"
         },
         {
           "id": "canard",
           "ar": "بَطَّة",
           "fr": "canard",
-          "emoji": "🦆"
+          "emoji": "🦆",
+          "img": "images/animaux__canard.png"
         },
         {
           "id": "lapin",
           "ar": "أَرْنَب",
           "fr": "lapin",
-          "emoji": "🐰"
+          "emoji": "🐰",
+          "img": "images/animaux__lapin.png"
         },
         {
           "id": "poisson",
           "ar": "سَمَك",
           "fr": "poisson",
-          "emoji": "🐟"
+          "emoji": "🐟",
+          "img": "images/animaux__poisson.png"
         },
         {
           "id": "oiseau",
           "ar": "طَائِر",
           "fr": "oiseau",
-          "emoji": "🐦"
+          "emoji": "🐦",
+          "img": "images/animaux__oiseau.png"
         },
         {
           "id": "abeille",
           "ar": "نَحْلَة",
           "fr": "abeille",
-          "emoji": "🐝"
+          "emoji": "🐝",
+          "img": "images/animaux__abeille.png"
         },
         {
           "id": "papillon",
           "ar": "فَرَاشَة",
           "fr": "papillon",
-          "emoji": "🦋"
+          "emoji": "🦋",
+          "img": "images/animaux__papillon.png"
         },
         {
           "id": "fourmi",
           "ar": "نَمْلَة",
           "fr": "fourmi",
-          "emoji": "🐜"
+          "emoji": "🐜",
+          "img": "images/animaux__fourmi.png"
         },
         {
           "id": "renard",
           "ar": "ثَعْلَب",
           "fr": "renard",
-          "emoji": "🦊"
+          "emoji": "🦊",
+          "img": "images/animaux__renard.png"
         },
         {
           "id": "loup",
           "ar": "ذِئْب",
           "fr": "loup",
-          "emoji": "🐺"
+          "emoji": "🐺",
+          "img": "images/animaux__loup.png"
         },
         {
           "id": "ours",
           "ar": "دُبّ",
           "fr": "ours",
-          "emoji": "🐻"
+          "emoji": "🐻",
+          "img": "images/animaux__ours.png"
         },
         {
           "id": "singe",
           "ar": "قِرْد",
           "fr": "singe",
-          "emoji": "🐒"
+          "emoji": "🐒",
+          "img": "images/animaux__singe.png"
         },
         {
           "id": "girafe",
           "ar": "زَرَافَة",
           "fr": "girafe",
-          "emoji": "🦒"
+          "emoji": "🦒",
+          "img": "images/animaux__girafe.png"
         },
         {
           "id": "tigre",
           "ar": "نَمِر",
           "fr": "tigre",
-          "emoji": "🐯"
+          "emoji": "🐯",
+          "img": "images/animaux__tigre.png"
         },
         {
           "id": "crocodile",
           "ar": "تِمْسَاح",
           "fr": "crocodile",
-          "emoji": "🐊"
+          "emoji": "🐊",
+          "img": "images/animaux__crocodile.png"
         },
         {
           "id": "grenouille",
           "ar": "ضِفْدَع",
           "fr": "grenouille",
-          "emoji": "🐸"
+          "emoji": "🐸",
+          "img": "images/animaux__grenouille.png"
         },
         {
           "id": "escargot",
           "ar": "حَلَزُون",
           "fr": "escargot",
-          "emoji": "🐌"
+          "emoji": "🐌",
+          "img": "images/animaux__escargot.png"
         },
         {
           "id": "chameau",
           "ar": "جَمَل",
           "fr": "chameau",
-          "emoji": "🐫"
+          "emoji": "🐫",
+          "img": "images/animaux__chameau.png"
         },
         {
           "id": "souris",
           "ar": "فَأْر",
           "fr": "souris",
-          "emoji": "🐭"
+          "emoji": "🐭",
+          "img": "images/animaux__souris.png"
         },
         {
           "id": "serpent",
           "ar": "ثُعْبَان",
           "fr": "serpent",
-          "emoji": "🐍"
+          "emoji": "🐍",
+          "img": "images/animaux__serpent.png"
         }
       ]
     },
@@ -1312,98 +1340,115 @@
         {
           "id": "tete",
           "ar": "رَأْس",
-          "fr": "tête"
+          "fr": "tête",
+          "img": "images/corps__tete.png"
         },
         {
           "id": "oeil",
           "ar": "عَيْن",
           "fr": "œil",
-          "emoji": "👁️"
+          "emoji": "👁️",
+          "img": "images/corps__oeil.png"
         },
         {
           "id": "nez",
           "ar": "أَنْف",
           "fr": "nez",
-          "emoji": "👃"
+          "emoji": "👃",
+          "img": "images/corps__nez.png"
         },
         {
           "id": "bouche",
           "ar": "فَم",
           "fr": "bouche",
-          "emoji": "👄"
+          "emoji": "👄",
+          "img": "images/corps__bouche.png"
         },
         {
           "id": "oreille",
           "ar": "أُذُن",
           "fr": "oreille",
-          "emoji": "👂"
+          "emoji": "👂",
+          "img": "images/corps__oreille.png"
         },
         {
           "id": "main",
           "ar": "يَد",
           "fr": "main",
-          "emoji": "✋"
+          "emoji": "✋",
+          "img": "images/corps__main.png"
         },
         {
           "id": "jambe",
           "ar": "رِجْل",
           "fr": "jambe / pied",
-          "emoji": "🦵"
+          "emoji": "🦵",
+          "img": "images/corps__jambe.png"
         },
         {
           "id": "cheveux",
           "ar": "شَعْر",
-          "fr": "cheveux"
+          "fr": "cheveux",
+          "img": "images/corps__cheveux.png"
         },
         {
           "id": "dents",
           "ar": "أَسْنَان",
           "fr": "dents",
-          "emoji": "🦷"
+          "emoji": "🦷",
+          "img": "images/corps__dents.png"
         },
         {
           "id": "langue",
           "ar": "لِسَان",
           "fr": "langue",
-          "emoji": "👅"
+          "emoji": "👅",
+          "img": "images/corps__langue.png"
         },
         {
           "id": "doigt",
           "ar": "إِصْبَع",
           "fr": "doigt",
-          "emoji": "👆"
+          "emoji": "👆",
+          "img": "images/corps__doigt.png"
         },
         {
           "id": "dos",
           "ar": "ظَهْر",
-          "fr": "dos"
+          "fr": "dos",
+          "img": "images/corps__dos.png"
         },
         {
           "id": "ventre",
           "ar": "بَطْن",
-          "fr": "ventre"
+          "fr": "ventre",
+          "img": "images/corps__ventre.png"
         },
         {
           "id": "cou",
           "ar": "رَقَبَة",
-          "fr": "cou"
+          "fr": "cou",
+          "img": "images/corps__cou.png"
         },
         {
           "id": "epaule",
           "ar": "كَتِف",
-          "fr": "épaule"
+          "fr": "épaule",
+          "img": "images/corps__epaule.png"
         },
         {
           "id": "genou",
           "ar": "رُكْبَة",
           "fr": "genou",
-          "emoji": "🦵"
+          "emoji": "🦵",
+          "img": "images/corps__genou.png"
         },
         {
           "id": "coeur",
           "ar": "قَلْب",
           "fr": "cœur",
-          "emoji": "❤️"
+          "emoji": "❤️",
+          "img": "images/corps__coeur.png"
         }
       ]
     },
@@ -1416,79 +1461,93 @@
           "id": "pere",
           "ar": "أَب",
           "fr": "père",
-          "emoji": "👨"
+          "emoji": "👨",
+          "img": "images/famille__pere.png"
         },
         {
           "id": "mere",
           "ar": "أُمّ",
           "fr": "mère",
-          "emoji": "👩"
+          "emoji": "👩",
+          "img": "images/famille__mere.png"
         },
         {
           "id": "frere",
           "ar": "أَخ",
           "fr": "frère",
-          "emoji": "👦"
+          "emoji": "👦",
+          "img": "images/famille__frere.png"
         },
         {
           "id": "soeur",
           "ar": "أُخْت",
           "fr": "sœur",
-          "emoji": "👧"
+          "emoji": "👧",
+          "img": "images/famille__soeur.png"
         },
         {
           "id": "grandpere",
           "ar": "جَدّ",
           "fr": "grand-père",
-          "emoji": "👴"
+          "emoji": "👴",
+          "img": "images/famille__grandpere.png"
         },
         {
           "id": "grandmere",
           "ar": "جَدَّة",
           "fr": "grand-mère",
-          "emoji": "👵"
+          "emoji": "👵",
+          "img": "images/famille__grandmere.png"
         },
         {
           "id": "onclepaternel",
           "ar": "عَمّ",
-          "fr": "oncle paternel"
+          "fr": "oncle paternel",
+          "img": "images/famille__onclepaternel.png"
         },
         {
           "id": "tantepaternelle",
           "ar": "عَمَّة",
-          "fr": "tante paternelle"
+          "fr": "tante paternelle",
+          "img": "images/famille__tantepaternelle.png"
         },
         {
           "id": "onclematernel",
           "ar": "خَال",
-          "fr": "oncle maternel"
+          "fr": "oncle maternel",
+          "img": "images/famille__onclematernel.png"
         },
         {
           "id": "tantematernelle",
           "ar": "خَالَة",
-          "fr": "tante maternelle"
+          "fr": "tante maternelle",
+          "img": "images/famille__tantematernelle.png"
         },
         {
           "id": "fils",
           "ar": "اِبْن",
           "fr": "fils",
-          "emoji": "👦"
+          "emoji": "👦",
+          "img": "images/famille__fils.png"
         },
         {
           "id": "fille",
           "ar": "اِبْنَة",
           "fr": "fille",
-          "emoji": "👧"
+          "emoji": "👧",
+          "img": "images/famille__fille.png"
         },
         {
           "id": "mari",
           "ar": "زَوْج",
-          "fr": "mari"
+          "fr": "mari",
+          "img": "images/famille__mari.png"
         },
         {
           "id": "epouse",
           "ar": "زَوْجَة",
-          "fr": "épouse"
+          "fr": "épouse",
+          "img": "images/famille__epouse.png"
         }
       ]
     },
