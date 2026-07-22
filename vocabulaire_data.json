@@ -153,76 +153,89 @@
           "id": "rouge",
           "ar": "أَحْمَر",
           "fr": "rouge",
-          "emoji": "🟥"
+          "emoji": "🟥",
+          "img": "images/couleurs__rouge.png"
         },
         {
           "id": "bleu",
           "ar": "أَزْرَق",
           "fr": "bleu",
-          "emoji": "🟦"
+          "emoji": "🟦",
+          "img": "images/couleurs__bleu.png"
         },
         {
           "id": "vert",
           "ar": "أَخْضَر",
           "fr": "vert",
-          "emoji": "🟩"
+          "emoji": "🟩",
+          "img": "images/couleurs__vert.png"
         },
         {
           "id": "jaune",
           "ar": "أَصْفَر",
           "fr": "jaune",
-          "emoji": "🟨"
+          "emoji": "🟨",
+          "img": "images/couleurs__jaune.png"
         },
         {
           "id": "noir",
           "ar": "أَسْوَد",
           "fr": "noir",
-          "emoji": "⬛"
+          "emoji": "⬛",
+          "img": "images/couleurs__noir.png"
         },
         {
           "id": "blanc",
           "ar": "أَبْيَض",
           "fr": "blanc",
-          "emoji": "⬜"
+          "emoji": "⬜",
+          "img": "images/couleurs__blanc.png"
         },
         {
           "id": "orange",
           "ar": "بُرْتُقَالِيّ",
           "fr": "orange",
-          "emoji": "🟧"
+          "emoji": "🟧",
+          "img": "images/couleurs__orange.png"
         },
         {
           "id": "violet",
           "ar": "بَنَفْسَجِيّ",
           "fr": "violet",
-          "emoji": "🟪"
+          "emoji": "🟪",
+          "img": "images/couleurs__violet.png"
         },
         {
           "id": "rose",
           "ar": "وَرْدِيّ",
           "fr": "rose",
-          "emoji": "🌸"
+          "emoji": "🌸",
+          "img": "images/couleurs__rose.png"
         },
         {
           "id": "marron",
           "ar": "بُنِّيّ",
           "fr": "marron",
-          "emoji": "🟫"
+          "emoji": "🟫",
+          "img": "images/couleurs__marron.png"
         },
         {
           "id": "gris",
           "ar": "رَمَادِيّ",
-          "fr": "gris"
+          "fr": "gris",
+          "img": "images/couleurs__gris.png"
         },
         {
           "id": "dore",
           "ar": "ذَهَبِيّ",
-          "fr": "doré"
+          "fr": "doré",
+          "img": "images/couleurs__dore.png"
         },
         {
           "id": "argente",
           "ar": "فِضِّيّ",
-          "fr": "argenté"
+          "fr": "argenté",
+          "img": "images/couleurs__argente.png"
         }
       ]
     },
@@ -235,70 +248,82 @@
           "id": "manger",
           "ar": "أَكَلَ",
           "fr": "manger",
-          "emoji": "🍽️"
+          "emoji": "🍽️",
+          "img": "images/verbes__manger.png"
         },
         {
           "id": "boire",
           "ar": "شَرِبَ",
           "fr": "boire",
-          "emoji": "🥤"
+          "emoji": "🥤",
+          "img": "images/verbes__boire.png"
         },
         {
           "id": "aller",
           "ar": "ذَهَبَ",
-          "fr": "aller"
+          "fr": "aller",
+          "img": "images/verbes__aller.png"
         },
         {
           "id": "asseoir",
           "ar": "جَلَسَ",
-          "fr": "s'asseoir"
+          "fr": "s'asseoir",
+          "img": "images/verbes__asseoir.png"
         },
         {
           "id": "debout",
           "ar": "وَقَفَ",
-          "fr": "se tenir debout"
+          "fr": "se tenir debout",
+          "img": "images/verbes__debout.png"
         },
         {
           "id": "dormir",
           "ar": "نَامَ",
           "fr": "dormir",
-          "emoji": "😴"
+          "emoji": "😴",
+          "img": "images/verbes__dormir.png"
         },
         {
           "id": "jouer",
           "ar": "لَعِبَ",
           "fr": "jouer",
-          "emoji": "🎮"
+          "emoji": "🎮",
+          "img": "images/verbes__jouer.png"
         },
         {
           "id": "lire",
           "ar": "قَرَأَ",
           "fr": "lire",
-          "emoji": "📖"
+          "emoji": "📖",
+          "img": "images/verbes__lire.png"
         },
         {
           "id": "ecrire",
           "ar": "كَتَبَ",
           "fr": "écrire",
-          "emoji": "✍️"
+          "emoji": "✍️",
+          "img": "images/verbes__ecrire.png"
         },
         {
           "id": "dessiner",
           "ar": "رَسَمَ",
           "fr": "dessiner",
-          "emoji": "🎨"
+          "emoji": "🎨",
+          "img": "images/verbes__dessiner.png"
         },
         {
           "id": "laver",
           "ar": "غَسَلَ",
           "fr": "laver",
-          "emoji": "🧼"
+          "emoji": "🧼",
+          "img": "images/verbes__laver.png"
         },
         {
           "id": "cuisiner",
           "ar": "طَبَخَ",
           "fr": "cuisiner",
-          "emoji": "🍳"
+          "emoji": "🍳",
+          "img": "images/verbes__cuisiner.png"
         },
         {
           "id": "ouvrir",
@@ -473,31 +498,36 @@
           "id": "pomme",
           "ar": "تُفَّاحَة",
           "fr": "pomme",
-          "emoji": "🍎"
+          "emoji": "🍎",
+          "img": "images/fruits__pomme.png"
         },
         {
           "id": "banane",
           "ar": "مَوْزَة",
           "fr": "banane",
-          "emoji": "🍌"
+          "emoji": "🍌",
+          "img": "images/fruits__banane.png"
         },
         {
           "id": "orange",
           "ar": "بُرْتُقَالَة",
           "fr": "orange",
-          "emoji": "🍊"
+          "emoji": "🍊",
+          "img": "images/fruits__orange.png"
         },
         {
           "id": "raisin",
           "ar": "عِنَب",
           "fr": "raisin",
-          "emoji": "🍇"
+          "emoji": "🍇",
+          "img": "images/fruits__raisin.png"
         },
         {
           "id": "fraise",
           "ar": "فَرَاوْلَة",
           "fr": "fraise",
-          "emoji": "🍓"
+          "emoji": "🍓",
+          "img": "images/fruits__fraise.png"
         },
         {
           "id": "ananas",
