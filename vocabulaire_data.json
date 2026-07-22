@@ -1560,80 +1560,94 @@
           "id": "chemise",
           "ar": "قَمِيص",
           "fr": "chemise",
-          "emoji": "👕"
+          "emoji": "👕",
+          "img": "images/vetements__chemise.png"
         },
         {
           "id": "pantalon",
           "ar": "بَنْطَال",
           "fr": "pantalon",
-          "emoji": "👖"
+          "emoji": "👖",
+          "img": "images/vetements__pantalon.png"
         },
         {
           "id": "robe",
           "ar": "فُسْتَان",
           "fr": "robe",
-          "emoji": "👗"
+          "emoji": "👗",
+          "img": "images/vetements__robe.png"
         },
         {
           "id": "jupe",
           "ar": "تَنُّورَة",
-          "fr": "jupe"
+          "fr": "jupe",
+          "img": "images/vetements__jupe.png"
         },
         {
           "id": "veste",
           "ar": "سُتْرَة",
           "fr": "veste",
-          "emoji": "🧥"
+          "emoji": "🧥",
+          "img": "images/vetements__veste.png"
         },
         {
           "id": "manteau",
           "ar": "مِعْطَف",
-          "fr": "manteau"
+          "fr": "manteau",
+          "img": "images/vetements__manteau.png"
         },
         {
           "id": "chaussures",
           "ar": "حِذَاء",
           "fr": "chaussures",
-          "emoji": "👟"
+          "emoji": "👟",
+          "img": "images/vetements__chaussures.png"
         },
         {
           "id": "chaussette",
           "ar": "جَوْرَب",
           "fr": "chaussette",
-          "emoji": "🧦"
+          "emoji": "🧦",
+          "img": "images/vetements__chaussette.png"
         },
         {
           "id": "chapeau",
           "ar": "قُبَّعَة",
           "fr": "chapeau",
-          "emoji": "🎩"
+          "emoji": "🎩",
+          "img": "images/vetements__chapeau.png"
         },
         {
           "id": "echarpe",
           "ar": "وِشَاح",
           "fr": "écharpe",
-          "emoji": "🧣"
+          "emoji": "🧣",
+          "img": "images/vetements__echarpe.png"
         },
         {
           "id": "gant",
           "ar": "قُفَّاز",
           "fr": "gant",
-          "emoji": "🧤"
+          "emoji": "🧤",
+          "img": "images/vetements__gant.png"
         },
         {
           "id": "ceinture",
           "ar": "حِزَام",
-          "fr": "ceinture"
+          "fr": "ceinture",
+          "img": "images/vetements__ceinture.png"
         },
         {
           "id": "pyjama",
           "ar": "بِيجَامَة",
-          "fr": "pyjama"
+          "fr": "pyjama",
+          "img": "images/vetements__pyjama.png"
         },
         {
           "id": "tablier",
           "ar": "مِئْزَر",
-          "fr": "tablier"
+          "fr": "tablier",
+          "img": "images/vetements__tablier.png"
         }
       ]
     },
