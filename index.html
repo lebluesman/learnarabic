@@ -33,7 +33,7 @@
   .hero h1{ font-size:1.7rem; margin-bottom:8px; }
   .hero p{ margin:0; opacity:.92; font-size:.95rem; }
 
-  .cards{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+  .cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
   @media(max-width:1000px){ .cards{ grid-template-columns:repeat(2,1fr); } }
   @media(max-width:560px){ .cards{ grid-template-columns:1fr; } }
   .card{
@@ -56,6 +56,13 @@
     position:absolute; top:-10px; right:16px; background:#1B2140; color:#F7EFDC;
     font-size:.68rem; font-weight:800; padding:5px 10px; border-radius:999px; letter-spacing:.03em;
   }
+  .card.v5{ border-color:#0E8C7F; box-shadow:0 4px 0 #0E8C7F; position:relative; }
+  .card.v5:hover{ box-shadow:0 8px 0 #0E8C7F; }
+  .card.v5 .badge{ background:#0E8C7F; }
+  .card.v5 .ribbon{
+    position:absolute; top:-10px; right:16px; background:#FF7A5C; color:#fff;
+    font-size:.68rem; font-weight:800; padding:5px 10px; border-radius:999px; letter-spacing:.03em;
+  }
   .card .emoji{ font-size:2.2rem; margin-bottom:8px; }
   .card h2{ font-size:1.2rem; margin-bottom:6px; }
   .card p{ font-size:.86rem; color:var(--muted); line-height:1.5; margin:0 0 18px; flex:1; }
@@ -73,7 +80,7 @@
     <div class="hero">
       <span class="arabic">حروفي</span>
       <h1>Apprendre les lettres arabes</h1>
-      <p>Quatre versions de l'application ont été créées — choisis celle que tu préfères. La première réunit le meilleur des trois autres !</p>
+      <p>Quatre versions de l'appli des lettres, plus un nouvel outil de vocabulaire — choisis ce que tu veux explorer.</p>
     </div>
 
     <div class="cards">
@@ -107,6 +114,15 @@
         <div class="emoji">🎈</div>
         <h2>Apprendre &amp; Jouer</h2>
         <p>Choisis une lettre, découvre ses formes et ses voyelles avec le son, puis entraîne ton oreille dans le quiz "Quel est ce son ?".</p>
+        <span class="go">Lancer →</span>
+      </a>
+
+      <a class="card v5" href="vocabulaire.html">
+        <span class="ribbon">✦ Nouveau</span>
+        <span class="badge">مُفْرَدَاتِي</span>
+        <div class="emoji">📚</div>
+        <h2>Mon vocabulaire</h2>
+        <p>333 mots arabes (et ça continue !) entièrement voyellés, classés en 18 catégories : chiffres, couleurs, animaux, famille, école, nourriture... avec traduction et son.</p>
         <span class="go">Lancer →</span>
       </a>
     </div>
