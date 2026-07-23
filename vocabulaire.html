@@ -14,11 +14,11 @@
 *{box-sizing:border-box;}
 body{ margin:0; background:var(--bg); color:var(--ink); font-family:'Nunito',sans-serif; min-height:100vh; }
 .arabic{ font-family:'Amiri', serif; direction:rtl; }
-h1,h2,h3{ font-family:'Baloo 2',sans-serif; margin:0; }
+h1,h2,h3,h4{ font-family:'Baloo 2',sans-serif; margin:0; }
 button{ font-family:inherit; cursor:pointer; border:none; background:none; }
 #wrap{ max-width:1000px; margin:0 auto; padding:20px 18px 80px; }
 
-.topbar{ display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:18px; }
+.topbar{ display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
 .brand{ display:flex; align-items:center; gap:10px; }
 .brand .mark{ font-family:'Amiri',serif; font-size:1.8rem; color:var(--teal-dk); }
 .brand h1{ font-size:1.15rem; }
@@ -33,6 +33,19 @@ button{ font-family:inherit; cursor:pointer; border:none; background:none; }
   font-weight:700; font-size:.85rem; color:var(--muted); text-decoration:none;
 }
 .home-link:hover{ color:var(--ink); border-color:var(--teal); }
+
+/* ---------- Nav pills (interne à l'appli vocab) ---------- */
+.nav-pills{
+  display:flex; gap:8px; overflow-x:auto; padding-bottom:6px; margin-bottom:18px;
+  scrollbar-width:none;
+}
+.nav-pills::-webkit-scrollbar{ display:none; }
+.nav-pill{
+  flex-shrink:0; padding:9px 16px; border-radius:999px; font-weight:700; font-size:.85rem;
+  border:2px solid var(--line); background:var(--card); color:var(--muted); white-space:nowrap;
+}
+.nav-pill.active{ background:var(--teal); border-color:var(--teal); color:#fff; }
+.nav-pill:hover:not(.active){ border-color:var(--sun); color:var(--ink); }
 
 .search-bar{
   display:flex; align-items:center; gap:10px; background:var(--card); border:2px solid var(--line);
@@ -79,6 +92,82 @@ button{ font-family:inherit; cursor:pointer; border:none; background:none; }
 
 .empty-msg{ text-align:center; color:var(--muted); padding:40px 0; }
 
+/* ---------- Menu des jeux (accueil) ---------- */
+.mode-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+@media(max-width:560px){ .mode-grid{ grid-template-columns:1fr; } }
+.mode-card{
+  background:var(--card); border:2px solid var(--line); border-radius:20px; padding:22px 20px 20px; text-align:left;
+  box-shadow:0 4px 0 var(--line); transition:transform .15s ease, box-shadow .15s ease;
+}
+.mode-card:hover{ transform:translateY(-3px); box-shadow:0 7px 0 var(--line); border-color:var(--teal); }
+.mode-card .icon{
+  width:52px; height:52px; display:flex; align-items:center; justify-content:center;
+  font-size:1.6rem; margin-bottom:10px; background:var(--bg); border-radius:16px; border:2px solid var(--line);
+}
+.mode-card h3{ margin:0 0 6px; font-size:1.08rem; }
+.mode-card p{ margin:0; color:var(--muted); font-size:.85rem; line-height:1.45; }
+
+/* ---------- Sélecteur de catégorie pour un jeu ---------- */
+.scope-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:12px; }
+.scope-card{ background:var(--card); border:2px solid var(--line); border-radius:16px; padding:16px 10px; text-align:center; box-shadow:0 3px 0 var(--line); }
+.scope-card:hover{ border-color:var(--teal); transform:translateY(-2px); }
+.scope-card .icon{ font-size:1.6rem; margin-bottom:6px; }
+.scope-card .icon img{ width:32px; height:32px; object-fit:contain; }
+.scope-card h4{ font-size:.8rem; margin:0; }
+
+/* ---------- Quiz (partagé) ---------- */
+.quiz-progress{ height:10px; background:var(--line); border-radius:99px; overflow:hidden; margin-bottom:20px; }
+.quiz-progress div{ height:100%; background:var(--sun); transition:width .3s ease; }
+.quiz-stage{ background:var(--card); border-radius:22px; padding:30px 20px; text-align:center; border:2px solid var(--line); }
+.quiz-stage .prompt{ font-weight:700; margin-bottom:16px; color:var(--muted); font-size:.9rem; }
+.quiz-img{ width:180px; height:180px; margin:0 auto 18px; border-radius:16px; background:var(--bg); border:2px solid var(--line); display:flex; align-items:center; justify-content:center; overflow:hidden; }
+.quiz-img img{ width:100%; height:100%; object-fit:contain; }
+.choices{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:6px; }
+@media(max-width:480px){ .choices{ grid-template-columns:1fr; } }
+.choice-btn{
+  background:var(--bg); border:2px solid var(--line); border-radius:14px; padding:16px; font-size:1.3rem; font-weight:700;
+  color:var(--ink);
+}
+.choice-btn:hover{ border-color:var(--teal); }
+.choice-btn.correct{ background:#E1F3EA; border-color:#1F9D6C; color:#0A6459; }
+.choice-btn.wrong{ background:#FBE4DF; border-color:var(--coral-dk); color:#8E2E1C; }
+.choice-btn.choice-img{ padding:8px; }
+.choice-btn.choice-img img{ width:100%; aspect-ratio:1; object-fit:contain; border-radius:10px; }
+.quiz-footer{ display:flex; justify-content:space-between; align-items:center; margin-top:20px; flex-wrap:wrap; gap:10px; }
+.score-pill{ background:var(--card); border:2px solid var(--line); border-radius:999px; padding:8px 16px; font-weight:800; font-size:.85rem; }
+
+.btn{ background:var(--teal); color:#fff; padding:12px 22px; border-radius:14px; font-weight:700; font-size:.92rem; }
+.btn:hover{ background:var(--teal-dk); }
+.btn.ghost{ background:var(--card); color:var(--ink); border:2px solid var(--line); }
+.btn.ghost:hover{ border-color:var(--teal); }
+.btn.gold{ background:var(--sun); color:#4A3400; }
+.btn.gold:hover{ filter:brightness(.95); }
+.btn:disabled{ opacity:.4; cursor:not-allowed; }
+
+.result-card{ background:var(--card); border-radius:22px; padding:40px 24px; text-align:center; border:2px solid var(--line); }
+.result-card .big-score{ font-family:'Baloo 2',sans-serif; font-size:2.8rem; color:var(--teal); margin:6px 0 14px; }
+
+/* ---------- Mémoire ---------- */
+.memory-meta{ display:flex; gap:16px; font-size:.85rem; font-weight:700; color:var(--muted); margin-bottom:14px; }
+.memory-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+@media(max-width:480px){ .memory-grid{ grid-template-columns:repeat(3,1fr); } }
+.memo-card{
+  aspect-ratio:1; background:var(--teal); border-radius:14px; display:flex; align-items:center; justify-content:center;
+  color:#fff; font-size:1.6rem; text-align:center; padding:6px; border:2px solid var(--teal-dk);
+}
+.memo-card.hidden-face{ background:var(--card); color:transparent; border-color:var(--line); }
+.memo-card.matched{ background:#E1F3EA; border-color:#1F9D6C; opacity:.55; }
+.memo-card img{ width:75%; height:75%; object-fit:contain; }
+.memo-card .word-txt{ font-size:1.05rem; }
+
+/* ---------- Défi chrono ---------- */
+.streak-badge{
+  background:var(--sun); color:#4A3400; border-radius:999px; padding:8px 16px; font-weight:800; font-size:.88rem;
+  display:inline-block; margin-bottom:12px;
+}
+.chrono-bar{ height:10px; background:var(--line); border-radius:99px; overflow:hidden; margin-bottom:20px; }
+.chrono-bar div{ height:100%; background:var(--coral); }
+
 #toast-wrap{ position:fixed; top:14px; left:50%; transform:translateX(-50%); z-index:999; display:flex; flex-direction:column; gap:8px; }
 .toast{ background:var(--ink); color:#fff; padding:10px 18px; border-radius:999px; font-size:.85rem; font-weight:700; }
 </style>
@@ -92,9 +181,13 @@ button{ font-family:inherit; cursor:pointer; border:none; background:none; }
 <script>
 /* ======================= ÉTAT ======================= */
 let VOCAB = { categories: [] };
-let screen = 'home'; // 'home' | 'category'
+let screen = 'menu'; // 'menu' | 'apprendre' | 'category' | 'scopePicker' | 'quizImage' | 'quizAudio' | 'quizResult' | 'memory' | 'chrono'
 let currentCat = null;
 let searchTerm = '';
+let pendingGame = null;
+let quiz = null;
+let memory = null;
+let chrono = null;
 
 /* ======================= AUDIO (dossier séparé des lettres : mots1..mots5) ======================= */
 const VOICE_KEY = 'huruf_voice_dir_mots';
@@ -144,9 +237,28 @@ function speak(text){
   speakOnline(text);
 }
 
+/* ======================= UTILITAIRES ======================= */
+function shuffle(arr){ return [...arr].sort(()=>Math.random()-0.5); }
+function pick(arr, n){ return shuffle(arr).slice(0, Math.max(0, n)); }
+function scrollTop(){ window.scrollTo({top:0, behavior:'smooth'}); }
+
+function allWordsFlat(){
+  const out = [];
+  VOCAB.categories.forEach(cat=>{
+    cat.words.forEach(w=>{ if(w.img) out.push({...w, catId:cat.id, catLabel:cat.label}); });
+  });
+  return out;
+}
+function wordsForScope(scopeId){
+  if(scopeId==='all') return allWordsFlat();
+  const cat = VOCAB.categories.find(c=>c.id===scopeId);
+  return cat ? cat.words.filter(w=>w.img).map(w=>({...w, catId:cat.id, catLabel:cat.label})) : [];
+}
+
 /* ======================= NAVIGATION ======================= */
-function openCategory(catId){ currentCat = catId; screen='category'; render(); window.scrollTo({top:0, behavior:'smooth'}); }
-function goHome(){ screen='home'; currentCat=null; searchTerm=''; render(); window.scrollTo({top:0, behavior:'smooth'}); }
+function goMenu(){ if(chrono) clearInterval(chrono.timer); screen='menu'; render(); scrollTop(); }
+function goApprendre(){ screen='apprendre'; currentCat=null; searchTerm=''; render(); scrollTop(); }
+function openCategory(catId){ currentCat = catId; screen='category'; render(); scrollTop(); }
 function onSearch(v){
   searchTerm = v;
   render();
@@ -157,10 +269,36 @@ function onSearch(v){
   }
 }
 
+function pickScope(gameId){ pendingGame = gameId; screen='scopePicker'; render(); scrollTop(); }
+function chooseScope(scopeId){
+  const scope = wordsForScope(scopeId);
+  const cat = VOCAB.categories.find(c=>c.id===scopeId);
+  const label = scopeId==='all' ? 'Toutes les catégories' : (cat ? cat.label : scopeId);
+  if(pendingGame==='quizImage') startQuizImage(scope, label);
+  else if(pendingGame==='quizAudio') startQuizAudio(scope, label);
+  else if(pendingGame==='memory') startMemory(scope, label);
+  else if(pendingGame==='chrono') startChrono(scope, label, scopeId);
+}
+
 /* ======================= RENDU ======================= */
 function render(){
   const wrap = document.getElementById('wrap');
-  wrap.innerHTML = topbar() + (screen==='home' ? renderHome() : renderCategory());
+  wrap.innerHTML = topbar() + navPills() + body();
+}
+
+function body(){
+  switch(screen){
+    case 'menu': return `<div>${renderMenu()}</div>`;
+    case 'apprendre': return `<div>${renderApprendre()}</div>`;
+    case 'category': return `<div>${renderCategory()}</div>`;
+    case 'scopePicker': return `<div>${renderScopePicker()}</div>`;
+    case 'quizImage': return `<div>${screenQuizImage()}</div>`;
+    case 'quizAudio': return `<div>${screenQuizAudio()}</div>`;
+    case 'quizResult': return `<div>${screenQuizResult()}</div>`;
+    case 'memory': return `<div>${screenMemory()}</div>`;
+    case 'chrono': return `<div>${screenChrono()}</div>`;
+    default: return '';
+  }
 }
 
 function topbar(){
@@ -183,7 +321,56 @@ function topbar(){
   `;
 }
 
-function renderHome(){
+function navPills(){
+  const isGame = ['quizImage','quizAudio','quizResult','memory','chrono','scopePicker'].includes(screen);
+  const gameActive = isGame && pendingGame ? pendingGame : (quiz && (screen==='quizImage'||screen==='quizAudio'||screen==='quizResult') ? quiz.mode : (screen==='memory'?'memory':(screen==='chrono'?'chrono':null)));
+  return `
+  <div class="nav-pills">
+    <button class="nav-pill ${screen==='menu'?'active':''}" onclick="goMenu()">🏠 Accueil</button>
+    <button class="nav-pill ${(screen==='apprendre'||screen==='category')?'active':''}" onclick="goApprendre()">📖 Apprendre</button>
+    <button class="nav-pill ${gameActive==='quizImage'?'active':''}" onclick="pickScope('quizImage')">🖼️ Devine le mot</button>
+    <button class="nav-pill ${gameActive==='quizAudio'?'active':''}" onclick="pickScope('quizAudio')">👂 Écoute</button>
+    <button class="nav-pill ${gameActive==='memory'?'active':''}" onclick="pickScope('memory')">🧠 Mémoire</button>
+    <button class="nav-pill ${gameActive==='chrono'?'active':''}" onclick="pickScope('chrono')">⚡ Chrono</button>
+  </div>
+  `;
+}
+
+/* ---------- Accueil : menu des jeux ---------- */
+function renderMenu(){
+  return `
+  <div class="mode-grid">
+    <div class="mode-card" onclick="goApprendre()" style="cursor:pointer;">
+      <div class="icon">📖</div>
+      <h3>Apprendre</h3>
+      <p>Explore les 18 catégories, regarde les images et écoute la prononciation de chaque mot.</p>
+    </div>
+    <div class="mode-card" onclick="pickScope('quizImage')" style="cursor:pointer;">
+      <div class="icon">🖼️</div>
+      <h3>Devine le mot</h3>
+      <p>Une image s'affiche : retrouve le bon mot arabe parmi 4 choix.</p>
+    </div>
+    <div class="mode-card" onclick="pickScope('quizAudio')" style="cursor:pointer;">
+      <div class="icon">👂</div>
+      <h3>Quiz à l'écoute</h3>
+      <p>Écoute le mot, puis touche la bonne image parmi 4 propositions. Entraîne ton oreille !</p>
+    </div>
+    <div class="mode-card" onclick="pickScope('memory')" style="cursor:pointer;">
+      <div class="icon">🧠</div>
+      <h3>Mémoire</h3>
+      <p>Retrouve les paires image / mot arabe dans ce jeu de mémoire classique.</p>
+    </div>
+    <div class="mode-card" onclick="pickScope('chrono')" style="cursor:pointer;">
+      <div class="icon">⚡</div>
+      <h3>Défi chrono</h3>
+      <p>Réponds le plus vite possible, enchaîne les bonnes réponses avant la fin du temps, et bats ton record !</p>
+    </div>
+  </div>
+  `;
+}
+
+/* ---------- Apprendre (parcourir / rechercher) ---------- */
+function renderApprendre(){
   const term = searchTerm.trim().toLowerCase();
   let matches = [];
   if(term){
@@ -230,7 +417,7 @@ function renderCategory(){
   if(!cat) return `<div class="empty-msg">Catégorie introuvable.</div>`;
   return `
   <div class="back-row">
-    <button class="back-btn" onclick="goHome()">← Toutes les catégories</button>
+    <button class="back-btn" onclick="goApprendre()">← Toutes les catégories</button>
     <h2 style="font-size:1.1rem; display:flex; align-items:center; gap:8px;">${cat.img ? `<img src="${escAttr(cat.img)}" alt="" style="width:28px; height:28px; object-fit:contain; vertical-align:middle;">` : cat.icon} ${cat.label} <span style="color:var(--muted); font-weight:600; font-size:.8rem;">(${cat.words.length} mots)</span></h2>
   </div>
   <div class="word-grid">${cat.words.map(w=>wordCard(w)).join('')}</div>
@@ -262,6 +449,292 @@ function imageBlock(w){
 function catIconHtml(cat){
   if(cat.img) return `<img class="cat-icon-img" src="${escAttr(cat.img)}" alt="${escAttr(cat.label)}">`;
   return cat.icon;
+}
+
+/* ---------- Sélecteur de catégorie pour un jeu ---------- */
+function renderScopePicker(){
+  const titles = {quizImage:'🖼️ Devine le mot', quizAudio:"👂 Quiz à l'écoute", memory:'🧠 Mémoire', chrono:'⚡ Défi chrono'};
+  return `
+  <div class="back-row"><button class="back-btn" onclick="goMenu()">← Menu des jeux</button></div>
+  <h2 style="margin:0 0 14px;">${titles[pendingGame]||''} — choisis une catégorie</h2>
+  <div class="scope-grid">
+    <button class="scope-card" onclick="chooseScope('all')">
+      <div class="icon">🎲</div>
+      <h4>Toutes les catégories</h4>
+    </button>
+    ${VOCAB.categories.map(cat=>`
+      <button class="scope-card" onclick="chooseScope('${cat.id}')">
+        <div class="icon">${catIconHtml(cat)}</div>
+        <h4>${escHtml(cat.label)}</h4>
+      </button>
+    `).join('')}
+  </div>
+  `;
+}
+
+/* ======================= JEU : Devine le mot (image → texte) ======================= */
+function startQuizImage(scope, label){
+  const n = Math.min(8, scope.length);
+  const chosen = pick(scope, n);
+  const questions = chosen.map(w=>{
+    const distractors = pick(scope.filter(x=>x!==w), Math.min(3, Math.max(0, scope.length-1))).map(x=>x.ar);
+    const choices = shuffle([w.ar, ...distractors]);
+    return {img:w.img, answer:w.ar, choices};
+  });
+  quiz = {mode:'quizImage', label, questions, i:0, score:0, answered:false};
+  screen='quizImage'; render(); scrollTop();
+}
+function screenQuizImage(){
+  const q = quiz.questions[quiz.i];
+  return `
+  ${quizHeader('🖼️ Devine le mot')}
+  <div class="quiz-stage">
+    <div class="prompt">Quel est ce mot en arabe ?</div>
+    <div class="quiz-img"><img src="${escAttr(q.img)}" alt=""></div>
+    <div class="choices">
+      ${q.choices.map(c=>{
+        let cls='choice-btn';
+        if(quiz.answered){
+          if(c===q.answer) cls+=' correct';
+          else if(c===quiz.answered) cls+=' wrong';
+        }
+        return `<button class="${cls}" ${quiz.answered?'disabled':''} onclick="answerQuiz('${escAttr(c)}')"><span class="arabic">${c}</span></button>`;
+      }).join('')}
+    </div>
+  </div>
+  ${quizFooter()}
+  `;
+}
+
+/* ======================= JEU : Quiz à l'écoute (son → image) ======================= */
+function startQuizAudio(scope, label){
+  const n = Math.min(8, scope.length);
+  const chosen = pick(scope, n);
+  const questions = chosen.map(w=>{
+    const distractors = pick(scope.filter(x=>x!==w), Math.min(3, Math.max(0, scope.length-1)));
+    const choiceWords = shuffle([w, ...distractors]);
+    return {ar:w.ar, answerImg:w.img, choices:choiceWords.map(c=>({img:c.img, isAnswer:c===w}))};
+  });
+  quiz = {mode:'quizAudio', label, questions, i:0, score:0, answered:false};
+  screen='quizAudio'; render(); scrollTop();
+  setTimeout(()=> speak(questions[0].ar), 400);
+}
+function replayQuizAudio(){ speak(quiz.questions[quiz.i].ar); }
+function screenQuizAudio(){
+  const q = quiz.questions[quiz.i];
+  return `
+  ${quizHeader("👂 Quiz à l'écoute")}
+  <div class="quiz-stage">
+    <div class="prompt">Écoute le mot, puis touche la bonne image</div>
+    <button class="btn gold" onclick="replayQuizAudio()" style="margin-bottom:20px;">🔊 Réécouter</button>
+    <div class="choices">
+      ${q.choices.map(c=>{
+        let cls='choice-btn choice-img';
+        if(quiz.answered){
+          if(c.isAnswer) cls+=' correct';
+          else if(c.img===quiz.answered) cls+=' wrong';
+        }
+        return `<button class="${cls}" ${quiz.answered?'disabled':''} onclick="answerQuiz('${escAttr(c.img)}')"><img src="${escAttr(c.img)}" alt=""></button>`;
+      }).join('')}
+    </div>
+  </div>
+  ${quizFooter()}
+  `;
+}
+
+/* ---------- Logique quiz partagée ---------- */
+function quizHeader(title){
+  return `
+  <div class="back-row"><button class="back-btn" onclick="goMenu()">← Menu des jeux</button></div>
+  <h2 style="margin:6px 0 14px;">${title} <span style="color:var(--muted); font-weight:600; font-size:.75rem;">— ${escHtml(quiz.label)}</span></h2>
+  <div class="quiz-progress"><div style="width:${(quiz.i/quiz.questions.length)*100}%"></div></div>
+  `;
+}
+function quizFooter(){
+  return `
+  <div class="quiz-footer">
+    <div class="score-pill">Score : ${quiz.score}/${quiz.questions.length}</div>
+    <button class="btn" ${quiz.answered?'':'disabled'} onclick="nextQuiz()">${quiz.i<quiz.questions.length-1?'Suivant →':'Voir mon résultat →'}</button>
+  </div>
+  `;
+}
+function answerQuiz(choiceValue){
+  if(quiz.answered) return;
+  quiz.answered = choiceValue;
+  const q = quiz.questions[quiz.i];
+  const correct = quiz.mode==='quizImage' ? (choiceValue===q.answer) : (choiceValue===q.answerImg);
+  if(correct) quiz.score++;
+  render();
+}
+function nextQuiz(){
+  if(quiz.i < quiz.questions.length-1){
+    quiz.i++; quiz.answered=false; render();
+    if(quiz.mode==='quizAudio') setTimeout(()=> speak(quiz.questions[quiz.i].ar), 350);
+  } else {
+    screen='quizResult'; render();
+  }
+  scrollTop();
+}
+function screenQuizResult(){
+  const pct = Math.round((quiz.score/quiz.questions.length)*100);
+  const msg = pct>=80 ? 'Excellent ! ما شاء الله' : pct>=50 ? 'Bien joué, continue à t’entraîner !' : 'Bon début — réessaie pour progresser !';
+  return `
+  <div class="result-card">
+    <div style="font-size:2.2rem;">${pct>=80?'🏆':pct>=50?'⭐':'🌱'}</div>
+    <div class="big-score">${quiz.score}/${quiz.questions.length}</div>
+    <p style="color:var(--muted);">${msg}</p>
+    <div style="display:flex; gap:12px; justify-content:center; margin-top:20px; flex-wrap:wrap;">
+      <button class="btn gold" onclick="pickScope('${quiz.mode}')">🔁 Rejouer</button>
+      <button class="btn ghost" onclick="goMenu()">🏠 Menu des jeux</button>
+    </div>
+  </div>
+  `;
+}
+
+/* ======================= JEU : Mémoire ======================= */
+function startMemory(scope, label){
+  const n = Math.min(8, scope.length);
+  const chosen = pick(scope, n);
+  let cards = [];
+  chosen.forEach((w,idx)=>{
+    cards.push({pairId:idx, kind:'image', img:w.img, speakTxt:w.ar});
+    cards.push({pairId:idx, kind:'word', txt:w.ar, speakTxt:w.ar});
+  });
+  cards = shuffle(cards).map((c,i)=>({...c, cardId:i, flipped:false, matched:false}));
+  memory = {label, cards, flippedIds:[], moves:0, matches:0, total:chosen.length, lock:false};
+  screen='memory'; render(); scrollTop();
+}
+function flipMemoryCard(cardId){
+  const m = memory;
+  if(m.lock) return;
+  const card = m.cards.find(c=>c.cardId===cardId);
+  if(!card || card.flipped || card.matched) return;
+  card.flipped = true;
+  speak(card.speakTxt);
+  m.flippedIds.push(cardId);
+  if(m.flippedIds.length===2){
+    m.moves++;
+    const [a,b] = m.flippedIds.map(id=>m.cards.find(c=>c.cardId===id));
+    if(a.pairId===b.pairId){
+      a.matched=true; b.matched=true; m.matches++;
+      m.flippedIds=[];
+    } else {
+      m.lock=true;
+      setTimeout(()=>{ a.flipped=false; b.flipped=false; m.flippedIds=[]; m.lock=false; render(); }, 800);
+    }
+  }
+  render();
+}
+function screenMemory(){
+  const m = memory;
+  const done = m.matches === m.total;
+  return `
+  <div class="back-row"><button class="back-btn" onclick="goMenu()">← Menu des jeux</button></div>
+  <h2 style="margin:0 0 6px;">🧠 Mémoire <span style="color:var(--muted); font-weight:600; font-size:.75rem;">— ${escHtml(m.label)}</span></h2>
+  <div class="memory-meta"><span>Coups : ${m.moves}</span><span>Paires trouvées : ${m.matches}/${m.total}</span></div>
+  <div class="memory-grid">
+    ${m.cards.map(c=>{
+      const show = c.flipped || c.matched;
+      const cls = `memo-card ${!show?'hidden-face':''} ${c.matched?'matched':''}`;
+      let inner = '';
+      if(show){
+        inner = c.kind==='image' ? `<img src="${escAttr(c.img)}" alt="">` : `<span class="arabic word-txt">${c.txt}</span>`;
+      }
+      return `<button class="${cls}" onclick="flipMemoryCard(${c.cardId})">${inner}</button>`;
+    }).join('')}
+  </div>
+  ${done ? `
+  <div class="result-card" style="margin-top:24px;">
+    <div style="font-size:2.2rem;">🎉</div>
+    <p style="color:var(--muted);">Bravo, toutes les paires trouvées en ${m.moves} coups !</p>
+    <div style="display:flex; gap:12px; justify-content:center; margin-top:16px; flex-wrap:wrap;">
+      <button class="btn gold" onclick="pickScope('memory')">🔁 Nouvelle partie</button>
+      <button class="btn ghost" onclick="goMenu()">🏠 Menu des jeux</button>
+    </div>
+  </div>` : ''}
+  `;
+}
+
+/* ======================= JEU : Défi chrono ======================= */
+const CHRONO_TIME = 6000;
+function startChrono(scope, label, scopeId){
+  chrono = {label, scope, scopeId, streak:0, best:Number(localStorage.getItem('huruf_chrono_best_'+scopeId) || 0), current:null, deadline:0, timer:null, answered:false, over:false};
+  screen='chrono';
+  nextChronoQuestion();
+}
+function nextChronoQuestion(){
+  const scope = chrono.scope;
+  const w = scope[Math.floor(Math.random()*scope.length)];
+  const distractors = pick(scope.filter(x=>x!==w), Math.min(2, Math.max(0, scope.length-1)));
+  const choices = shuffle([w, ...distractors]);
+  chrono.current = {answer:w, choices};
+  chrono.deadline = Date.now() + CHRONO_TIME;
+  chrono.answered = false;
+  clearInterval(chrono.timer);
+  chrono.timer = setInterval(chronoTick, 80);
+  render();
+  scrollTop();
+}
+function chronoTick(){
+  if(!chrono || chrono.over) return;
+  const remain = chrono.deadline - Date.now();
+  if(remain <= 0){
+    clearInterval(chrono.timer);
+    endChrono();
+    return;
+  }
+  const bar = document.getElementById('chrono-bar-fill');
+  if(bar) bar.style.width = Math.max(0,(remain/CHRONO_TIME)*100) + '%';
+}
+function answerChrono(idx){
+  if(!chrono || chrono.answered || chrono.over) return;
+  chrono.answered = true;
+  clearInterval(chrono.timer);
+  const picked = chrono.current.choices[idx];
+  if(picked === chrono.current.answer){
+    chrono.streak++;
+    setTimeout(()=>{ if(chrono && !chrono.over) nextChronoQuestion(); }, 260);
+  } else {
+    endChrono();
+  }
+}
+function endChrono(){
+  chrono.over = true;
+  clearInterval(chrono.timer);
+  if(chrono.streak > chrono.best){
+    chrono.best = chrono.streak;
+    localStorage.setItem('huruf_chrono_best_'+chrono.scopeId, String(chrono.best));
+  }
+  render();
+}
+function stopChronoAndGoMenu(){ if(chrono) clearInterval(chrono.timer); goMenu(); }
+function screenChrono(){
+  const c = chrono;
+  if(c.over){
+    return `
+    <div class="result-card">
+      <div style="font-size:2.2rem;">⚡</div>
+      <div class="big-score">${c.streak}</div>
+      <p style="color:var(--muted);">mot(s) d'affilée trouvés — ${escHtml(c.label)}<br>Meilleur score : ${c.best}</p>
+      <div style="display:flex; gap:12px; justify-content:center; margin-top:20px; flex-wrap:wrap;">
+        <button class="btn gold" onclick="chooseScope('${c.scopeId}')">🔁 Rejouer</button>
+        <button class="btn ghost" onclick="goMenu()">🏠 Menu des jeux</button>
+      </div>
+    </div>`;
+  }
+  return `
+  <div class="back-row"><button class="back-btn" onclick="stopChronoAndGoMenu()">← Menu des jeux</button></div>
+  <h2 style="margin:0 0 6px;">⚡ Défi chrono <span style="color:var(--muted); font-weight:600; font-size:.75rem;">— ${escHtml(c.label)}</span></h2>
+  <div class="streak-badge">🔥 Série : ${c.streak} — Record : ${c.best}</div>
+  <div class="chrono-bar"><div id="chrono-bar-fill" style="width:100%"></div></div>
+  <div class="quiz-stage">
+    <div class="prompt">Vite ! Quel est ce mot ?</div>
+    <div class="quiz-img"><img src="${escAttr(c.current.answer.img)}" alt=""></div>
+    <div class="choices">
+      ${c.current.choices.map((w,idx)=>`<button class="choice-btn" onclick="answerChrono(${idx})"><span class="arabic">${w.ar}</span></button>`).join('')}
+    </div>
+  </div>
+  `;
 }
 
 function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
