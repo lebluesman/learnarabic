@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>مُفْرَدَاتِي — Mon vocabulaire arabe</title>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;700&family=Cairo:wght@400;700&family=Baloo+Bhaijaan+2:wght@400;700&family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#F4FBF8; --card:#FFFFFF; --ink:#1E2A28;
@@ -13,7 +13,7 @@
 }
 *{box-sizing:border-box;}
 body{ margin:0; background:var(--bg); color:var(--ink); font-family:'Nunito',sans-serif; min-height:100vh; }
-.arabic{ font-family:'Amiri', serif; direction:rtl; }
+.arabic{ font-family:var(--arabic-font, 'Amiri', serif); direction:rtl; }
 h1,h2,h3,h4{ font-family:'Baloo 2',sans-serif; margin:0; }
 button{ font-family:inherit; cursor:pointer; border:none; background:none; }
 #wrap{ max-width:1000px; margin:0 auto; padding:20px 18px 80px; }
@@ -205,6 +205,28 @@ function setVoiceDir(dir){
   loadManifest().then(()=>{ toast('🎙️ Voix changée : ' + dir.replace('mots','Voix ')); });
 }
 
+/* ======================= POLICE ARABE (web font, aucune installation requise) ======================= */
+const FONT_KEY = 'huruf_arabic_font';
+const FONT_OPTIONS = [
+  {id:'amiri', label:'Amiri (classique)', family:"'Amiri', serif"},
+  {id:'noto', label:'Noto Naskh (claire)', family:"'Noto Naskh Arabic', serif"},
+  {id:'cairo', label:'Cairo (moderne)', family:"'Cairo', sans-serif"},
+  {id:'baloo', label:'Baloo (ludique)', family:"'Baloo Bhaijaan 2', cursive"},
+];
+function getFontId(){
+  const saved = localStorage.getItem(FONT_KEY);
+  return FONT_OPTIONS.some(f=>f.id===saved) ? saved : 'amiri';
+}
+function applyFont(id){
+  const f = FONT_OPTIONS.find(x=>x.id===id) || FONT_OPTIONS[0];
+  document.documentElement.style.setProperty('--arabic-font', f.family);
+}
+function setFontId(id){
+  localStorage.setItem(FONT_KEY, id);
+  applyFont(id);
+  toast('🔤 Police changée : ' + FONT_OPTIONS.find(f=>f.id===id).label);
+}
+
 function toast(msg, ms){
   const wrap = document.getElementById('toast-wrap');
   const el = document.createElement('div');
@@ -313,6 +335,12 @@ function topbar(){
         🎙️
         <select onchange="setVoiceDir(this.value)">
           ${VOICE_OPTIONS.map((v,i)=>`<option value="${v}" ${getVoiceDir()===v?'selected':''}>Voix ${i+1}</option>`).join('')}
+        </select>
+      </label>
+      <label class="voice-select">
+        🔤
+        <select onchange="setFontId(this.value)">
+          ${FONT_OPTIONS.map(f=>`<option value="${f.id}" ${getFontId()===f.id?'selected':''}>${f.label}</option>`).join('')}
         </select>
       </label>
       <a class="home-link" href="index.html">Menu</a>
@@ -742,6 +770,7 @@ function escAttr(s){ return escHtml(s).replace(/"/g,'&quot;').replace(/'/g,'&#39
 
 /* ======================= DÉMARRAGE ======================= */
 async function init(){
+  applyFont(getFontId());
   loadManifest();
   try{
     const r = await fetch('vocabulaire_data.json');
