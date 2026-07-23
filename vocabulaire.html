@@ -45,15 +45,13 @@ button{ font-family:inherit; cursor:pointer; border:none; background:none; }
   .voice-select{ padding:5px 9px; font-size:.72rem; gap:4px; }
   .voice-select select{ font-size:.72rem; }
   .home-link{ padding:6px 10px; font-size:.78rem; }
-  .nav-pill{ padding:7px 12px; font-size:.78rem; }
-  /* Toutes les pastilles du menu de jeux doivent être visibles d'un coup,
-     sans avoir à faire défiler horizontalement pour les découvrir. */
-  .nav-pills{ flex-wrap:wrap; overflow-x:visible; }
 }
 
 /* ---------- Nav pills (interne à l'appli vocab) ---------- */
+.nav-wrap{ margin-bottom:18px; }
+.nav-burger{ display:none; }
 .nav-pills{
-  display:flex; gap:8px; overflow-x:auto; padding-bottom:6px; margin-bottom:18px;
+  display:flex; gap:8px; overflow-x:auto; padding-bottom:6px;
   scrollbar-width:none;
 }
 .nav-pills::-webkit-scrollbar{ display:none; }
@@ -63,6 +61,32 @@ button{ font-family:inherit; cursor:pointer; border:none; background:none; }
 }
 .nav-pill.active{ background:var(--teal); border-color:var(--teal); color:#fff; }
 .nav-pill:hover:not(.active){ border-color:var(--sun); color:var(--ink); }
+
+/* Menu de jeux replié en menu burger sur mobile : le bandeau de 6
+   pastilles prenait jusqu'à la moitié de l'écran (2-3 lignes une fois
+   repliées en flex-wrap), forçant à scroller pour voir le contenu
+   (ex: les réponses d'un quiz). Un bouton compact affiche l'écran
+   courant ; le menu déroulant s'ouvre en overlay par-dessus le contenu
+   (ne pousse rien vers le bas), et se referme après un choix.
+   Ce bloc doit rester APRÈS les règles de base ci-dessus (même
+   spécificité CSS : l'ordre dans le fichier décide, pas le média). */
+@media (max-width:900px), (max-height:850px) {
+  .nav-wrap{ position:relative; margin-bottom:12px; }
+  .nav-burger{
+    display:flex; align-items:center; justify-content:space-between; width:100%;
+    background:var(--card); border:2px solid var(--line); border-radius:14px;
+    padding:10px 14px; font-weight:700; font-size:.85rem; color:var(--teal-dk);
+  }
+  .burger-icon{ font-size:1rem; color:var(--muted); }
+  .nav-pills{
+    display:none; position:absolute; top:calc(100% + 6px); left:0; right:0; z-index:50;
+    flex-direction:column; flex-wrap:nowrap; overflow-x:visible;
+    background:var(--card); border:2px solid var(--line); border-radius:14px;
+    padding:8px; margin-bottom:0; box-shadow:0 10px 24px rgba(0,0,0,.15);
+  }
+  .nav-pills.open{ display:flex; }
+  .nav-pill{ width:100%; text-align:left; padding:10px 14px; font-size:.85rem; }
+}
 
 .search-bar{
   display:flex; align-items:center; gap:10px; background:var(--card); border:2px solid var(--line);
@@ -212,6 +236,7 @@ button{ font-family:inherit; cursor:pointer; border:none; background:none; }
 /* ======================= ÉTAT ======================= */
 let VOCAB = { categories: [] };
 let screen = 'menu'; // 'menu' | 'apprendre' | 'category' | 'scopePicker' | 'quizImage' | 'quizAudio' | 'quizResult' | 'memory' | 'chrono'
+let navMenuOpen = false; // menu burger (mobile) : replié par défaut
 let currentCat = null;
 let searchTerm = '';
 let pendingGame = null;
@@ -394,17 +419,29 @@ function topbar(){
   `;
 }
 
+function toggleNavMenu(){ navMenuOpen = !navMenuOpen; render(); }
+
 function navPills(){
   const isGame = ['quizImage','quizAudio','quizResult','memory','chrono','scopePicker'].includes(screen);
   const gameActive = isGame && pendingGame ? pendingGame : (quiz && (screen==='quizImage'||screen==='quizAudio'||screen==='quizResult') ? quiz.mode : (screen==='memory'?'memory':(screen==='chrono'?'chrono':null)));
+  const pills = [
+    { label:'🏠 Accueil', active: screen==='menu', action:"goMenu()" },
+    { label:'📖 Apprendre', active: (screen==='apprendre'||screen==='category'), action:"goApprendre()" },
+    { label:'🖼️ Devine le mot', active: gameActive==='quizImage', action:"pickScope('quizImage')" },
+    { label:'👂 Écoute', active: gameActive==='quizAudio', action:"pickScope('quizAudio')" },
+    { label:'🧠 Mémoire', active: gameActive==='memory', action:"pickScope('memory')" },
+    { label:'⚡ Chrono', active: gameActive==='chrono', action:"pickScope('chrono')" },
+  ];
+  const current = pills.find(p=>p.active) || pills[0];
   return `
-  <div class="nav-pills">
-    <button class="nav-pill ${screen==='menu'?'active':''}" onclick="goMenu()">🏠 Accueil</button>
-    <button class="nav-pill ${(screen==='apprendre'||screen==='category')?'active':''}" onclick="goApprendre()">📖 Apprendre</button>
-    <button class="nav-pill ${gameActive==='quizImage'?'active':''}" onclick="pickScope('quizImage')">🖼️ Devine le mot</button>
-    <button class="nav-pill ${gameActive==='quizAudio'?'active':''}" onclick="pickScope('quizAudio')">👂 Écoute</button>
-    <button class="nav-pill ${gameActive==='memory'?'active':''}" onclick="pickScope('memory')">🧠 Mémoire</button>
-    <button class="nav-pill ${gameActive==='chrono'?'active':''}" onclick="pickScope('chrono')">⚡ Chrono</button>
+  <div class="nav-wrap">
+    <button class="nav-burger" onclick="toggleNavMenu()">
+      <span>${current.label}</span>
+      <span class="burger-icon">${navMenuOpen?'✕':'☰'}</span>
+    </button>
+    <div class="nav-pills ${navMenuOpen?'open':''}">
+      ${pills.map(p=>`<button class="nav-pill ${p.active?'active':''}" onclick="navMenuOpen=false; ${p.action}">${p.label}</button>`).join('')}
+    </div>
   </div>
   `;
 }

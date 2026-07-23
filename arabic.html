@@ -106,14 +106,14 @@ button:focus-visible, a:focus-visible{ outline:3px solid var(--emerald); outline
   .brand .mark{ font-size:1.3rem; }
   .topbar > div:last-child{ flex-wrap:wrap; gap:6px; justify-content:flex-end; }
   .stars-badge{ padding:5px 10px; font-size:.78rem; }
-  .nav-pills{ padding:10px 14px 0; flex-wrap:wrap; overflow-x:visible; }
-  .nav-pill{ padding:7px 12px; font-size:.78rem; }
   .content{ padding:14px 14px 0; }
 }
 
 /* ---------- Nav pills ---------- */
+.nav-wrap{ position:relative; max-width:1000px; margin:0 auto; padding:14px 20px 0; }
+.nav-burger{ display:none; }
 .nav-pills{
-  display:flex; gap:8px; overflow-x:auto; padding:14px 20px 0; max-width:1000px; margin:0 auto;
+  display:flex; gap:8px; overflow-x:auto;
   scrollbar-width:none;
 }
 .nav-pills::-webkit-scrollbar{ display:none; }
@@ -123,6 +123,29 @@ button:focus-visible, a:focus-visible{ outline:3px solid var(--emerald); outline
 }
 .nav-pill.active{ background:var(--emerald); border-color:var(--emerald); color:#fff; }
 .nav-pill:hover:not(.active){ border-color:var(--gold); color:var(--ink); }
+
+/* Menu de jeux replié en menu burger sur mobile (même correctif que
+   vocabulaire.html) : évite que le bandeau de 6 pastilles ne pousse le
+   contenu (quiz, mémoire) hors de l'écran visible. Ce bloc doit rester
+   APRÈS les règles de base ci-dessus (même spécificité CSS, l'ordre
+   dans le fichier décide, pas le média). */
+@media (max-width:900px), (max-height:850px) {
+  .nav-wrap{ padding:10px 14px 0; }
+  .nav-burger{
+    display:flex; align-items:center; justify-content:space-between; width:100%;
+    background:var(--card); border:2px solid var(--line); border-radius:14px;
+    padding:10px 14px; font-weight:700; font-size:.85rem; color:var(--emerald-dk);
+  }
+  .burger-icon{ font-size:1rem; color:var(--muted); }
+  .nav-pills{
+    display:none; position:absolute; top:calc(100% + 4px); left:14px; right:14px; z-index:50;
+    flex-direction:column; flex-wrap:nowrap; overflow-x:visible;
+    background:var(--card); border:2px solid var(--line); border-radius:14px;
+    padding:8px; box-shadow:0 10px 24px rgba(0,0,0,.2);
+  }
+  .nav-pills.open{ display:flex; }
+  .nav-pill{ width:100%; text-align:left; padding:10px 14px; font-size:.78rem; }
+}
 
 .content{ padding:22px 20px 0; }
 
@@ -487,6 +510,7 @@ function markLetterSeen(id){ progress.stars[id] = 1; saveProgress(progress); }
 /* ======================= APP / ROUTER ======================= */
 const App = {
   screen:'home',
+  navMenuOpen:false,
   letterIdx:0,
   quiz:null,
   memory:null,
@@ -666,28 +690,41 @@ function header(){
       <p>Formes, voyelles, sons, quiz et jeu de mémoire — tout au même endroit.</p>
     </div>
   </div>
-  <div class="nav-pills">
+  <div class="nav-wrap">
+    <button class="nav-burger" onclick="App.navMenuOpen=!App.navMenuOpen; render();">
+      <span>${navCurrentLabel()}</span>
+      <span class="burger-icon">${App.navMenuOpen?'✕':'☰'}</span>
+    </button>
+    <div class="nav-pills ${App.navMenuOpen?'open':''}">
     ${navPill('home','🏠 Accueil')}
     ${navPill('learn','📖 Apprendre')}
     ${navPill('lab','🧪 Laboratoire')}
     ${navPill('quizShapes','🔤 Quiz des formes', ['detail'])}
     ${navPill('quizListen','👂 Quiz à l\u2019écoute')}
     ${navPill('memory','🧠 Mémoire')}
+    </div>
   </div>
   `;
 }
+const NAV_ACTIVE_SET = {
+  home:['home'], learn:['learn','detail'], lab:['lab'],
+  quizShapes:['quizShapes'], quizListen:['quizListen'], memory:['memory']
+};
+function navActive(target){
+  return (NAV_ACTIVE_SET[target]||[target]).includes(App.screen);
+}
+function navCurrentLabel(){
+  const labels = { home:'🏠 Accueil', learn:'📖 Apprendre', lab:'🧪 Laboratoire', quizShapes:'🔤 Quiz des formes', quizListen:'👂 Écoute', memory:'🧠 Mémoire' };
+  const target = Object.keys(NAV_ACTIVE_SET).find(navActive) || 'home';
+  return labels[target];
+}
 function navPill(target, label){
-  const activeSet = {
-    home:['home'], learn:['learn','detail'], lab:['lab'],
-    quizShapes:['quizShapes'], quizListen:['quizListen'], memory:['memory']
-  };
-  const isActive = (activeSet[target]||[target]).includes(App.screen) || (target==='quizShapes' && App.screen==='quizShapes') ;
   const action = target==='learn' ? "App.go('learn')" :
                  target==='lab' ? "App.go('lab')" :
                  target==='quizShapes' ? "App.startQuizShapes()" :
                  target==='quizListen' ? "App.startQuizListen()" :
                  target==='memory' ? "App.startMemory()" : "App.go('home')";
-  return `<button class="nav-pill ${isActive?'active':''}" onclick="${action}">${label}</button>`;
+  return `<button class="nav-pill ${navActive(target)?'active':''}" onclick="App.navMenuOpen=false; ${action}">${label}</button>`;
 }
 
 function body(){
