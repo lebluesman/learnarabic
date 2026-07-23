@@ -176,8 +176,8 @@ button{ font-family:inherit; cursor:pointer; border:none; background:none; }
 .choice-btn:hover{ border-color:var(--teal); }
 .choice-btn.correct{ background:#E1F3EA; border-color:#1F9D6C; color:#0A6459; }
 .choice-btn.wrong{ background:#FBE4DF; border-color:var(--coral-dk); color:#8E2E1C; }
-.choice-btn.choice-img{ padding:8px; }
-.choice-btn.choice-img img{ width:100%; aspect-ratio:1; object-fit:contain; border-radius:10px; }
+.choice-btn.choice-img{ padding:8px; display:flex; align-items:center; justify-content:center; }
+.choice-btn.choice-img img{ width:100%; height:100%; object-fit:contain; border-radius:10px; }
 .quiz-footer{ display:flex; justify-content:space-between; align-items:center; margin-top:20px; flex-wrap:wrap; gap:10px; }
 .score-pill{ background:var(--card); border:2px solid var(--line); border-radius:999px; padding:8px 16px; font-weight:800; font-size:.85rem; }
 
@@ -360,6 +360,7 @@ function render(){
   const wrap = document.getElementById('wrap');
   wrap.innerHTML = topbar() + navPills() + body();
   if(screen==='memory') fitMemoryGrid();
+  if(screen==='quizAudio') fitQuizChoiceImages();
 }
 
 /* Force le jeu de mémoire à toujours tenir dans l'écran visible (pas de
@@ -374,7 +375,29 @@ function fitMemoryGrid(){
   const available = window.innerHeight - top - wrapBottomPad;
   el.style.height = Math.max(240, available) + 'px';
 }
-window.addEventListener('resize', ()=>{ if(screen==='memory') fitMemoryGrid(); });
+/* Quiz à l'écoute (2x2 images) : même principe que fitMemoryGrid — les 4
+   images doivent toujours tenir sans scroll, quel que soit l'appareil.
+   Une taille fixe/devinée en CSS ratait les téléphones (cf le jeu de
+   mémoire) : on calcule donc la place réellement disponible sous la
+   grille (jusqu'au pied du quiz) et on fixe la hauteur de chaque case. */
+function fitQuizChoiceImages(){
+  const grid = document.querySelector('.choices');
+  const cells = grid ? grid.querySelectorAll('.choice-btn.choice-img') : [];
+  if(!grid || !cells.length) return;
+  const footer = document.querySelector('.quiz-footer');
+  const top = grid.getBoundingClientRect().top;
+  const footerH = footer ? footer.getBoundingClientRect().height + 20 : 70;
+  const wrapBottomPad = 76; /* doit matcher le padding-bottom de #wrap en mobile */
+  const gap = 12;
+  const rows = Math.ceil(cells.length/2);
+  const available = window.innerHeight - top - footerH - wrapBottomPad;
+  const cellH = Math.max(90, (available - gap*(rows-1)) / rows);
+  cells.forEach(el=>{ el.style.height = cellH+'px'; });
+}
+window.addEventListener('resize', ()=>{
+  if(screen==='memory') fitMemoryGrid();
+  if(screen==='quizAudio') fitQuizChoiceImages();
+});
 
 function body(){
   switch(screen){
