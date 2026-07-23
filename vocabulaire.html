@@ -34,6 +34,20 @@ button{ font-family:inherit; cursor:pointer; border:none; background:none; }
 }
 .home-link:hover{ color:var(--ink); border-color:var(--teal); }
 
+/* ---------- Mobile : header compact ---------- */
+@media(max-width:600px){
+  #wrap{ padding:12px 10px 76px; }
+  .topbar{ gap:8px; margin-bottom:10px; }
+  .brand .sub{ display:none; }
+  .brand h1{ font-size:1rem; }
+  .brand .mark{ font-size:1.4rem; }
+  .topbar > div:last-child{ flex-wrap:wrap; gap:6px; }
+  .voice-select{ padding:5px 9px; font-size:.72rem; gap:4px; }
+  .voice-select select{ font-size:.72rem; }
+  .home-link{ padding:6px 10px; font-size:.78rem; }
+  .nav-pill{ padding:7px 12px; font-size:.78rem; }
+}
+
 /* ---------- Nav pills (interne à l'appli vocab) ---------- */
 .nav-pills{
   display:flex; gap:8px; overflow-x:auto; padding-bottom:6px; margin-bottom:18px;
@@ -123,7 +137,11 @@ button{ font-family:inherit; cursor:pointer; border:none; background:none; }
 .quiz-img{ width:180px; height:180px; margin:0 auto 18px; border-radius:16px; background:var(--bg); border:2px solid var(--line); display:flex; align-items:center; justify-content:center; overflow:hidden; }
 .quiz-img img{ width:100%; height:100%; object-fit:contain; }
 .choices{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:6px; }
-@media(max-width:480px){ .choices{ grid-template-columns:1fr; } }
+@media(max-width:600px){
+  .quiz-img{ width:130px; height:130px; margin-bottom:12px; }
+  .quiz-stage{ padding:20px 14px; }
+  .choice-btn{ padding:11px; font-size:1.05rem; }
+}
 .choice-btn{
   background:var(--bg); border:2px solid var(--line); border-radius:14px; padding:16px; font-size:1.3rem; font-weight:700;
   color:var(--ink);
@@ -148,12 +166,20 @@ button{ font-family:inherit; cursor:pointer; border:none; background:none; }
 .result-card .big-score{ font-family:'Baloo 2',sans-serif; font-size:2.8rem; color:var(--teal); margin:6px 0 14px; }
 
 /* ---------- Mémoire ---------- */
-.memory-meta{ display:flex; gap:16px; font-size:.85rem; font-weight:700; color:var(--muted); margin-bottom:14px; }
-.memory-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
-@media(max-width:480px){ .memory-grid{ grid-template-columns:repeat(3,1fr); } }
+.memory-fill{ display:flex; flex-direction:column; }
+.memory-meta{ display:flex; gap:16px; font-size:.85rem; font-weight:700; color:var(--muted); margin-bottom:14px; flex-shrink:0; }
+.memory-grid{ display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:1fr; gap:10px; flex:1; min-height:0; }
 .memo-card{
   aspect-ratio:1; background:var(--teal); border-radius:14px; display:flex; align-items:center; justify-content:center;
   color:#fff; font-size:1.6rem; text-align:center; padding:6px; border:2px solid var(--teal-dk);
+}
+/* Sur mobile, le jeu doit tenir sur un seul écran sans scroll : la hauteur
+   de .memory-fill est calculée en JS (fitMemoryGrid) pour occuper exactement
+   l'espace restant sous le header/nav, et les cartes remplissent cet espace
+   (plus de ratio carré fixe qui forcerait un défilement). */
+@media(max-width:700px){
+  .memo-card{ aspect-ratio:auto; font-size:1.3rem; }
+  .memory-grid{ gap:7px; }
 }
 .memo-card.hidden-face{ background:var(--card); color:transparent; border-color:var(--line); }
 .memo-card.matched{ background:#E1F3EA; border-color:#1F9D6C; opacity:.55; }
@@ -215,7 +241,7 @@ const FONT_OPTIONS = [
 ];
 function getFontId(){
   const saved = localStorage.getItem(FONT_KEY);
-  return FONT_OPTIONS.some(f=>f.id===saved) ? saved : 'amiri';
+  return FONT_OPTIONS.some(f=>f.id===saved) ? saved : 'baloo';
 }
 function applyFont(id){
   const f = FONT_OPTIONS.find(x=>x.id===id) || FONT_OPTIONS[0];
@@ -306,7 +332,22 @@ function chooseScope(scopeId){
 function render(){
   const wrap = document.getElementById('wrap');
   wrap.innerHTML = topbar() + navPills() + body();
+  if(screen==='memory') fitMemoryGrid();
 }
+
+/* Sur mobile, force le jeu de mémoire à tenir dans l'écran visible (pas de
+   scroll pour voir toutes les cartes) en calculant la hauteur restante
+   après le header/nav. Sur desktop, on laisse la hauteur naturelle. */
+function fitMemoryGrid(){
+  const el = document.querySelector('.memory-fill');
+  if(!el) return;
+  if(!window.matchMedia('(max-width:700px)').matches){ el.style.height=''; return; }
+  const top = el.getBoundingClientRect().top;
+  const wrapBottomPad = 76; /* doit matcher le padding-bottom de #wrap en mobile */
+  const available = window.innerHeight - top - wrapBottomPad;
+  el.style.height = Math.max(240, available) + 'px';
+}
+window.addEventListener('resize', ()=>{ if(screen==='memory') fitMemoryGrid(); });
 
 function body(){
   switch(screen){
@@ -658,18 +699,20 @@ function screenMemory(){
   const done = m.matches === m.total;
   return `
   <div class="back-row"><button class="back-btn" onclick="goMenu()">← Menu des jeux</button></div>
-  <h2 style="margin:0 0 6px;">🧠 Mémoire <span style="color:var(--muted); font-weight:600; font-size:.75rem;">— ${escHtml(m.label)}</span></h2>
-  <div class="memory-meta"><span>Coups : ${m.moves}</span><span>Paires trouvées : ${m.matches}/${m.total}</span></div>
-  <div class="memory-grid">
-    ${m.cards.map(c=>{
-      const show = c.flipped || c.matched;
-      const cls = `memo-card ${!show?'hidden-face':''} ${c.matched?'matched':''}`;
-      let inner = '';
-      if(show){
-        inner = c.kind==='image' ? `<img src="${escAttr(c.img)}" alt="">` : `<span class="arabic word-txt">${c.txt}</span>`;
-      }
-      return `<button class="${cls}" onclick="flipMemoryCard(${c.cardId})">${inner}</button>`;
-    }).join('')}
+  <div class="memory-fill">
+    <h2 style="margin:0 0 6px; flex-shrink:0;">🧠 Mémoire <span style="color:var(--muted); font-weight:600; font-size:.75rem;">— ${escHtml(m.label)}</span></h2>
+    <div class="memory-meta"><span>Coups : ${m.moves}</span><span>Paires trouvées : ${m.matches}/${m.total}</span></div>
+    <div class="memory-grid">
+      ${m.cards.map(c=>{
+        const show = c.flipped || c.matched;
+        const cls = `memo-card ${!show?'hidden-face':''} ${c.matched?'matched':''}`;
+        let inner = '';
+        if(show){
+          inner = c.kind==='image' ? `<img src="${escAttr(c.img)}" alt="">` : `<span class="arabic word-txt">${c.txt}</span>`;
+        }
+        return `<button class="${cls}" onclick="flipMemoryCard(${c.cardId})">${inner}</button>`;
+      }).join('')}
+    </div>
   </div>
   ${done ? `
   <div class="result-card" style="margin-top:24px;">
