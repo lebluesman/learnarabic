@@ -95,7 +95,7 @@ button:focus-visible, a:focus-visible{ outline:3px solid var(--emerald); outline
 /* ---------- Mobile : header/hero compacts (le hero s'affiche sur CHAQUE
    écran, y compris pendant les jeux — il doit rester petit pour laisser
    de la place, notamment au jeu de mémoire qui doit tenir sans scroll) ---------- */
-@media(max-width:600px){
+@media (max-width:900px), (max-height:850px) {
   .hero{ padding:14px 14px 18px; }
   .hero-niche{ width:64px; height:68px; margin-bottom:8px; }
   .hero-niche .letter{ font-size:2.4rem; }
@@ -106,7 +106,7 @@ button:focus-visible, a:focus-visible{ outline:3px solid var(--emerald); outline
   .brand .mark{ font-size:1.3rem; }
   .topbar > div:last-child{ flex-wrap:wrap; gap:6px; justify-content:flex-end; }
   .stars-badge{ padding:5px 10px; font-size:.78rem; }
-  .nav-pills{ padding:10px 14px 0; }
+  .nav-pills{ padding:10px 14px 0; flex-wrap:wrap; overflow-x:visible; }
   .nav-pill{ padding:7px 12px; font-size:.78rem; }
   .content{ padding:14px 14px 0; }
 }
@@ -271,7 +271,7 @@ button:focus-visible, a:focus-visible{ outline:3px solid var(--emerald); outline
 .quiz-stage .prompt{ font-weight:700; margin-bottom:16px; color:var(--muted); font-size:.92rem; }
 .big-arabic{ font-size:4.2rem; margin-bottom:18px; }
 .choices{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:6px; }
-@media(max-width:600px){ .quiz-stage{ padding:20px 14px; } .big-arabic{ font-size:3rem; } .choice-btn{ padding:11px; } }
+@media (max-width:900px), (max-height:850px) { .quiz-stage{ padding:20px 14px; } .big-arabic{ font-size:3rem; } .choice-btn{ padding:11px; } }
 .choice-btn{
   background:var(--paper); border:2px solid var(--line); border-radius:14px; padding:14px; font-size:.95rem; font-weight:700;
   color:var(--ink);
@@ -292,8 +292,11 @@ button:focus-visible, a:focus-visible{ outline:3px solid var(--emerald); outline
 /* ---------- Memory ---------- */
 .memory-fill{ display:flex; flex-direction:column; }
 .memory-grid{ display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:1fr; gap:10px; flex:1; min-height:0; }
+/* aspect-ratio:auto partout : .memory-fill a une hauteur calculée en JS
+   (fitMemoryGrid) sur TOUS les appareils/orientations, les cartes remplissent
+   l'espace dispo plutôt que d'imposer un carré qui forcerait un défilement. */
 .memo-card{
-  aspect-ratio:1; background:var(--night); border-radius:14px; display:flex; align-items:center; justify-content:center;
+  aspect-ratio:auto; background:var(--night); border-radius:14px; display:flex; align-items:center; justify-content:center;
   color:var(--gold); font-size:1.6rem; text-align:center; padding:4px; border:2px solid var(--gold);
 }
 .memo-card.hidden-face{ background:var(--card); color:transparent; border-color:var(--line); }
@@ -301,11 +304,8 @@ button:focus-visible, a:focus-visible{ outline:3px solid var(--emerald); outline
 .memo-card.matched{ opacity:.35; }
 .memo-card .sub{ font-size:.55rem; color:#D8DAEC; margin-top:2px; }
 .memory-meta{ display:flex; justify-content:space-between; margin-bottom:14px; font-weight:700; color:var(--muted); font-size:.85rem; flex-shrink:0; }
-/* Sur mobile, le jeu doit tenir sur un seul écran : hauteur de .memory-fill
-   calculée en JS (fitMemoryGrid), plus de ratio carré fixe qui forcerait un
-   défilement. */
-@media(max-width:700px){
-  .memo-card{ aspect-ratio:auto; font-size:1.3rem; }
+@media (max-width:900px), (max-height:850px) {
+  .memo-card{ font-size:1.3rem; }
   .memory-grid{ gap:7px; }
 }
 
@@ -621,12 +621,13 @@ function render(){
   if(App.screen==='memory') fitMemoryGrid();
 }
 
-/* Sur mobile, force le jeu de mémoire à tenir dans l'écran visible (le hero
-   s'affiche sur chaque écran, donc on calcule la place restante en dessous). */
+/* Force le jeu de mémoire à toujours tenir dans l'écran visible (le hero
+   s'affiche sur chaque écran, donc on calcule la place restante en dessous)
+   — sur tout appareil et toute orientation, pas seulement en dessous d'un
+   seuil de largeur deviné (qui ratait l'iPad). */
 function fitMemoryGrid(){
   const el = document.querySelector('.memory-fill');
   if(!el) return;
-  if(!window.matchMedia('(max-width:700px)').matches){ el.style.height=''; return; }
   const top = el.getBoundingClientRect().top;
   const appBottomPad = 70; /* doit matcher le padding-bottom de #app */
   const available = window.innerHeight - top - appBottomPad;
