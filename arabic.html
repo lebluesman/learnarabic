@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <title>حروفي — L'Atelier des Lettres Arabes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;700&family=Cairo:wght@400;700&family=Baloo+Bhaijaan+2:wght@400;700&family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --night:#1B2140;
@@ -31,7 +31,7 @@ body{
   min-height:100vh;
   -webkit-tap-highlight-color:transparent;
 }
-.arabic{ font-family:'Amiri', serif; direction:rtl; unicode-bidi:isolate; }
+.arabic{ font-family:var(--arabic-font, 'Amiri', serif); direction:rtl; unicode-bidi:isolate; }
 h1,h2,h3,.title-font{ font-family:'Baloo 2',sans-serif; }
 button{ font-family:inherit; cursor:pointer; border:none; background:none; }
 button:focus-visible, a:focus-visible{ outline:3px solid var(--emerald); outline-offset:2px; border-radius:8px; }
@@ -387,6 +387,28 @@ function setVoiceDir(dir){
   localStorage.setItem(VOICE_KEY, dir);
   loadManifest().then(()=>{ toast('🎙️ Voix changée : ' + dir.replace('audio','Voix ')); render(); });
 }
+
+/* ======================= POLICE ARABE (web font, aucune installation requise) ======================= */
+const FONT_KEY = 'huruf_arabic_font';
+const FONT_OPTIONS = [
+  {id:'amiri', label:'Amiri (classique)', family:"'Amiri', serif"},
+  {id:'noto', label:'Noto Naskh (claire)', family:"'Noto Naskh Arabic', serif"},
+  {id:'cairo', label:'Cairo (moderne)', family:"'Cairo', sans-serif"},
+  {id:'baloo', label:'Baloo (ludique)', family:"'Baloo Bhaijaan 2', cursive"},
+];
+function getFontId(){
+  const saved = localStorage.getItem(FONT_KEY);
+  return FONT_OPTIONS.some(f=>f.id===saved) ? saved : 'amiri';
+}
+function applyFont(id){
+  const f = FONT_OPTIONS.find(x=>x.id===id) || FONT_OPTIONS[0];
+  document.documentElement.style.setProperty('--arabic-font', f.family);
+}
+function setFontId(id){
+  localStorage.setItem(FONT_KEY, id);
+  applyFont(id);
+  toast('🔤 Police changée : ' + FONT_OPTIONS.find(f=>f.id===id).label);
+}
 loadManifest();
 
 function toast(msg, ms){
@@ -585,6 +607,12 @@ function header(){
           🎙️
           <select onchange="setVoiceDir(this.value)" style="border:none; background:transparent; font-weight:700; font-size:.82rem; color:#F0E9D4;">
             ${VOICE_OPTIONS.map((v,i)=>`<option value="${v}" style="color:#1B2140;" ${getVoiceDir()===v?'selected':''}>Voix ${i+1}</option>`).join('')}
+          </select>
+        </label>
+        <label style="display:flex; align-items:center; gap:6px; background:rgba(255,255,255,.06); border:2px solid rgba(200,149,47,.5); border-radius:999px; padding:6px 12px; font-size:.82rem; font-weight:700; color:#F0E9D4;">
+          🔤
+          <select onchange="setFontId(this.value)" style="border:none; background:transparent; font-weight:700; font-size:.82rem; color:#F0E9D4;">
+            ${FONT_OPTIONS.map(f=>`<option value="${f.id}" style="color:#1B2140;" ${getFontId()===f.id?'selected':''}>${f.label}</option>`).join('')}
           </select>
         </label>
         <div class="stars-badge">✦ ${totalStars()}/28</div>
@@ -899,6 +927,7 @@ function screenMemory(){
 }
 
 /* ======================= DÉMARRAGE ======================= */
+applyFont(getFontId());
 render();
 
 /* Rotation douce de la lettre héro (respecte prefers-reduced-motion) */
